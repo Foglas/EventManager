@@ -15,9 +15,6 @@ public class EventConfig {
     CommandLineRunner commandLineRunner(CategoryRepo categoryRepo){
         return args -> {
             Category jednicka = new Category("Malsdad", "jenad");
-            //Category dvojka= new Category("asdapodu", "weqoi");
-           // Category trojka = new Category("weqwy", "jsdfoh");
-
             categoryRepo.save(jednicka);
         };
     }

@@ -36,4 +36,13 @@ public class Category {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
