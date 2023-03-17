@@ -2,8 +2,10 @@ package cz.uhk.fim.projekt.EventManager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@EnableJpaRepositories("cz.uhk.fim.projekt.EventManager.dao")
+@SpringBootApplication()
 public class EventManagerApplication {
 
 	public static void main(String[] args) {
