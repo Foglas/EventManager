@@ -22,4 +22,13 @@ public class CategoryService {
         List<Category> categoryList = categoryRepo.findAll();
         return categoryList;
     }
+
+    public Category saveCategory(Category category){
+       Category saveCategory = categoryRepo.save(category);
+        return saveCategory;
+    }
+
+    public void deleteCategory(long id){
+       categoryRepo.deleteById(id);
+    }
 }
