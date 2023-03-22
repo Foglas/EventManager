@@ -1,4 +1,3 @@
-
 import 'package:dbs_2_front_end/service/rest_service.dart';
 import 'package:dbs_2_front_end/utils/menu_item.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,9 @@ class AppController extends GetxController {
   onInit() async {
     super.onInit();
 
-    final test = await restService.getHello();
+    final restService = Get.put(RestService());
+
+    final test = await restService.tryLogin();
 
     print(test);
   }
@@ -48,6 +49,8 @@ class AppController extends GetxController {
   }
 
   DeviceScreenType getDeviceScreenType() {
-    return sizingInformation != null ? sizingInformation!.deviceScreenType : DeviceScreenType.desktop;
+    return sizingInformation != null
+        ? sizingInformation!.deviceScreenType
+        : DeviceScreenType.desktop;
   }
 }
