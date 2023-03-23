@@ -8,16 +8,25 @@ class RestService {
   _get(String path, {Map<String, String>? headers}) async {
     try {
       final Uri url = Uri.http(serverUrl, path);
-      final Response response = await get(url, headers: headers);
-      final responseBody = jsonDecode(utf8.decode(response.bodyBytes));
+
+      print('hovno ${url.toString()}');
+      final Response response = await get(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          ...?headers,
+        },
+      );
 
       print('Response status : ${response.statusCode}');
 
-      print('Response body : ${response.bodyBytes}');
+      print('Response body : ${response.body}');
+
+      print('header of response : ${response.headers}');
 
       return {
         'responseStatusCode': response.statusCode,
-        'responseBody': responseBody,
+        'responseBody': response.body,
         'requestHeaders': headers,
       };
     } catch (err) {
@@ -32,25 +41,22 @@ class RestService {
   _post(String path, {Map<String, String>? headers, dynamic body}) async {
     try {
       final Uri url = Uri.http(serverUrl, path);
-      print(url.toString());
+
+      print('hovno ${url.toString()}');
       final Response response = await post(url,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             ...?headers,
           },
           body: body);
-      final responseBody = response.body;
 
       print('Response status : ${response.statusCode}');
 
       print('Response body : ${response.body}');
 
-      return {
-        'requestBody': body,
-        'responseStatusCode': response.statusCode,
-        'responseBody': responseBody,
-        'requestHeaders': headers,
-      };
+      print('header of response : ${response.headers}');
+
+      return jsonDecode(response.body);
     } catch (err) {
       return {
         'requestBody': body,
@@ -70,9 +76,20 @@ class RestService {
 
     print('///');
 
-    await _post('api/auth/login', body: {
-      "email": "fake@mail.com",
+    final log = await _post('api/auth/login', body: {
+      "username": "matest",
       "password": "password",
     });
+
+    print('token:  ${log['jwt'].toString()}');
+
+    await auth('false');
+    print('///////');
+    await auth(log['jwt']);
+    return;
+  }
+
+  auth(String token) async {
+    await _get('api/dummy', headers: {"Authorization": "Bearer $token"});
   }
 }

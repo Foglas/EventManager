@@ -19,8 +19,8 @@ public class UserService implements UserServiceInf {
         this.userRepo = userRepo;
     }
 
-    public List<User> findUserByID(Long id){
-       return userRepo.findAll();
+    public Optional<User> findUserByID(Long id){
+       return userRepo.findById(id);
     }
 
     public User findUserByUserName(String username) {
