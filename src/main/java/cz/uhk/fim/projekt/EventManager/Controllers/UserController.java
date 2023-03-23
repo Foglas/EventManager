@@ -10,11 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,17 +29,17 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     private UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     //    @GetMapping(path = "/api/user/{username}")
@@ -60,30 +57,23 @@ public class UserController {
     }
  
     @PostMapping("/api/auth/login")
-    public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<?> authenticateUser(@RequestBody User userPost) {
         try {
+             Authentication authentication = authenticationManager
+                     .authenticate(new UsernamePasswordAuthenticationToken(userPost.getUsername(), userPost.getPassword()));
 
-            String hashPassword = passwordEncoder.encode(password);
+            org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 
-            // Authentication authentication = authenticationManager
-            //         .authenticate(new UsernamePasswordAuthenticationToken(username, hashPassword));
-
-            Optional<cz.uhk.fim.projekt.EventManager.Domain.User> optionalUser = userService.findUserByID((long) 2);
-
-            cz.uhk.fim.projekt.EventManager.Domain.User user = optionalUser
-                    .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-            //User user = (User) authentication.getPrincipal();
-
+            User responseUser = new User(userPost.getEmail(),user.getUsername(),user.getPassword());
             String jwt = jwtUtil.generateToken(user.getUsername());
 
             Map<String, Object> response = new HashMap<>();
 
             response.put("message", "login vole");
             response.put("jwt", jwt);
-            response.put("username", user.getUsername());
-            response.put("email", user.getEmail());
-            response.put("password", user.getPassword());
+            response.put("username", responseUser.getUsername());
+            response.put("email", responseUser.getEmail());
+            response.put("password", responseUser.getPassword());
 
             return ResponseEntity.status(HttpStatus.OK).body(response);
 

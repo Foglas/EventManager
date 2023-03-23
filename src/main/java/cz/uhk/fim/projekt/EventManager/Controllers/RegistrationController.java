@@ -9,23 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RegistrationController {
 
-    @Autowired
     private UserRepo userRepository;
 
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public RegistrationController(UserRepo userRepo){
+        this.userRepository = userRepo;
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @PostMapping("/api/auth/register")
-    public ResponseEntity<?> registerUser(@RequestParam String email, @RequestParam String username,
-            @RequestParam String password) {
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
 
         // if (userRepository.existsByUsername(username)) {
         //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is already taken");
@@ -36,10 +41,7 @@ public class RegistrationController {
 
 
         Map<String, Object> response = new HashMap<>();
-
-
-        User user = new User(email, username, passwordEncoder.encode(password));
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
          response.put("message", "User registered successfully");
