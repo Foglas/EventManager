@@ -37,7 +37,7 @@ class AppController extends GetxController {
 
     final restService = Get.put(RestService());
 
-    final test = await restService.tryLogin();
+    final test = await restService.registerUser();
 
     print(test);
   }
