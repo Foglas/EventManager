@@ -1,52 +1,78 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
 import 'package:http/http.dart';
 
-const String apiUrl = "https://localhost:8080/";
+const serverUrl = 'localhost:8080';
 
-class RestService extends GetxService {
+class RestService {
   _get(String path, {Map<String, String>? headers}) async {
-    final url = Uri.parse('http://localhost:8080/hello');
+    try {
+      final Uri url = Uri.http(serverUrl, path);
+      final Response response = await get(url, headers: headers);
+      final responseBody = jsonDecode(utf8.decode(response.bodyBytes));
 
-    get(url).then((response) {
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        print(data);
-      } else {
-        print('Request failed with status: ${response.statusCode}.');
-      }
-    }).catchError((error) {
-      print('Request failed with error: $error.');
-    });
+      print('Response status : ${response.statusCode}');
+
+      print('Response body : ${response.bodyBytes}');
+
+      return {
+        'responseStatusCode': response.statusCode,
+        'responseBody': responseBody,
+        'requestHeaders': headers,
+      };
+    } catch (err) {
+      return {
+        'responseStatusCode': 500,
+        'responseBody': err,
+        'requestHeaders': headers,
+      };
+    }
   }
 
   _post(String path, {Map<String, String>? headers, dynamic body}) async {
     try {
-      final Uri url = Uri.parse("$apiUrl$path");
-      // final Response response = await post(url, headers: headers, body: body);
-      // final responseBody = jsonDecode(utf8.decode(response.bodyBytes));
+      final Uri url = Uri.http(serverUrl, path);
+      print(url.toString());
+      final Response response = await post(url,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            ...?headers,
+          },
+          body: body);
+      final responseBody = response.body;
 
-      // return {
-      //   'responseStatusCode': response.statusCode,
-      //   'responseBody': responseBody,
-      // };
+      print('Response status : ${response.statusCode}');
+
+      print('Response body : ${response.body}');
+
+      return {
+        'requestBody': body,
+        'responseStatusCode': response.statusCode,
+        'responseBody': responseBody,
+        'requestHeaders': headers,
+      };
     } catch (err) {
-      return err;
+      return {
+        'requestBody': body,
+        'responseStatusCode': 500,
+        'responseBody': err,
+        'requestHeaders': headers,
+      };
     }
   }
 
-  tryLogin() async => await _tryLogin();
+  registerUser() async {
+    await _post('api/auth/register', body: {
+      "username": "matest",
+      "email": "fake@mail.com",
+      "password": "password"
+    });
 
-  _tryLogin() async {
-    var response =
-        await post(Uri.parse('http://localhost:8080/api/auth/login'));
-    if (response.statusCode == 200) {
-      print(response.body);
-      print(response.statusCode);
-    } else {
-      print(response.body);
-      print(response.statusCode);
-    }
+    print('///');
+
+    await _post('api/auth/login', body: {
+      "email": "fake@mail.com",
+      "password": "password",
+    });
   }
 }

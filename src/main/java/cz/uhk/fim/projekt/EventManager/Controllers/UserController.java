@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.swing.text.html.HTMLDocument;
 import java.util.ArrayList;
@@ -26,7 +27,10 @@ import java.util.List;
 public class UserController {
    
     @Autowired
-private JwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
+
+        @Autowired
+    private PasswordEncoder passwordEncoder;
 
 @Autowired
 private AuthenticationManager authenticationManager;
@@ -47,7 +51,10 @@ private AuthenticationManager authenticationManager;
    @PostMapping("/api/auth/login")
 public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
     try {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
+        String hashPassword = passwordEncoder.encode(password);
+    
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, hashPassword));
         User user = (User) authentication.getPrincipal();
         String jwt = jwtUtil.generateToken(user.getUsername());
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).build();
