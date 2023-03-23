@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/category")
+@RequestMapping(value = "/api/auth/category")
 public class CategoryController {
     CategoryService categoryService;
 
@@ -37,8 +37,4 @@ public class CategoryController {
     categoryService.deleteCategory(id);
     }
 
-    @GetMapping("loginD")
-    public String log(){
-        return "login";
-    }
 }
