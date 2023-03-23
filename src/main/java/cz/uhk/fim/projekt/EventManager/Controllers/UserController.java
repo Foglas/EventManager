@@ -21,46 +21,75 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.swing.text.html.HTMLDocument;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class UserController {
-   
+
     @Autowired
     private JwtUtil jwtUtil;
 
-        @Autowired
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-@Autowired
-private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-   
     private UserService userService;
 
-   @Autowired
-   public UserController(UserService userService){
-       this.userService = userService;
-   }
-
-   @GetMapping(path = "/api/user/{username}")
-   public List<User> getUserByUsername(@PathVariable() Long username) {
-       return userService.findUserByID(username);
-   }
-   
-   @PostMapping("/api/auth/login")
-public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
-    try {
-
-        String hashPassword = passwordEncoder.encode(password);
-    
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, hashPassword));
-        User user = (User) authentication.getPrincipal();
-        String jwt = jwtUtil.generateToken(user.getUsername());
-        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).build();
-    } catch (AuthenticationException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-}
+
+    //    @GetMapping(path = "/api/user/{username}")
+    //    public List<User> getUserByUsername(@PathVariable() Long username) {
+    //        return userService.findUserByID(username);
+    //    }
+
+    @GetMapping("api/dummy")
+    public ResponseEntity<?> hovno() {
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "login vole");
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+ 
+    @PostMapping("/api/auth/login")
+    public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
+        try {
+
+            String hashPassword = passwordEncoder.encode(password);
+
+            // Authentication authentication = authenticationManager
+            //         .authenticate(new UsernamePasswordAuthenticationToken(username, hashPassword));
+
+            Optional<cz.uhk.fim.projekt.EventManager.Domain.User> optionalUser = userService.findUserByID((long) 2);
+
+            cz.uhk.fim.projekt.EventManager.Domain.User user = optionalUser
+                    .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+            //User user = (User) authentication.getPrincipal();
+
+            String jwt = jwtUtil.generateToken(user.getUsername());
+
+            Map<String, Object> response = new HashMap<>();
+
+            response.put("message", "login vole");
+            response.put("jwt", jwt);
+            response.put("username", user.getUsername());
+            response.put("email", user.getEmail());
+            response.put("password", user.getPassword());
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
+    }
 
 }
