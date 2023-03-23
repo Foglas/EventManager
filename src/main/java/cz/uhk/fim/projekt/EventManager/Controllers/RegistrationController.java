@@ -5,6 +5,7 @@ import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
 import java.util.HashMap;
 import java.util.Map;
 
+import cz.uhk.fim.projekt.EventManager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -19,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RegistrationController {
 
-    private UserRepo userRepository;
+    private UserService userService;
 
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationController(UserRepo userRepo){
-        this.userRepository = userRepo;
+    public RegistrationController(UserService userRepo){
+        this.userService = userRepo;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -42,7 +43,7 @@ public class RegistrationController {
 
         Map<String, Object> response = new HashMap<>();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        userService.save(user);
 
          response.put("message", "User registered successfully");
          response.put("id", user.getId());

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Category {
 
     @Id
-    @SequenceGenerator( name = "category_generator", sequenceName = "category_sequence", allocationSize = 1
+    @SequenceGenerator( name = "category_generator", sequenceName = "category_pk_categoryid_seq", allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
     generator = "category_generator")

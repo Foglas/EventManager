@@ -11,7 +11,7 @@ public class Event {
 
     @Id
     @Column(name = "pk_eventid")
-    @SequenceGenerator( name = "event_generator", sequenceName = "event_sequence", allocationSize = 1
+    @SequenceGenerator( name = "event_generator", sequenceName = "event_pk_eventid_seq", allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "event_generator")
@@ -25,10 +25,10 @@ public class Event {
     @Column(name = "time")
     private LocalDateTime dateAndTime;
 
-    @Column(name = "addressid")
+    @Column(name = "fk_addressid")
     private long fk_addressId;
 
-    @Column(name = "organizationid")
+    @Column(name = "fk_organizationid")
     private long fk_organizationId;
 
     public Event(String description, String name, LocalDateTime dateAndTime, long fk_addressId, long fk_organizationId) {
