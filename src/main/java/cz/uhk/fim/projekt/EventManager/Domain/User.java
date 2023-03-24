@@ -2,6 +2,8 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 //@SecondaryTable(name = "userdetails", pkJoinColumns = @PrimaryKeyJoinColumn(name = "pk_userdetailsid", referencedColumnName = "fk_userdetailsid"))
@@ -26,6 +28,10 @@ public class User {
     @OneToOne()
     @JoinColumn(name = "fk_userdetailsid")
     private UserDetails userDetails;
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private Set<Organization> organization;
+
 
     public User() {
     }
@@ -62,5 +68,13 @@ public class User {
 
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public Set<Organization> getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Set<Organization> organization) {
+        this.organization = organization;
     }
 }

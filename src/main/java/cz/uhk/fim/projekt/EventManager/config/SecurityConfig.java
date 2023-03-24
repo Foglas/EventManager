@@ -50,8 +50,8 @@ public class SecurityConfig {
                 .requestMatchers(request -> { // custom request matcher for API endpoints
                     String path = request.getServletPath();
                     return path.startsWith("/api/auth/");
-                }).permitAll()
-                .anyRequest().authenticated()
+                }).authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService))
