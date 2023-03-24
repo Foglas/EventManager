@@ -10,6 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class OrganizationService implements OrganizationSerInf {
 
@@ -28,8 +31,10 @@ public class OrganizationService implements OrganizationSerInf {
         String token = request.getHeader("Authorization").replace("Bearer ", "");
         String username = jwtUtil.getUsernameFromToken(token);
         User user = userRepo.findUserByUsername(username);
-        Organization organization1 = organization.addUser(user);
-        organizationRepo.save(organization1);
+        Set<User> users = new HashSet<>();
+        users.add(user);
+           organization.setUsers(users);
+        organizationRepo.save(organization);
     }
 
 }

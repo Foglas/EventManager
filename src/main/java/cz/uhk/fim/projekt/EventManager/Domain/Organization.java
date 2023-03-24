@@ -11,7 +11,7 @@ import java.util.Set;
 public class Organization {
 
     @Id
-    @SequenceGenerator( name = "organization_generator", sequenceName = "organizationuser_pk_organizationuserid_seq", allocationSize = 1
+    @SequenceGenerator( name = "organization_generator", sequenceName = "organization_pk_organizationid_seq", allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "organization_generator")
@@ -25,13 +25,12 @@ public class Organization {
     @ManyToMany
     @JoinTable(name = "organizationuser",
          joinColumns = {  @JoinColumn(name = "fk_organizationid", referencedColumnName = "pk_organizationid"),
-
          },
             inverseJoinColumns = {
             @JoinColumn(name = "fk_userid", referencedColumnName = "pk_userid")
             }
     )
-    private Set<User> users = new HashSet<>();;
+    private Set<User> users = new HashSet<>();
 
     public Organization() {
     }
@@ -62,12 +61,6 @@ public class Organization {
     public Set<User> getUsers() {
         return users;
     }
-
-    public Organization addUser(User user){
-        users.add(user);
-        return new Organization(name, users);
-    }
-
 
     public void setUsers(Set<User> users) {
         this.users = users;

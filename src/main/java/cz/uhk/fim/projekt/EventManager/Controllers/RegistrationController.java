@@ -30,8 +30,8 @@ public class RegistrationController {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    @PostMapping("/api/auth/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    @PostMapping("/api/register")
+    public ResponseEntity<?> registerUser(@RequestBody User userPost) {
 
         // if (userRepository.existsByUsername(username)) {
         //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is already taken");
@@ -42,14 +42,14 @@ public class RegistrationController {
 
 
         Map<String, Object> response = new HashMap<>();
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.save(user);
+        userPost.setPassword(passwordEncoder.encode(userPost.getPassword()));
+        userService.save(userPost);
 
          response.put("message", "User registered successfully");
-         response.put("id", user.getId());
-         response.put("username", user.getUsername());
-         response.put("email", user.getEmail());
-        response.put("password", user.getPassword());
+         response.put("id", userPost.getId());
+         response.put("username", userPost.getUsername());
+         response.put("email", userPost.getEmail());
+        response.put("password", userPost.getPassword());
 
          return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
