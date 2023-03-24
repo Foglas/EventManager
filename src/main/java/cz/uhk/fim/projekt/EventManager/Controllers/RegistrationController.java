@@ -32,26 +32,7 @@ public class RegistrationController {
 
     @PostMapping("/api/register")
     public ResponseEntity<?> registerUser(@RequestBody User userPost) {
-
-        // if (userRepository.existsByUsername(username)) {
-        //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is already taken");
-        // }
-        // if (userRepository.existsByEmail(email)) {
-        //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is already in use");
-        // }
-
-
-        Map<String, Object> response = new HashMap<>();
-        userPost.setPassword(passwordEncoder.encode(userPost.getPassword()));
-        userService.save(userPost);
-
-         response.put("message", "User registered successfully");
-         response.put("id", userPost.getId());
-         response.put("username", userPost.getUsername());
-         response.put("email", userPost.getEmail());
-        response.put("password", userPost.getPassword());
-
-         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+     return    userService.save(userPost);
     }
     
 }

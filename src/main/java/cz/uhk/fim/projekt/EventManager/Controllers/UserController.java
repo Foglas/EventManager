@@ -1,6 +1,7 @@
 package cz.uhk.fim.projekt.EventManager.Controllers;
 
 import cz.uhk.fim.projekt.EventManager.Domain.User;
+import cz.uhk.fim.projekt.EventManager.service.AuthenticationService;
 import cz.uhk.fim.projekt.EventManager.service.UserService;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import org.springframework.security.core.Authentication;
@@ -35,11 +36,14 @@ public class UserController {
 
     private UserService userService;
 
+    private AuthenticationService authenticationService;
+
     @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, AuthenticationService authenticationService) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = new BCryptPasswordEncoder();
+        this.authenticationService = authenticationService;
     }
 
     //    @GetMapping(path = "/api/user/{username}")
@@ -55,31 +59,9 @@ public class UserController {
 
             return ResponseEntity.status(HttpStatus.OK).body(response);
     }
- 
+
     @PostMapping("/api/auth/login")
     public ResponseEntity<?> authenticateUser(@RequestBody User userPost) {
-        try {
-             Authentication authentication = authenticationManager
-                     .authenticate(new UsernamePasswordAuthenticationToken(userPost.getUsername(), userPost.getPassword()));
-
-            org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-
-            User responseUser = new User(userPost.getEmail(),user.getUsername(),user.getPassword());
-            String jwt = jwtUtil.generateToken(user.getUsername());
-
-            Map<String, Object> response = new HashMap<>();
-
-            response.put("message", "login vole");
-            response.put("jwt", jwt);
-            response.put("username", responseUser.getUsername());
-            response.put("email", responseUser.getEmail());
-            response.put("password", responseUser.getPassword());
-
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-        }
+        return authenticationService.authenticateUser(userPost);
     }
-
 }
