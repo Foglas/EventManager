@@ -3,6 +3,7 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,7 +29,6 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "fk_addressid")
     private Place place;
-
     @ManyToOne
     @JoinColumn(name = "fk_organizationid")
     private Organization organization;
