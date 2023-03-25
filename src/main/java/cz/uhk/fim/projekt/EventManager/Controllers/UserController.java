@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -51,7 +52,7 @@ public class UserController {
     //        return userService.findUserByID(username);
     //    }
 
-    @GetMapping("api/dummy")
+    @GetMapping("/dummy")
     public ResponseEntity<?> hovno() {
 
             Map<String, Object> response = new HashMap<>();
@@ -60,7 +61,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/api/auth/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> authenticateUser(@RequestBody User userPost) {
         return authenticationService.authenticateUser(userPost);
     }

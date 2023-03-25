@@ -12,12 +12,10 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
 public class RegistrationController {
 
     private UserService userService;
@@ -30,7 +28,7 @@ public class RegistrationController {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    @PostMapping("/api/register")
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User userPost) {
      return    userService.save(userPost);
     }
