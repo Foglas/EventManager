@@ -1,16 +1,21 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 const serverUrl = 'localhost:8080';
 
-class RestService {
+class RestService extends GetxService {
+  static RestService get to => Get.find();
+
   _get(String path, {Map<String, String>? headers}) async {
     try {
       final Uri url = Uri.http(serverUrl, path);
 
-      print('hovno ${url.toString()}');
-      final Response response = await get(
+      debugPrint('Creating get request to URI : ${url.toString()}');
+
+      final http.Response response = await http.get(
         url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -18,11 +23,11 @@ class RestService {
         },
       );
 
-      print('Response status : ${response.statusCode}');
+      debugPrint('Response status : ${response.statusCode}');
 
-      print('Response body : ${response.body}');
+      debugPrint('Response body : ${response.body}');
 
-      print('header of response : ${response.headers}');
+      debugPrint('header of response : ${response.headers}');
 
       return {
         'responseStatusCode': response.statusCode,
@@ -42,19 +47,20 @@ class RestService {
     try {
       final Uri url = Uri.http(serverUrl, path);
 
-      print('hovno ${url.toString()}');
-      final Response response = await post(url,
+      debugPrint('Creating post request to URI :  ${url.toString()}');
+
+      final http.Response response = await http.post(url,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             ...?headers,
           },
           body: body);
 
-      print('Response status : ${response.statusCode}');
+      debugPrint('Response status : ${response.statusCode}');
 
-      print('Response body : ${response.body}');
+      debugPrint('Response body : ${response.body}');
 
-      print('header of response : ${response.headers}');
+      debugPrint('header of response : ${response.headers}');
 
       return jsonDecode(response.body);
     } catch (err) {
@@ -67,29 +73,41 @@ class RestService {
     }
   }
 
-  registerUser() async {
-    await _post('api/auth/register', body: {
-      "username": "matest",
-      "email": "fake@mail.com",
-      "password": "password"
-    });
+  Future<void> loginUser({
+    required String username,
+    required String password,
+  }) async {
+    Map<String, String> requestBody = {
+      "email": username,
+      "password": password,
+    };
 
-    print('///');
-
-    final log = await _post('api/auth/login', body: {
-      "username": "matest",
-      "password": "password",
-    });
-
-    print('token:  ${log['jwt'].toString()}');
-
-    await auth('false');
-    print('///////');
-    await auth(log['jwt']);
-    return;
+    await _post('api/login', body: requestBody);
   }
 
-  auth(String token) async {
-    await _get('api/dummy', headers: {"Authorization": "Bearer $token"});
+  Future<void> registerUser({
+    required String username,
+    required String email,
+    required String password,
+    required String passwordAgain,
+    required String name,
+    required String surname,
+    required String phone,
+    required String dateOfBirth,
+  }) async {
+    Map<String, dynamic> requestBody = {
+      "email": email,
+      "username": username,
+      "password": password,
+      "passwordAgain": passwordAgain,
+      "dateOfBirth": dateOfBirth,
+      "name": name,
+      "surname": surname,
+      "phone": phone
+    };
+
+    debugPrint(requestBody.toString());
+
+    await _post('api/register', body: requestBody);
   }
 }

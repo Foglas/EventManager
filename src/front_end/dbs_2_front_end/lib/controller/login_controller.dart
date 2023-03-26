@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/helpers/show_date_picker.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../service/rest_service.dart';
 import '../utils/menu_item.dart';
 import 'app_controller.dart';
 
 enum LoginViewState {
-  registration, login, forgotPassword;
+  registration,
+  login,
+  forgotPassword;
 
   String title() {
     switch (this) {
       case LoginViewState.registration:
-      return 'Registration form';
+        return 'Registration form';
       case LoginViewState.login:
         return 'Login form';
       case LoginViewState.forgotPassword:
@@ -21,7 +25,6 @@ enum LoginViewState {
 
   String submitTextValue() {
     switch (this) {
-
       case LoginViewState.registration:
         return "Register";
       case LoginViewState.login:
@@ -29,6 +32,18 @@ enum LoginViewState {
       case LoginViewState.forgotPassword:
         return "Submit";
     }
+  }
+
+  bool isLogin() {
+    return this == LoginViewState.login;
+  }
+
+  bool isRegistration() {
+    return this == LoginViewState.registration;
+  }
+
+  bool isResetPassword() {
+    return this == LoginViewState.forgotPassword;
   }
 }
 
@@ -43,46 +58,26 @@ class LoginController extends GetxController {
   TextEditingController phoneTextController = TextEditingController();
   TextEditingController dateTextController = TextEditingController();
 
-
-  RxBool isForgotPassword = false.obs;
-  RxBool isRegistration = false.obs;
-  RxBool isLogin = true.obs;
-
   RxBool displaySuccessfulRegistrationMessage = false.obs;
   RxBool displaySuccessfulResetPasswordMessage = false.obs;
   RxBool displayErrorLoginMessage = false.obs;
 
-  DateTime birthDate = DateTime(2000,1,1);
-
-  _resetDisplayMessages() {
-    displaySuccessfulRegistrationMessage.value = false;
-    displayErrorLoginMessage.value = false;
-    displaySuccessfulResetPasswordMessage.value = false;
-  }
+  DateTime birthDate = DateTime(2000, 1, 1);
 
   handleSwitchToRegistration() {
     state.value = LoginViewState.registration;
-    isLogin.value = false;
-    isForgotPassword.value = false;
-    isRegistration.value = true;
 
     _resetDisplayMessages();
   }
 
   handleSwitchToLogin() {
     state.value = LoginViewState.login;
-    isRegistration.value = false;
-    isForgotPassword.value = false;
-    isLogin.value = true;
 
     _resetDisplayMessages();
   }
 
   handleSwitchToForgotPassword() {
     state.value = LoginViewState.forgotPassword;
-    isRegistration.value = false;
-    isLogin.value = false;
-    isForgotPassword.value = true;
 
     _resetDisplayMessages();
   }
@@ -94,49 +89,73 @@ class LoginController extends GetxController {
       lastDate: DateTime(2010),
       context: Get.context!,
       selectedDate: birthDate,
-      onChanged: (value) => {
-        birthDate = value,
-        dateTextController.text = value.toString(),
+      onChanged: (value) {
+        birthDate = value;
+        String formattedDate = DateFormat('yyyy-MM-dd').format(value);
+        dateTextController.text = formattedDate;
       },
     );
   }
 
-
-  handleSubmitButton()  async {
+  handleSubmitButton() async {
     AppController.to.displayCircularProgressIndicator.value = true;
-
-    await Future.delayed(const Duration(seconds: 1));
-
-    AppController.to.displayCircularProgressIndicator.value = false;
-
-    switch(state.value) {
+    switch (state.value) {
       case LoginViewState.registration:
-        state.value = LoginViewState.login;
-        displaySuccessfulRegistrationMessage.value = true;
-        isRegistration.value = false;
-        isLogin.value = true;
-        _resetTextEditingControllers();
+        await _handleRegistration();
         break;
       case LoginViewState.login:
-        if (emailTextController.text.isNotEmpty && passwordTextController.text.isNotEmpty) {
-          AppController.to.isUserLoggedIn.value = true;
-          AppController.to.handleMenuItemTapped(MenuItem.profile);
-        } else {
-          displayErrorLoginMessage.value = true;
-        }
-        state.value = LoginViewState.login;
-        isLogin.value = true;
-        _resetTextEditingControllers();
-
+        await _handleLogin();
         break;
       case LoginViewState.forgotPassword:
-        state.value = LoginViewState.login;
-        displaySuccessfulResetPasswordMessage.value = true;
-        isForgotPassword.value = false;
-        isLogin.value = true;
-        _resetTextEditingControllers();
+        await _handleForgotPassword();
         break;
     }
+    AppController.to.displayCircularProgressIndicator.value = false;
+  }
+
+  _handleRegistration() async {
+    await RestService.to.registerUser(
+      dateOfBirth: dateTextController.value.text,
+      email: emailTextController.value.text,
+      name: nameTextController.value.text,
+      password: passwordTextController.value.text,
+      passwordAgain: passwordAgainTextController.value.text,
+      phone: phoneTextController.value.text,
+      surname: surnameTextController.value.text,
+      username: emailTextController.value.text,
+    );
+
+    state.value = LoginViewState.login;
+    displaySuccessfulRegistrationMessage.value = true;
+
+    _resetTextEditingControllers();
+  }
+
+  String get newMethod => '';
+
+  _handleLogin() async {
+    if (emailTextController.text.isNotEmpty &&
+        passwordTextController.text.isNotEmpty) {
+      AppController.to.isUserLoggedIn.value = true;
+      AppController.to.handleMenuItemTapped(MenuItem.profile);
+    } else {
+      displayErrorLoginMessage.value = true;
+    }
+
+    state.value = LoginViewState.login;
+
+    await RestService.to.loginUser(
+        password: passwordTextController.value.text,
+        username: emailTextController.value.text);
+
+    _resetTextEditingControllers();
+  }
+
+  _handleForgotPassword() async {
+    state.value = LoginViewState.login;
+    displaySuccessfulResetPasswordMessage.value = true;
+
+    _resetTextEditingControllers();
   }
 
   _resetTextEditingControllers() {
@@ -147,5 +166,11 @@ class LoginController extends GetxController {
     passwordAgainTextController.text = '';
     phoneTextController.text = '';
     dateTextController.text = '';
+  }
+
+  _resetDisplayMessages() {
+    displaySuccessfulRegistrationMessage.value = false;
+    displayErrorLoginMessage.value = false;
+    displaySuccessfulResetPasswordMessage.value = false;
   }
 }

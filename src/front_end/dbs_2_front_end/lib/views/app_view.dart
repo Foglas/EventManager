@@ -1,9 +1,7 @@
 import 'package:dbs_2_front_end/controller/app_controller.dart';
-import 'package:dbs_2_front_end/utils/obx_only.dart';
 import 'package:dbs_2_front_end/views/tablet_view.dart';
 import 'package:dbs_2_front_end/views/web_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -38,10 +36,14 @@ class HomePage extends StatelessWidget {
                 return const TabletView();
               }),
             ),
-            ObxOnly(
-              only: controller.displayCircularProgressIndicator,
-              child: const SizedBox.expand(
-                  child: Center(child: CircularProgressIndicator())),
+            Obx(
+              () => controller.displayCircularProgressIndicator.value
+                  ? const SizedBox.expand(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ),
           ],
         );

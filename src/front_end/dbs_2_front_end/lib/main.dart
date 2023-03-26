@@ -22,6 +22,7 @@ main() async {
     usePathUrlStrategy();
   }
 
+  Get.put(RestService(), permanent: true);
   Get.put(AppController(), permanent: true);
 
   await Firebase.initializeApp(

@@ -34,12 +34,6 @@ class AppController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-
-    final restService = Get.put(RestService());
-
-    final test = await restService.registerUser();
-
-    print(test);
   }
 
   handleMenuItemTapped(MenuItem item) {
