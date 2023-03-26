@@ -18,6 +18,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.swing.text.html.HTMLDocument;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,8 +65,30 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/auth/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody User userPost) {
-        return authenticationService.authenticateUser(userPost);
-    }
+@PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody String username, @RequestBody String password) {
+        try {
+            
+         String decodedUsername = URLDecoder.decode(username, StandardCharsets.UTF_8.toString());
+            
+        User responseUser = userService.findUserByUserName(decodedUsername);
+
+        String jwt = jwtUtil.generateToken(responseUser.getUsername());
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("message", "login vole");
+        response.put("jwt", jwt);
+        response.put("username", responseUser.getUsername());
+        response.put("email", responseUser.getEmail());
+        response.put("password", responseUser.getPassword());
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+        } catch (AuthenticationException | UnsupportedEncodingException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
+}
+
+
 }

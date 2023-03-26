@@ -30,7 +30,7 @@ public class OrganizationService implements OrganizationSerInf {
     public void saveOrganization(Organization organization, HttpServletRequest request){
         String token = request.getHeader("Authorization").replace("Bearer ", "");
         String username = jwtUtil.getUsernameFromToken(token);
-        User user = userRepo.findUserByUsername(username);
+        User user = userRepo.findByUsername(username);
         Set<User> users = new HashSet<>();
         users.add(user);
            organization.setUsers(users);

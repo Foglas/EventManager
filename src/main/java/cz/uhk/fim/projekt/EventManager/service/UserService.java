@@ -4,21 +4,11 @@ import cz.uhk.fim.projekt.EventManager.Domain.User;
 import cz.uhk.fim.projekt.EventManager.dao.UserDetailsRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.UserServiceInf;
-import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -40,24 +30,30 @@ public class UserService implements UserServiceInf {
        return userRepo.findById(id);
     }
 
-    public ResponseEntity<?> save(User user){
-        Map<String, Object> response = new HashMap<>();
+    public boolean save(User user) {
+        try {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userDetailsRepo.save(user.getUserDetails());
+
         userRepo.save(user);
 
+        return true;
 
-        response.put("message", "User registered successfully");
-        response.put("id", user.getId());
-        response.put("username", user.getUsername());
-        response.put("email", user.getEmail());
-        response.put("password", user.getPassword());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception exception) {
+            return false;
+        }
     }
 
     public User findUserByUserName(String username) {
-        return userRepo.findUserByUsername(username);
+          return userRepo.findByUsername(username);
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
 }

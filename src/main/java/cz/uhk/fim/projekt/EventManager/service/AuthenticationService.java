@@ -33,14 +33,16 @@ public class AuthenticationService {
     }
 
 
-    public ResponseEntity<?> authenticateUser(User userPost) {
+    public ResponseEntity<?> authenticateUser(String username, String password) {
         try {
             Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(userPost.getUsername(), userPost.getPassword()));
+                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
             org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 
-            User responseUser = new User(userPost.getEmail(), user.getUsername(), user.getPassword());
+            User responseUser = new User(username, username, password);
+
+
             String jwt = jwtUtil.generateToken(user.getUsername());
 
             Map<String, Object> response = new HashMap<>();
