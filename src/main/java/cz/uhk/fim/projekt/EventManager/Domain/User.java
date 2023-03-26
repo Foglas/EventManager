@@ -16,7 +16,7 @@ public class User {
     @Column(name = "pk_userid")
     private long id;
 
-    @Column(name = "email")
+    @Column(unique=true, name = "email")
     private String email;
 
     @Column(name = "username")
@@ -32,7 +32,9 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Organization> organization;
 
-
+    @Transient
+    private String passwordAgain;
+    
     public User() {
     }
 
@@ -56,6 +58,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getPasswordAgain() {
+        return passwordAgain;
+    }
+
+    public void setPasswordAgain(String passwordAgain) {
+        this.passwordAgain = passwordAgain;
     }
 
     public void setPassword(String password) {

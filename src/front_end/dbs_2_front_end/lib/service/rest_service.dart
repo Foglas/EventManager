@@ -18,7 +18,7 @@ class RestService extends GetxService {
       final http.Response response = await http.get(
         url,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
           ...?headers,
         },
       );
@@ -51,10 +51,10 @@ class RestService extends GetxService {
 
       final http.Response response = await http.post(url,
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
             ...?headers,
           },
-          body: body);
+          body: jsonEncode(body));
 
       debugPrint('Response status : ${response.statusCode}');
 
@@ -64,6 +64,8 @@ class RestService extends GetxService {
 
       return jsonDecode(response.body);
     } catch (err) {
+      debugPrint(err.toString());
+
       return {
         'requestBody': body,
         'responseStatusCode': 500,
@@ -78,7 +80,7 @@ class RestService extends GetxService {
     required String password,
   }) async {
     Map<String, String> requestBody = {
-      "email": username,
+      "username": username,
       "password": password,
     };
 
@@ -100,10 +102,12 @@ class RestService extends GetxService {
       "username": username,
       "password": password,
       "passwordAgain": passwordAgain,
-      "dateOfBirth": dateOfBirth,
-      "name": name,
-      "surname": surname,
-      "phone": phone
+      "userDetails": {
+        "dateOfBirth": dateOfBirth,
+        "name": name,
+        "surname": surname,
+        "phone": phone
+      }
     };
 
     debugPrint(requestBody.toString());
