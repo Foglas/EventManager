@@ -9,7 +9,8 @@ const serverUrl = 'localhost:8080';
 class RestService extends GetxService {
   static RestService get to => Get.find();
 
-  _get(String path, {Map<String, String>? headers}) async {
+  Future<ServerResponse> _get(String path,
+      {Map<String, String>? headers}) async {
     try {
       final Uri url = Uri.http(serverUrl, path);
 
@@ -29,21 +30,15 @@ class RestService extends GetxService {
 
       debugPrint('header of response : ${response.headers}');
 
-      return {
-        'responseStatusCode': response.statusCode,
-        'responseBody': response.body,
-        'requestHeaders': headers,
-      };
+      return ServerResponse(
+          body: jsonDecode(response.body), statusCode: response.statusCode);
     } catch (err) {
-      return {
-        'responseStatusCode': 500,
-        'responseBody': err,
-        'requestHeaders': headers,
-      };
+      return ServerResponse(body: {"message": err.toString()}, statusCode: 500);
     }
   }
 
-  _post(String path, {Map<String, String>? headers, dynamic body}) async {
+  Future<ServerResponse> _post(String path,
+      {Map<String, String>? headers, dynamic body}) async {
     try {
       final Uri url = Uri.http(serverUrl, path);
 
@@ -62,32 +57,27 @@ class RestService extends GetxService {
 
       debugPrint('header of response : ${response.headers}');
 
-      return jsonDecode(response.body);
+      return ServerResponse(
+          body: jsonDecode(response.body), statusCode: response.statusCode);
     } catch (err) {
       debugPrint(err.toString());
-
-      return {
-        'requestBody': body,
-        'responseStatusCode': 500,
-        'responseBody': err,
-        'requestHeaders': headers,
-      };
+      return ServerResponse(body: {"message": err.toString()}, statusCode: 500);
     }
   }
 
-  Future<void> loginUser({
-    required String username,
+  Future<ServerResponse> loginUser({
+    required String email,
     required String password,
   }) async {
     Map<String, String> requestBody = {
-      "username": username,
+      "email": email,
       "password": password,
     };
 
-    await _post('api/login', body: requestBody);
+    return await _post('api/user/login', body: requestBody);
   }
 
-  Future<void> registerUser({
+  Future<ServerResponse> registerUser({
     required String username,
     required String email,
     required String password,
@@ -110,8 +100,13 @@ class RestService extends GetxService {
       }
     };
 
-    debugPrint(requestBody.toString());
-
-    await _post('api/register', body: requestBody);
+    return await _post('api/user/register', body: requestBody);
   }
+}
+
+class ServerResponse {
+  final int statusCode;
+  final Map<String, dynamic> body;
+
+  ServerResponse({required this.statusCode, required this.body});
 }

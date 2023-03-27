@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../service/rest_service.dart';
 import '../utils/menu_item.dart';
+import '../widgets/validation_text.dart';
 import 'app_controller.dart';
 
 enum LoginViewState {
@@ -51,35 +52,45 @@ class LoginController extends GetxController {
   Rx<LoginViewState> state = Rx(LoginViewState.login);
 
   TextEditingController emailTextController = TextEditingController();
-  TextEditingController passwordTextController = TextEditingController();
-  TextEditingController passwordAgainTextController = TextEditingController();
-  TextEditingController nameTextController = TextEditingController();
-  TextEditingController surnameTextController = TextEditingController();
-  TextEditingController phoneTextController = TextEditingController();
-  TextEditingController dateTextController = TextEditingController();
+  RxBool emailErrorState = false.obs;
 
-  RxBool displaySuccessfulRegistrationMessage = false.obs;
-  RxBool displaySuccessfulResetPasswordMessage = false.obs;
-  RxBool displayErrorLoginMessage = false.obs;
+  TextEditingController passwordTextController = TextEditingController();
+  RxBool passwordErrorState = false.obs;
+
+  TextEditingController passwordAgainTextController = TextEditingController();
+  RxBool passwordAgainErrorState = false.obs;
+
+  TextEditingController nameTextController = TextEditingController();
+  RxBool nameErrorState = false.obs;
+
+  TextEditingController surnameTextController = TextEditingController();
+  RxBool surnameErrorState = false.obs;
+
+  TextEditingController phoneTextController = TextEditingController();
+  RxBool phoneErrorState = false.obs;
+
+  TextEditingController dateTextController = TextEditingController();
+  RxBool dateErrorState = false.obs;
+
+  Rx<Widget> messageWidget = Rx(const SizedBox.shrink());
+
+  RxString errorLoginMessage = ''.obs;
 
   DateTime birthDate = DateTime(2000, 1, 1);
 
   handleSwitchToRegistration() {
+    _resetErrorStates();
     state.value = LoginViewState.registration;
-
-    _resetDisplayMessages();
   }
 
   handleSwitchToLogin() {
+    _resetErrorStates();
     state.value = LoginViewState.login;
-
-    _resetDisplayMessages();
   }
 
   handleSwitchToForgotPassword() {
+    _resetErrorStates();
     state.value = LoginViewState.forgotPassword;
-
-    _resetDisplayMessages();
   }
 
   handleSelectDate() async {
@@ -114,7 +125,49 @@ class LoginController extends GetxController {
   }
 
   _handleRegistration() async {
-    await RestService.to.registerUser(
+    _resetErrorStates();
+
+    if (emailTextController.value.text.isEmpty ||
+        dateTextController.value.text.isEmpty ||
+        nameTextController.value.text.isEmpty ||
+        surnameTextController.value.text.isEmpty ||
+        phoneTextController.value.text.isEmpty ||
+        passwordTextController.value.text.isEmpty ||
+        passwordAgainTextController.value.text.isEmpty) {
+      if (nameTextController.value.text.isEmpty) {
+        nameErrorState.value = true;
+      }
+
+      if (surnameTextController.value.text.isEmpty) {
+        surnameErrorState.value = true;
+      }
+
+      if (phoneTextController.value.text.isEmpty) {
+        phoneErrorState.value = true;
+      }
+
+      if (emailTextController.value.text.isEmpty) {
+        emailErrorState.value = true;
+      }
+
+      if (passwordTextController.value.text.isEmpty) {
+        passwordErrorState.value = true;
+      }
+
+      if (passwordAgainTextController.value.text.isEmpty) {
+        passwordAgainErrorState.value = true;
+      }
+
+      if (dateTextController.value.text.isEmpty) {
+        dateErrorState.value = true;
+      }
+
+      _putErrorMessage(
+          message: "All fields has to be filled in order to register");
+      return;
+    }
+
+    final ServerResponse response = await RestService.to.registerUser(
       dateOfBirth: dateTextController.value.text,
       email: emailTextController.value.text,
       name: nameTextController.value.text,
@@ -125,36 +178,55 @@ class LoginController extends GetxController {
       username: emailTextController.value.text,
     );
 
+    if (response.statusCode == 400) {
+      _putErrorMessage(message: response.body['message']);
+      return;
+    }
+
     state.value = LoginViewState.login;
-    displaySuccessfulRegistrationMessage.value = true;
+    _putSuccessMessage(message: response.body['message']);
 
     _resetTextEditingControllers();
   }
 
-  String get newMethod => '';
-
   _handleLogin() async {
-    if (emailTextController.text.isNotEmpty &&
-        passwordTextController.text.isNotEmpty) {
-      AppController.to.isUserLoggedIn.value = true;
-      AppController.to.handleMenuItemTapped(MenuItem.profile);
-    } else {
-      displayErrorLoginMessage.value = true;
+    passwordErrorState.value = false;
+    emailErrorState.value = false;
+
+    if (emailTextController.text.isEmpty ||
+        passwordTextController.text.isEmpty) {
+      emailErrorState.value = true;
+      passwordErrorState.value = true;
+
+      _putErrorMessage(message: "Both email and password has to be filled");
+      return;
     }
 
-    state.value = LoginViewState.login;
+    if (!emailTextController.value.text.isEmail) {
+      emailErrorState.value = true;
+      _putErrorMessage(message: "Email is not a valid email");
+      return;
+    }
 
-    await RestService.to.loginUser(
+    final ServerResponse response = await RestService.to.loginUser(
         password: passwordTextController.value.text,
-        username: emailTextController.value.text);
+        email: emailTextController.value.text);
+
+    if (response.statusCode == 400) {
+      _putErrorMessage(message: response.body['message']!);
+      return;
+    }
+
+    if (response.statusCode == 200) {
+      AppController.to.isUserLoggedIn.value = true;
+      AppController.to.handleMenuItemTapped(MenuItem.profile);
+    }
 
     _resetTextEditingControllers();
   }
 
   _handleForgotPassword() async {
     state.value = LoginViewState.login;
-    displaySuccessfulResetPasswordMessage.value = true;
-
     _resetTextEditingControllers();
   }
 
@@ -168,9 +240,21 @@ class LoginController extends GetxController {
     dateTextController.text = '';
   }
 
-  _resetDisplayMessages() {
-    displaySuccessfulRegistrationMessage.value = false;
-    displayErrorLoginMessage.value = false;
-    displaySuccessfulResetPasswordMessage.value = false;
+  _resetErrorStates() {
+    emailErrorState.value = false;
+    passwordErrorState.value = false;
+    passwordAgainErrorState.value = false;
+    nameErrorState.value = false;
+    surnameErrorState.value = false;
+    phoneErrorState.value = false;
+    dateErrorState.value = false;
+  }
+
+  _putErrorMessage({required String message}) {
+    messageWidget.value = ErrorMessage(message);
+  }
+
+  _putSuccessMessage({required String message}) {
+    messageWidget.value = SuccessMessage(message);
   }
 }
