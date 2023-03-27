@@ -161,4 +161,80 @@ public class UserService implements UserServiceInf {
       );
     }
   }
+
+  /**
+   * Retrieves user details by ID.
+   *
+   * @param id the ID of the user to retrieve
+   * @return a ResponseEntity containing the user details if retrieval was successful,
+   *     or an error message if retrieval failed
+   */
+  public ResponseEntity<?> getUser(long id) {
+    try {
+      User responseUser = userRepo.findById(id);
+
+      if (responseUser == null) {
+        return ResponseHelper.errorMessage(
+          "user_not_found",
+          "User was not found"
+        );
+      }
+
+      Map<String, Object> userDetails = new HashMap<>();
+      userDetails.put("id", responseUser.getId());
+      userDetails.put("username", responseUser.getUsername());
+      userDetails.put("email", responseUser.getEmail());
+      userDetails.put("name", responseUser.getUserDetails().getName());
+      userDetails.put("surname", responseUser.getUserDetails().getSurname());
+      userDetails.put("phone", responseUser.getUserDetails().getPhone());
+
+      return ResponseEntity.ok(userDetails);
+    } catch (Exception e) {
+      return ResponseHelper.errorMessage(
+        "user_details_failed",
+        "Retrieving user details failed"
+      );
+    }
+  }
+
+  /**
+   * Retrieves user details from the current session using the provided authentication token.
+   *
+   * @param header the authorization header containing the authentication token
+   * @return a ResponseEntity containing the user details if retrieval was successful,
+   *     or an error message if retrieval failed
+   */
+  public ResponseEntity<?> getUserFromCurrentSession(String header) {
+    if (header == null || !header.startsWith("Bearer ")) {
+      return ResponseHelper.errorMessage(
+        "invalid_request",
+        "Authorization header is missing or invalid"
+      );
+    }
+
+    String token = header.replace("Bearer ", "");
+    String email = jwtUtil.getEmailFromToken(token);
+    User responseUser = findUserByEmail(email);
+
+    if (responseUser == null) {
+      return ResponseHelper.errorMessage(
+        "user_not_found",
+        "User was not found"
+      );
+    }
+
+    Map<String, Object> userDetails = new HashMap<>();
+    userDetails.put("id", responseUser.getId());
+    userDetails.put("username", responseUser.getUsername());
+    userDetails.put("email", responseUser.getEmail());
+    userDetails.put("name", responseUser.getUserDetails().getName());
+    userDetails.put("surname", responseUser.getUserDetails().getSurname());
+    userDetails.put("phone", responseUser.getUserDetails().getPhone());
+    userDetails.put(
+      "birthDate",
+      responseUser.getUserDetails().getDateOfBirth().toString()
+    );
+
+    return ResponseEntity.ok(userDetails);
+  }
 }

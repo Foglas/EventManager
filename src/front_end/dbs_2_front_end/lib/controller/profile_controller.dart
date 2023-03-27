@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/helpers/show_date_picker.dart';
 import 'package:get/get.dart';
+import '../service/rest_service.dart';
 import 'app_controller.dart';
 
-
 class ProfileController extends GetxController {
-
-
-
-  TextEditingController emailTextController = TextEditingController(text: 'testing@email.com');
+  TextEditingController emailTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
   TextEditingController oldPasswordTextController = TextEditingController();
   TextEditingController passwordAgainTextController = TextEditingController();
-  TextEditingController nameTextController = TextEditingController(text : "Jan");
-  TextEditingController surnameTextController = TextEditingController(text : "Novak");
-  TextEditingController phoneTextController = TextEditingController(text: "+420 774 853 584");
-  TextEditingController dateTextController = TextEditingController(text: DateTime(2000,1,1).toString());
+  TextEditingController nameTextController = TextEditingController();
+  TextEditingController surnameTextController = TextEditingController();
+  TextEditingController phoneTextController = TextEditingController();
+  TextEditingController dateTextController = TextEditingController();
 
   RxBool isChangePassword = false.obs;
   RxBool isChangeInformation = true.obs;
@@ -23,7 +20,17 @@ class ProfileController extends GetxController {
   RxBool displaySuccessfulEditMessage = false.obs;
   RxBool displaySuccessfulResetPasswordMessage = false.obs;
 
-  DateTime birthDate = DateTime(2000,1,1);
+  DateTime birthDate = DateTime(2000, 1, 1);
+
+  onInit() async {
+    final ServerResponse response = await RestService.to.getCurrentUser();
+
+    emailTextController.text = response.body['email'] ?? '';
+    nameTextController.text = response.body['name'] ?? '';
+    surnameTextController.text = response.body['surname'] ?? '';
+    phoneTextController.text = response.body['phone'] ?? '';
+    dateTextController.text = response.body['birthDate'] ?? '';
+  }
 
   _resetDisplayMessages() {
     displaySuccessfulEditMessage.value = false;
@@ -56,8 +63,7 @@ class ProfileController extends GetxController {
     );
   }
 
-
-  handleSubmitButton()  async {
+  handleSubmitButton() async {
     _resetDisplayMessages();
 
     AppController.to.displayCircularProgressIndicator.value = true;

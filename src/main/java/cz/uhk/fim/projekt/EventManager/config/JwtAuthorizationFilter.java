@@ -1,7 +1,6 @@
 package cz.uhk.fim.projekt.EventManager.config;
 
 import cz.uhk.fim.projekt.EventManager.Domain.User;
-import cz.uhk.fim.projekt.EventManager.service.CustomUserDetailsService;
 import cz.uhk.fim.projekt.EventManager.service.UserService;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -12,8 +11,6 @@ import java.io.IOException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {

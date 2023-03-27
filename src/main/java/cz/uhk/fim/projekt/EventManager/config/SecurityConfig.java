@@ -1,11 +1,5 @@
 package cz.uhk.fim.projekt.EventManager.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-import static org.springframework.security.config.annotation.web.builders.HttpSecurity.*;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.*;
-
-import cz.uhk.fim.projekt.EventManager.service.CustomUserDetailsService;
 import cz.uhk.fim.projekt.EventManager.service.UserService;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import java.util.Arrays;
@@ -24,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;

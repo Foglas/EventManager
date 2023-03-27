@@ -117,6 +117,9 @@ class RestService extends GetxService {
     return await _post('api/user/register', body: requestBody);
   }
 
+  /// Retrieves an authentication token using the provided [token] string.
+  /// Returns `true` if the authentication token was successfully retrieved,
+  /// `false` otherwise.
   Future<bool> authToken({required String token}) async {
     if (token.isEmpty) {
       return false;
@@ -127,6 +130,13 @@ class RestService extends GetxService {
     return request.statusCode == 200;
   }
 
+  /// Retrieves the current user's data using the authorized credentials.
+  Future<ServerResponse> getCurrentUser() async {
+    return await _get('api/auth/currentUser', headers: _authHeader());
+  }
+
+  /// Returns a map containing the authorization header to be used in
+  /// HTTP requests.
   Map<String, String> _authHeader() {
     return {"Authorization": "Bearer ${AppController.to.jwtToken}"};
   }
