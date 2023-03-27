@@ -282,7 +282,8 @@ class LoginController extends GetxController {
     }
     if (response.statusCode == 200) {
       // Set user login state and switch to profile view
-      AppController.to.isUserLoggedIn.value = true;
+      await AppController.to.storeUserJwtToken(response.body['message']);
+
       AppController.to.handleMenuItemTapped(MenuItem.profile);
       // Reset text editing controllers
       _resetTextEditingControllers();

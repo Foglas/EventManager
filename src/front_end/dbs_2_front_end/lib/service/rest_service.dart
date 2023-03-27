@@ -4,17 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../controller/app_controller.dart';
+
 const serverUrl = 'localhost:8080';
 
 class RestService extends GetxService {
   static RestService get to => Get.find();
 
+  /// Sends a GET request to the specified path with optional headers.
+  ///
+  /// Returns a [ServerResponse] object containing the response status code and body.
   Future<ServerResponse> _get(String path,
       {Map<String, String>? headers}) async {
     try {
       final Uri url = Uri.http(serverUrl, path);
 
-      debugPrint('Creating get request to URI : ${url.toString()}');
+      debugPrint('Creating GET request to URI: ${url.toString()}');
 
       final http.Response response = await http.get(
         url,
@@ -24,11 +29,11 @@ class RestService extends GetxService {
         },
       );
 
-      debugPrint('Response status : ${response.statusCode}');
+      debugPrint('Response status: ${response.statusCode}');
 
-      debugPrint('Response body : ${response.body}');
+      debugPrint('Response body: ${response.body}');
 
-      debugPrint('header of response : ${response.headers}');
+      debugPrint('Headers of response: ${response.headers}');
 
       return ServerResponse(
           body: jsonDecode(response.body), statusCode: response.statusCode);
@@ -37,12 +42,15 @@ class RestService extends GetxService {
     }
   }
 
+  /// Sends a POST request to the specified path with optional headers and body.
+  ///
+  /// Returns a [ServerResponse] object containing the response status code and body.
   Future<ServerResponse> _post(String path,
       {Map<String, String>? headers, dynamic body}) async {
     try {
       final Uri url = Uri.http(serverUrl, path);
 
-      debugPrint('Creating post request to URI :  ${url.toString()}');
+      debugPrint('Creating POST request to URI: ${url.toString()}');
 
       final http.Response response = await http.post(url,
           headers: {
@@ -51,11 +59,11 @@ class RestService extends GetxService {
           },
           body: jsonEncode(body));
 
-      debugPrint('Response status : ${response.statusCode}');
+      debugPrint('Response status: ${response.statusCode}');
 
-      debugPrint('Response body : ${response.body}');
+      debugPrint('Response body: ${response.body}');
 
-      debugPrint('header of response : ${response.headers}');
+      debugPrint('Headers of response: ${response.headers}');
 
       return ServerResponse(
           body: jsonDecode(response.body), statusCode: response.statusCode);
@@ -65,6 +73,9 @@ class RestService extends GetxService {
     }
   }
 
+  /// Sends a POST request to login the user with the specified email and password.
+  ///
+  /// Returns a [ServerResponse] object containing the response status code and body.
   Future<ServerResponse> loginUser({
     required String email,
     required String password,
@@ -77,6 +88,9 @@ class RestService extends GetxService {
     return await _post('api/user/login', body: requestBody);
   }
 
+  /// Sends a POST request to register the user with the specified details.
+  ///
+  /// Returns a [ServerResponse] object containing the response status code and body.
   Future<ServerResponse> registerUser({
     required String username,
     required String email,
@@ -102,8 +116,23 @@ class RestService extends GetxService {
 
     return await _post('api/user/register', body: requestBody);
   }
+
+  Future<bool> authToken({required String token}) async {
+    if (token.isEmpty) {
+      return false;
+    }
+
+    final request = await _get('api/auth/test', headers: _authHeader());
+
+    return request.statusCode == 200;
+  }
+
+  Map<String, String> _authHeader() {
+    return {"Authorization": "Bearer ${AppController.to.jwtToken}"};
+  }
 }
 
+/// Represents a response from the server, containing a status code and response body.
 class ServerResponse {
   final int statusCode;
   final Map<String, dynamic> body;

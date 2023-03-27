@@ -149,7 +149,7 @@ public class UserService implements UserServiceInf {
       }
 
       // Generate a JWT token for the user
-      String jwt = jwtUtil.generateToken(responseUser.getUsername());
+      String jwt = jwtUtil.generateToken(responseUser.getEmail());
 
       // Return the JWT token in a success message
       return ResponseHelper.successMessage(jwt);
