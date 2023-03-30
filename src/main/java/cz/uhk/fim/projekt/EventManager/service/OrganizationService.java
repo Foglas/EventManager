@@ -7,8 +7,9 @@ import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.OrganizationSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,14 @@ public class OrganizationService implements OrganizationSerInf {
     users.add(user);
     organization.setUsers(users);
     organizationRepo.save(organization);
+  }
+
+  public List<Organization> getOrganization(Long id){
+    Optional<User> user = userRepo.findById(id);
+    Set<Organization> organization = user.get().getOrganization();
+    List<Organization> organizations = new ArrayList<>();
+    organizations.addAll(organization);
+    System.out.println(organizations.get(0));
+    return organizations;
   }
 }

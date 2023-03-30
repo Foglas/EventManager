@@ -1,5 +1,7 @@
 package cz.uhk.fim.projekt.EventManager.Domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.aspectj.weaver.ast.Or;
 
@@ -22,6 +24,7 @@ public class Organization {
     private String name;
 
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "organizationuser",
          joinColumns = {  @JoinColumn(name = "fk_organizationid", referencedColumnName = "pk_organizationid"),

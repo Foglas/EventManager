@@ -1,7 +1,10 @@
 package cz.uhk.fim.projekt.EventManager.Domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,9 +31,19 @@ public class User {
     @OneToOne()
     @JoinColumn(name = "fk_userdetailsid")
     private UserDetails userDetails;
-
+    @JsonManagedReference
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Organization> organization;
+
+    @ManyToMany
+    @JoinTable(name = "userroleuser",
+            joinColumns = {  @JoinColumn(name = "fk_userid", referencedColumnName = "pk_userid"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "fk_userroleid", referencedColumnName = "pk_userroleid")
+            }
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Transient
     private String passwordAgain;

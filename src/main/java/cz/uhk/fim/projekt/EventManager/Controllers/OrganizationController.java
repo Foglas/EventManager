@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpHeaders;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -19,6 +21,12 @@ public class OrganizationController {
     public OrganizationController(OrganizationService organizationService) {
         this.organizationService = organizationService;
     }
+
+    @GetMapping("user/{id}/organization")
+    public List<Organization> getUserOrganizations(@PathVariable("id") Long id){
+       return organizationService.getOrganization(id);
+    }
+
 
     @PostMapping("/auth/organization/save")
     public void save(@RequestBody Organization organization, HttpServletRequest request){

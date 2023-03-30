@@ -45,6 +45,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     String token = header.replace("Bearer ", "");
     String email = jwtUtil.getEmailFromToken(token);
     User user = userService.findUserByEmail(email);
+
     if (user == null) {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       return;
@@ -55,6 +56,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
       null,
       null
     );
+
     SecurityContextHolder.getContext().setAuthentication(authentication);
     chain.doFilter(request, response);
   }

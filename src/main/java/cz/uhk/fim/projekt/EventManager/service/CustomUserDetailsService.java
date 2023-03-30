@@ -36,6 +36,5 @@ public class CustomUserDetailsService implements UserDetailsService {
         } catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
 }

@@ -33,8 +33,8 @@ public class UserController {
   @PostMapping("user/login")
   public ResponseEntity<?> authenticateUser(@RequestBody User requestBody) {
     return userService.authenticateUser(
-      requestBody.getEmail(),
-      requestBody.getPassword()
+            requestBody.getEmail(),
+            requestBody.getPassword()
     );
   }
 
@@ -42,4 +42,5 @@ public class UserController {
   public ResponseEntity<?> registerUser(@RequestBody User requestBody) {
     return userService.save(requestBody);
   }
+
 }
