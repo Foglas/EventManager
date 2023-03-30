@@ -34,10 +34,12 @@ public class Event {
     private Organization organization;
 
 
-    public Event(String description, String name, LocalDateTime dateAndTime) {
+    public Event(String description, String name, LocalDateTime dateAndTime, Place place, Organization organization) {
         this.description = description;
         this.name = name;
         this.dateAndTime = dateAndTime;
+        this.organization = organization;
+        this.place = place;
     }
 
     public Event() {

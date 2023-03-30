@@ -3,13 +3,12 @@ package cz.uhk.fim.projekt.EventManager.Controllers;
 import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.service.OrganizationService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpHeaders;
+import java.nio.file.Path;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -22,15 +21,17 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
-    @GetMapping("user/{id}/organization")
+    @GetMapping(value = "user/{id}/organization")
     public List<Organization> getUserOrganizations(@PathVariable("id") Long id){
        return organizationService.getOrganization(id);
     }
+
 
 
     @PostMapping("/auth/organization/save")
     public void save(@RequestBody Organization organization, HttpServletRequest request){
         organizationService.saveOrganization(organization, request);
     }
+
 
 }

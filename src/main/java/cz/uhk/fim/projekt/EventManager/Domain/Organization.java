@@ -1,10 +1,7 @@
 package cz.uhk.fim.projekt.EventManager.Domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import org.aspectj.weaver.ast.Or;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +20,9 @@ public class Organization {
     @Column(name = "name")
     private String name;
 
-
-    @JsonBackReference
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @ManyToMany
     @JoinTable(name = "organizationuser",
          joinColumns = {  @JoinColumn(name = "fk_organizationid", referencedColumnName = "pk_organizationid"),
@@ -33,6 +31,7 @@ public class Organization {
             @JoinColumn(name = "fk_userid", referencedColumnName = "pk_userid")
             }
     )
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     public Organization() {

@@ -1,7 +1,6 @@
 package cz.uhk.fim.projekt.EventManager.Domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -31,7 +30,10 @@ public class User {
     @OneToOne()
     @JoinColumn(name = "fk_userdetailsid")
     private UserDetails userDetails;
-    @JsonManagedReference
+
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Organization> organization;
 
@@ -92,12 +94,22 @@ public class User {
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
     }
-
+    @JsonIgnore
     public Set<Organization> getOrganization() {
         return organization;
     }
 
+
     public void setOrganization(Set<Organization> organization) {
         this.organization = organization;
+    }
+
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
