@@ -3,6 +3,7 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,7 +12,7 @@ public class Event {
 
     @Id
     @Column(name = "pk_eventid")
-    @SequenceGenerator( name = "event_generator", sequenceName = "event_sequence", allocationSize = 1
+    @SequenceGenerator( name = "event_generator", sequenceName = "event_pk_eventid_seq", allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "event_generator")
@@ -25,18 +26,18 @@ public class Event {
     @Column(name = "time")
     private LocalDateTime dateAndTime;
 
-    @Column(name = "addressid")
-    private long fk_addressId;
+    @ManyToOne
+    @JoinColumn(name = "fk_addressid")
+    private Place place;
+    @ManyToOne
+    @JoinColumn(name = "fk_organizationid")
+    private Organization organization;
 
-    @Column(name = "organizationid")
-    private long fk_organizationId;
 
-    public Event(String description, String name, LocalDateTime dateAndTime, long fk_addressId, long fk_organizationId) {
+    public Event(String description, String name, LocalDateTime dateAndTime) {
         this.description = description;
         this.name = name;
         this.dateAndTime = dateAndTime;
-        this.fk_addressId = fk_addressId;
-        this.fk_organizationId = fk_organizationId;
     }
 
     public Event() {
@@ -58,11 +59,31 @@ public class Event {
         return dateAndTime;
     }
 
-    public long getFk_addressId() {
-        return fk_addressId;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public long getFk_organizationId() {
-        return fk_organizationId;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDateAndTime(LocalDateTime dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

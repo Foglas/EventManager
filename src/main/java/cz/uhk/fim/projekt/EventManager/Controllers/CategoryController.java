@@ -5,13 +5,14 @@ import cz.uhk.fim.projekt.EventManager.service.CategoryService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/category")
+@RequestMapping(value = "/api")
 public class CategoryController {
     CategoryService categoryService;
 
@@ -20,19 +21,20 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping
+    @GetMapping("/category")
     public List<Category> getCategory(){
         return categoryService.getCategory();
     }
 
-    @PostMapping(value = "/save", consumes = "application/json")
+    @PostMapping(value = "auth/category/save", consumes = "application/json")
     public ResponseEntity<Category> saveCategory(@RequestBody Category category){
         Category saveCategory = categoryService.saveCategory(category);
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(saveCategory);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "auth/category/delete/{id}")
     public void deleteCategory(@PathVariable long id){
     categoryService.deleteCategory(id);
     }
+
 }
