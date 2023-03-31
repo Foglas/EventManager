@@ -13,11 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthorizationService {
 
-  @Autowired
+
   private JwtUtil jwtUtil;
 
-  @Autowired
   private UserService userService;
+
+  @Autowired
+  public AuthorizationService(JwtUtil jwtUtil, UserService userService){
+    this.jwtUtil = jwtUtil;
+    this.userService = userService;
+  }
 
   public void filterRequest(
     HttpServletRequest request,

@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,8 +18,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
   private AuthorizationService authService;
 
-  public AuthorizationFilter() {
-    this.authService = new AuthorizationService();
+  @Autowired
+  public AuthorizationFilter(AuthorizationService authorizationService) {
+    this.authService = authorizationService;
   }
 
   @Override
