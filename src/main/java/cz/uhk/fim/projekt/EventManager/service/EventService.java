@@ -1,13 +1,7 @@
 package cz.uhk.fim.projekt.EventManager.service;
 
-import cz.uhk.fim.projekt.EventManager.Domain.Event;
-import cz.uhk.fim.projekt.EventManager.Domain.Organization;
-import cz.uhk.fim.projekt.EventManager.Domain.Place;
-import cz.uhk.fim.projekt.EventManager.Domain.User;
-import cz.uhk.fim.projekt.EventManager.dao.EventRepo;
-import cz.uhk.fim.projekt.EventManager.dao.OrganizationRepo;
-import cz.uhk.fim.projekt.EventManager.dao.PlaceRepo;
-import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
+import cz.uhk.fim.projekt.EventManager.Domain.*;
+import cz.uhk.fim.projekt.EventManager.dao.*;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.EventSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
@@ -22,10 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.lang.model.type.ErrorType;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class EventService {
@@ -36,15 +27,18 @@ public class EventService {
     private PlaceRepo placeRepo;
 
     private OrganizationRepo organizationRepo;
+
+    private TicketRepo ticketRepo;
     private JwtUtil jwtUtil;
 
     @Autowired
-    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo) {
+    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo) {
         this.eventRepo = eventRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
         this.organizationRepo = organizationRepo;
         this.placeRepo = placeRepo;
+        this.ticketRepo = ticketRepo;
     }
 
     public ResponseEntity<?> save(String description, String name, LocalDateTime time, long placeId, long organizationId) {
@@ -77,15 +71,32 @@ public class EventService {
         return ResponseHelper.successMessage("Event added");
     }
 
-    //TODO dodelat
-    public ResponseEntity<?> attend(HttpServletRequest request) {
+    public ResponseEntity<?> attend(Map<String, String> body, long id, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         token = token.replace("Bearer ", "");
 
         String email = jwtUtil.getEmailFromToken(token);
         User user = userRepo.findUserByEmailIgnoreCase(email);
-        return ResponseHelper.successMessage(user.getUsername());
+
+        Optional<Event> event = eventRepo.findById(id);
+        if (!event.isPresent()){
+            return ResponseHelper.errorMessage("invalid event", "event not found");
+        }
+
+        String state = body.get("state");
+
+        if (state == null){
+          return   ResponseHelper.errorMessage("invalid state", "state is null");
+        }
+
+        Ticket ticket = new Ticket(event.get(),user,state, LocalDateTime.now());
+        ticketRepo.save(ticket);
+
+        return ResponseHelper.successMessage("attended to event");
     }
+
+
+
 
     public ResponseEntity<?> delete(long id, HttpServletRequest request) {
         Optional<Event> event = eventRepo.findById(id);

@@ -40,8 +40,8 @@ public class EventController {
 
 
 
-    @PostMapping("auth/event/attend")
-    public ResponseEntity<?> attend(HttpServletRequest httpServletRequest) {
-        return eventService.attend(httpServletRequest);
+    @PostMapping("auth/event/{id}/attend")
+    public ResponseEntity<?> attend(@RequestBody Map<String, String> body, @PathVariable("id") long id,  HttpServletRequest httpServletRequest) {
+        return eventService.attend(body,id,httpServletRequest);
     }
 }

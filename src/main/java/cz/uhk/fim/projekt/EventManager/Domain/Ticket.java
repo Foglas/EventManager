@@ -31,6 +31,13 @@ public class Ticket {
     private LocalDateTime createdAt;
 
 
+    public Ticket(Event event, User user, String state, LocalDateTime createdAt) {
+        this.event = event;
+        this.user = user;
+        this.state = state;
+        this.createdAt = createdAt;
+    }
+
     public int getId() {
         return id;
     }
