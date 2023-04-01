@@ -40,12 +40,12 @@ public class SecurityConfig {
       .requestMatchers("/api/**")
       .permitAll()
       .anyRequest()
-      .authenticated().and().formLogin().and().httpBasic();
+      .authenticated();
 
-  //  http.addFilterBefore(
-  //   authorizationFilter,
-  //    BasicAuthenticationFilter.class
-  //  );
+    http.addFilterBefore(
+     authorizationFilter,
+      BasicAuthenticationFilter.class
+    );
 
     return http.build();
   }
