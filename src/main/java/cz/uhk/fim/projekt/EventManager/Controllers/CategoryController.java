@@ -5,7 +5,6 @@ import cz.uhk.fim.projekt.EventManager.service.CategoryService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -21,7 +20,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/category")
+    @GetMapping("/auth/category")
     public List<Category> getCategory(){
         return categoryService.getCategory();
     }
