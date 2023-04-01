@@ -23,7 +23,7 @@ public class Organization {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "organizationuser",
          joinColumns = {  @JoinColumn(name = "fk_organizationid", referencedColumnName = "pk_organizationid"),
          },

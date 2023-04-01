@@ -1,4 +1,4 @@
-package cz.uhk.fim.projekt.EventManager.config;
+package cz.uhk.fim.projekt.EventManager.Security;
 
 import java.util.Arrays;
 

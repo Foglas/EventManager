@@ -79,23 +79,21 @@ public class EventService {
         User user = userRepo.findUserByEmailIgnoreCase(email);
 
         Optional<Event> event = eventRepo.findById(id);
-        if (!event.isPresent()){
+        if (!event.isPresent()) {
             return ResponseHelper.errorMessage("invalid event", "event not found");
         }
 
         String state = body.get("state");
 
-        if (state == null){
-          return   ResponseHelper.errorMessage("invalid state", "state is null");
+        if (state == null) {
+            return ResponseHelper.errorMessage("invalid state", "state is null");
         }
 
-        Ticket ticket = new Ticket(event.get(),user,state, LocalDateTime.now());
+        Ticket ticket = new Ticket(event.get(), user, state, LocalDateTime.now());
         ticketRepo.save(ticket);
 
         return ResponseHelper.successMessage("attended to event");
     }
-
-
 
 
     public ResponseEntity<?> delete(long id, HttpServletRequest request) {

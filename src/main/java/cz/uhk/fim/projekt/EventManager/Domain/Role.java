@@ -1,6 +1,12 @@
 package cz.uhk.fim.projekt.EventManager.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import cz.uhk.fim.projekt.EventManager.enums.Roles;
 import jakarta.persistence.*;
+import jakarta.transaction.TransactionScoped;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,19 +26,30 @@ public class Role {
     @Column(name = "type")
     private String type;
 
-    @ManyToMany(mappedBy = "roles")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
+
+
+    public Role() {
+    }
+
+    public Role(String type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public Roles getType() {
+        return Roles.valueOf(type);
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(Roles type) {
+        this.type = type.name();
     }
 
     public Set<User> getUsers() {

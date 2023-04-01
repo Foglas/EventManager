@@ -2,6 +2,14 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import jdk.jfr.Name;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +45,10 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Organization> organization;
 
-    @ManyToMany
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @ManyToMany()
     @JoinTable(name = "userroleuser",
             joinColumns = {  @JoinColumn(name = "fk_userid", referencedColumnName = "pk_userid"),
             },
@@ -45,6 +56,9 @@ public class User {
                     @JoinColumn(name = "fk_userroleid", referencedColumnName = "pk_userroleid")
             }
     )
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     @Transient
@@ -94,7 +108,8 @@ public class User {
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
     }
-    @JsonIgnore
+
+
     public Set<Organization> getOrganization() {
         return organization;
     }

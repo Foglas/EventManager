@@ -20,7 +20,7 @@ public class RoleAndPermissionController {
     }
 
 
-    @PostMapping("/auth/role/save")
+    @PostMapping("/auth/admin/role/save")
     public void saveRole(@RequestBody Role role){
         roleAndPermissionService.saveRole(role);
     }
