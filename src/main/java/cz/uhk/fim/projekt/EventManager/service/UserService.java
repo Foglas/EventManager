@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import cz.uhk.fim.projekt.EventManager.views.UserView;
+import cz.uhk.fim.projekt.EventManager.dao.readOnlyRepo.UserViewRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,16 +28,20 @@ public class UserService implements UserServiceInf {
 
   private JwtUtil jwtUtil;
 
+  private UserViewRepo userViewRepo;
+
   @Autowired
   public UserService(
     JwtUtil jwtUtil,
     UserRepo userRepo,
-    UserDetailsRepo userDetailsRepo
+    UserDetailsRepo userDetailsRepo,
+    UserViewRepo userViewRepo
   ) {
     this.jwtUtil = jwtUtil;
     this.userRepo = userRepo;
     this.userDetailsRepo = userDetailsRepo;
     this.passwordEncoder = new BCryptPasswordEncoder();
+    this.userViewRepo = userViewRepo;
   }
 
   public Optional<User> findUserByID(Long id) {
@@ -235,5 +242,9 @@ public class UserService implements UserServiceInf {
     );
 
     return ResponseEntity.ok(userDetails);
+  }
+
+  public List<UserView> getUsersInfo() {
+    return userViewRepo.findAll();
   }
 }
