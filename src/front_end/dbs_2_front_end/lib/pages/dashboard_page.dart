@@ -4,6 +4,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../controller/app_controller.dart';
 import '../controller/dashboard_controller.dart';
+import '../widgets/dropdown_line.dart';
+import '../widgets/input_line.dart';
 import 'login_page.dart';
 
 class DashboardPage extends GetView<DashboardController> {

@@ -5,10 +5,7 @@ import cz.uhk.fim.projekt.EventManager.service.CategoryService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,7 +29,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(saveCategory);
     }
 
-    @DeleteMapping(value = "auth/category/delete/{id}")
+    @DeleteMapping(value = "auth/category/{id}/delete")
     public void deleteCategory(@PathVariable long id){
     categoryService.deleteCategory(id);
     }

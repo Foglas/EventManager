@@ -1,68 +1,57 @@
 package cz.uhk.fim.projekt.EventManager.Controllers;
 
+import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
-import cz.uhk.fim.projekt.EventManager.service.AuthenticationService;
 import cz.uhk.fim.projekt.EventManager.service.UserService;
-import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
-import org.springframework.security.core.Authentication;
-
+import cz.uhk.fim.projekt.EventManager.views.UserView;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.swing.text.html.HTMLDocument;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+  private UserService userService;
 
-    private BCryptPasswordEncoder passwordEncoder;
+  @Autowired
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
-    private AuthenticationManager authenticationManager;
+  @GetMapping("auth/user/{id}")
+  public ResponseEntity<?> getUser(@PathVariable long id) {
+    return userService.getUser(id);
+  }
 
-    private UserService userService;
+  @GetMapping("auth/currentUser")
+  public ResponseEntity<?> getUserFromSession(HttpServletRequest request) {
+    String header = request.getHeader("Authorization");
 
-    private AuthenticationService authenticationService;
+    return userService.getUserFromCurrentSession(header);
+  }
 
-    @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager, AuthenticationService authenticationService) {
-        this.userService = userService;
-        this.authenticationManager = authenticationManager;
-        this.passwordEncoder = new BCryptPasswordEncoder();
-        this.authenticationService = authenticationService;
-    }
 
-    //    @GetMapping(path = "/api/user/{username}")
-    //    public List<User> getUserByUsername(@PathVariable() Long username) {
-    //        return userService.findUserByID(username);
-    //    }
+  @PostMapping(path = "user/login" , consumes = {"application/json"})
+  public ResponseEntity<?> authenticateUser(@RequestBody User requestBody) {
+    return userService.authenticateUser(
+            requestBody.getEmail(),
+            requestBody.getPassword()
+    );
+  }
 
-    @GetMapping("/dummy")
-    public ResponseEntity<?> hovno() {
+  @GetMapping("/auth/admin/usersInfo")
+  public List<UserView> getUsersInfo(){
+    return userService.getUsersInfo();
+  }
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("message", "login vole");
+  @PostMapping(path = "user/register"  , consumes = {"application/json"})
+  public ResponseEntity<?> registerUser(@RequestBody User requestBody) {
+    return userService.save(requestBody);
+  }
 
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
 
-    @PostMapping("/auth/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody User userPost) {
-        return authenticationService.authenticateUser(userPost);
-    }
 }
