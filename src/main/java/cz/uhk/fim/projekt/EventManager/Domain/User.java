@@ -16,11 +16,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-//@SecondaryTable(name = "userdetails", pkJoinColumns = @PrimaryKeyJoinColumn(name = "pk_userdetailsid", referencedColumnName = "fk_userdetailsid"))
 public class User {
 
     @Id
-    @SequenceGenerator( name = "user_generator", sequenceName = "User_pk_userid_seq", allocationSize = 1)
+    @SequenceGenerator( name = "user_generator", sequenceName = "user_pk_userid_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "user_generator")
     @Column(name = "pk_userid")
@@ -56,6 +55,7 @@ public class User {
                     @JoinColumn(name = "fk_userroleid", referencedColumnName = "pk_userroleid")
             }
     )
+
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore

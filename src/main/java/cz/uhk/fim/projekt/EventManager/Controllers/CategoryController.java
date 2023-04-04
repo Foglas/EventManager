@@ -23,15 +23,14 @@ public class CategoryController {
         return categoryService.getCategory();
     }
 
-    @PostMapping(value = "auth/category/save", consumes = "application/json")
-    public ResponseEntity<Category> saveCategory(@RequestBody Category category){
-        Category saveCategory = categoryService.saveCategory(category);
-        return ResponseEntity.status(HttpServletResponse.SC_OK).body(saveCategory);
+    @PostMapping(value = "auth/admin/category/save", consumes = "application/json")
+    public ResponseEntity<?> saveCategory(@RequestBody Category category){
+       return categoryService.saveCategory(category);
     }
 
-    @DeleteMapping(value = "auth/category/{id}/delete")
-    public void deleteCategory(@PathVariable long id){
-    categoryService.deleteCategory(id);
+    @DeleteMapping(value = "auth/admin/category/{id}/delete")
+    public ResponseEntity<?> deleteCategory(@PathVariable long id){
+        return categoryService.deleteCategory(id);
     }
 
 }

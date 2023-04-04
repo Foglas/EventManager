@@ -43,6 +43,8 @@ public class UserController {
     );
   }
 
+
+
   @GetMapping("/auth/admin/usersInfo")
   public List<UserView> getUsersInfo(){
     return userService.getUsersInfo();

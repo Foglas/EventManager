@@ -27,7 +27,6 @@ public class RepositoriesConfig {
                         listRole.add(new Role(role.name()));
                     }
                 }
-
                 if (!listRole.isEmpty()) {
                     roleRepo.saveAll(listRole);
                 }

@@ -12,5 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface OrganizationRepo extends JpaRepository<Organization, Long> {
+    @Query("SELECT isuserinorg(?1, ?2)")
+    boolean isUserInOrganization(long userId, long organizationId);
 }
 
