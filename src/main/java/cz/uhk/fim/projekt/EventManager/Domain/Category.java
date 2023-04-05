@@ -11,9 +11,9 @@ public class Category {
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
     generator = "category_generator")
-    @Column(name = "pk_categoryid")
+    @Column(name = "pk_categoryid", nullable = false)
     private int id;
-    @Column
+    @Column(name = "description", nullable = false)
     private String description;
     @Column
     private String name;

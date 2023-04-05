@@ -26,6 +26,9 @@ public class Event {
     @Column(name = "time")
     private LocalDateTime dateAndTime;
 
+    @Column(name = "coordinates")
+    private short[] coordinates;
+
     @ManyToOne
     @JoinColumn(name = "fk_addressid")
     private Place place;
@@ -43,6 +46,14 @@ public class Event {
     }
 
     public Event() {
+    }
+
+    public short[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(short[] coordinates) {
+        this.coordinates = coordinates;
     }
 
     public long getId() {

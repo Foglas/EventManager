@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 public class UserDetails {
 
     @Id
-    @SequenceGenerator( name = "user_generator", sequenceName = "userdetails_pk_userdetailsid_seq", allocationSize = 1)
+    @SequenceGenerator( name = "userDetails_generator", sequenceName = "userdetails_pk_userdetailsid_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "user_generator")
+            generator = "userDetails_generator")
     @Column(name = "pk_userdetailsid")
     private long id;
 

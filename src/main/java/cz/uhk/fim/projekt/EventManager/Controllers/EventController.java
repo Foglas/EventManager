@@ -1,8 +1,10 @@
 package cz.uhk.fim.projekt.EventManager.Controllers;
 
+import cz.uhk.fim.projekt.EventManager.Domain.Comment;
 import cz.uhk.fim.projekt.EventManager.Domain.Event;
 import cz.uhk.fim.projekt.EventManager.Domain.Place;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
+import cz.uhk.fim.projekt.EventManager.service.CommentService;
 import cz.uhk.fim.projekt.EventManager.service.EventService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +23,18 @@ import java.util.Map;
 public class EventController {
 
     private EventService eventService;
+    private CommentService commentService;
 
     @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, CommentService commentService) {
         this.eventService = eventService;
+        this.commentService = commentService;
     }
 
-    @PostMapping(value = "/auth/organization/{id}/event/save")
+    @PostMapping(value = "/auth/event/organization/{id}/save")
     public ResponseEntity<?> save(@RequestBody Map<String,String> body,
-                                  @PathVariable("id") long organizationId) {
-       return eventService.save(body.get("description"), body.get("name"), LocalDateTime.parse(body.get("time")),Long.parseLong(body.get("placeId")),organizationId);
+                                  @PathVariable("id") long organizationId, HttpServletRequest request) {
+       return eventService.save(request,body.get("description"), body.get("name"), LocalDateTime.parse(body.get("time")),Long.parseLong(body.get("placeId")),organizationId);
     }
 
     @DeleteMapping("/auth/event/{id}/delete")
@@ -44,4 +48,11 @@ public class EventController {
     public ResponseEntity<?> attend(@RequestBody Map<String, String> body, @PathVariable("id") long id,  HttpServletRequest httpServletRequest) {
         return eventService.attend(body,id,httpServletRequest);
     }
+
+
+    @PostMapping("/auth/event/{id}/comment/save")
+    public ResponseEntity<?> save(HttpServletRequest request,@RequestBody Comment comment, @PathVariable("id") long id){
+        return commentService.save(request,comment, id);
+    }
+
 }

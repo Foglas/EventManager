@@ -3,6 +3,10 @@ package cz.uhk.fim.projekt.EventManager.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import java.util.Date;
+
+import cz.uhk.fim.projekt.EventManager.Domain.User;
+import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,5 +29,13 @@ public class JwtUtil {
       .build()
       .verify(token)
       .getSubject();
+  }
+
+  public User getUserFromRequest(HttpServletRequest request, UserRepo userRepo){
+    String token = request.getHeader("Authorization");
+    token = token.replace("Bearer ", "");
+
+    String email = getEmailFromToken(token);
+    return userRepo.findUserByEmailIgnoreCase(email);
   }
 }

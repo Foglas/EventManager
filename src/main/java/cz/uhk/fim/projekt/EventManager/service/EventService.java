@@ -2,6 +2,7 @@ package cz.uhk.fim.projekt.EventManager.service;
 
 import cz.uhk.fim.projekt.EventManager.Domain.*;
 import cz.uhk.fim.projekt.EventManager.dao.*;
+import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.EventSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
@@ -41,52 +42,80 @@ public class EventService {
         this.ticketRepo = ticketRepo;
     }
 
-    public ResponseEntity<?> save(String description, String name, LocalDateTime time, long placeId, long organizationId) {
-        ;
-        Optional<Place> place = placeRepo.findById(placeId);
+    public ResponseEntity<?> save(HttpServletRequest request, String description, String name, LocalDateTime time, long placeId, long organizationId) {
         Optional<Organization> organization = organizationRepo.findById(organizationId);
 
-
-        if (description == null) {
-            return ResponseHelper.errorMessage("null argument", "description is invalid");
-        }
-        if (name == null) {
-            return ResponseHelper.errorMessage("null argument", "name is invalid");
-        }
-        if (time == null) {
-            return ResponseHelper.errorMessage("null argument", "time is invalid");
-        }
-
-        if (!place.isPresent()) {
-            return ResponseHelper.errorMessage("Not found", "Address not found");
-        }
         if (!organization.isPresent()) {
-            return ResponseHelper.errorMessage("Not found", "Organization not found");
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Organization not found");
         }
 
+        Optional<Place> place = placeRepo.findById(placeId);
+        if (!place.isPresent()) {
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Address not found");
+        }
 
-        Event event = new Event(description, name, time, place.get(), organization.get());
-        eventRepo.save(event);
+        User user = jwtUtil.getUserFromRequest(request, userRepo);
 
-        return ResponseHelper.successMessage("Event added");
+        if (organizationRepo.isUserInOrganization(user.getId(), organizationId)) {
+            if (description == null) {
+                return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "description is invalid");
+            }
+            if (name == null) {
+                return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "name is invalid");
+            }
+            if (time == null) {
+                return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
+            }
+
+
+            Event event = new Event(description, name, time, place.get(), organization.get());
+            eventRepo.save(event);
+
+            return ResponseHelper.successMessage("Event added");
+        }
+
+/*
+        Set<User> userSet = organization.get().getUsers();
+        List<User> users = new ArrayList<>();
+
+        users.addAll(userSet);
+
+
+        for (User eachUser : users) {
+            if (eachUser.getId() == user.getId()) {
+                if (description == null) {
+                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "description is invalid");
+                }
+                if (name == null) {
+                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "name is invalid");
+                }
+                if (time == null) {
+                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
+                }
+
+
+                Event event = new Event(description, name, time, place.get(), organization.get());
+                eventRepo.save(event);
+
+                return ResponseHelper.successMessage("Event added");
+                }
+        }
+
+ */
+        return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to save event in this organization");
     }
 
     public ResponseEntity<?> attend(Map<String, String> body, long id, HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        token = token.replace("Bearer ", "");
-
-        String email = jwtUtil.getEmailFromToken(token);
-        User user = userRepo.findUserByEmailIgnoreCase(email);
-
+        User user = jwtUtil.getUserFromRequest(request, userRepo);
         Optional<Event> event = eventRepo.findById(id);
         if (!event.isPresent()) {
-            return ResponseHelper.errorMessage("invalid event", "event not found");
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "event not found");
         }
 
         String state = body.get("state");
 
         if (state == null) {
-            return ResponseHelper.errorMessage("invalid state", "state is null");
+            return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "state is null");
         }
 
         Ticket ticket = new Ticket(event.get(), user, state, LocalDateTime.now());
@@ -100,34 +129,20 @@ public class EventService {
         Optional<Event> event = eventRepo.findById(id);
 
         if (!event.isPresent()) {
-            return ResponseHelper.errorMessage("event null", "event not found");
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "event not found");
         }
 
         Organization organization = event.get().getOrganization();
-        System.out.println(organization);
 
-        String token = request.getHeader("Authorization").replace("Bearer ", "");
-        if (token == null) {
-            return ResponseHelper.errorMessage("no token", "no token");
+        User user = jwtUtil.getUserFromRequest(request, userRepo);
+
+        if (organizationRepo.isUserInOrganization(user.getId(), organization.getId())) {
+            eventRepo.deleteById(id);
+            return ResponseHelper.successMessage("event deleted");
+
         }
 
-        String email = jwtUtil.getEmailFromToken(token);
-
-        User user = userRepo.findUserByEmailIgnoreCase(email);
-
-        Set<User> userSet = organization.getUsers();
-        List<User> users = new ArrayList<>();
-
-        users.addAll(userSet);
-
-        for (User eachUser : users) {
-            if (eachUser.getId() == user.getId()) {
-                eventRepo.deleteById(id);
-                return ResponseHelper.successMessage("event deleted");
-            }
-        }
-        return ResponseHelper.errorMessage("no access", "user dont have access to delete event");
-
-
+        return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to delete event");
     }
+
 }
