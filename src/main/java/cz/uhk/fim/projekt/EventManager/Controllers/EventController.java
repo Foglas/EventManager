@@ -6,6 +6,7 @@ import cz.uhk.fim.projekt.EventManager.Domain.Place;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
 import cz.uhk.fim.projekt.EventManager.service.CommentService;
 import cz.uhk.fim.projekt.EventManager.service.EventService;
+import cz.uhk.fim.projekt.EventManager.views.EventView;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -34,8 +35,17 @@ public class EventController {
     @PostMapping(value = "/auth/event/organization/{id}/save")
     public ResponseEntity<?> save(@RequestBody Map<String,String> body,
                                   @PathVariable("id") long organizationId, HttpServletRequest request) {
-       return eventService.save(request,body.get("description"), body.get("name"), LocalDateTime.parse(body.get("time")),Long.parseLong(body.get("placeId")),organizationId);
+       return eventService.save(request,body.get("description"), body.get("name"), LocalDateTime.parse(body.get("time")),LocalDateTime.parse(body.get("endtime")),Long.parseLong(body.get("placeId")),organizationId);
     }
+
+
+    @GetMapping("events")
+    public List<EventView> getEvents(){
+      return eventService.getEvents();
+    }
+
+
+
 
     @DeleteMapping("/auth/event/{id}/delete")
     public ResponseEntity<?> delete(@PathVariable("id") long id, HttpServletRequest request){

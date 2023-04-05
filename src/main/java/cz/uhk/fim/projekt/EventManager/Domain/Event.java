@@ -26,8 +26,12 @@ public class Event {
     @Column(name = "time")
     private LocalDateTime dateAndTime;
 
+    @Column(name = "endtime")
+    private LocalDateTime endDateAndTime;
+
     @Column(name = "coordinates")
     private short[] coordinates;
+
 
     @ManyToOne
     @JoinColumn(name = "fk_addressid")
@@ -37,12 +41,13 @@ public class Event {
     private Organization organization;
 
 
-    public Event(String description, String name, LocalDateTime dateAndTime, Place place, Organization organization) {
+    public Event(String description, String name, LocalDateTime dateAndTime, Place place, Organization organization, LocalDateTime endDateAndTime) {
         this.description = description;
         this.name = name;
         this.dateAndTime = dateAndTime;
         this.organization = organization;
         this.place = place;
+        this.endDateAndTime = endDateAndTime;
     }
 
     public Event() {
@@ -54,6 +59,14 @@ public class Event {
 
     public void setCoordinates(short[] coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public LocalDateTime getEndDateAndTime() {
+        return endDateAndTime;
+    }
+
+    public void setEndDateAndTime(LocalDateTime endDateAndTime) {
+        this.endDateAndTime = endDateAndTime;
     }
 
     public long getId() {
