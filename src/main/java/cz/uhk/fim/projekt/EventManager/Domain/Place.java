@@ -24,6 +24,17 @@ public class Place {
     @Column(name = "street")
     private String street;
 
+    @Column(name = "bin")
+    private String bin;
+
+    public String getBin() {
+        return bin;
+    }
+
+    public void setBin(String bin) {
+        this.bin = bin;
+    }
+
     public void setDestrict(String destrict) {
         this.destrict = destrict;
     }

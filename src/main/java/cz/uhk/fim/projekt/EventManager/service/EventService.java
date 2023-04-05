@@ -2,10 +2,12 @@ package cz.uhk.fim.projekt.EventManager.service;
 
 import cz.uhk.fim.projekt.EventManager.Domain.*;
 import cz.uhk.fim.projekt.EventManager.dao.*;
+import cz.uhk.fim.projekt.EventManager.dao.readOnlyRepo.EventViewRepo;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.EventSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
+import cz.uhk.fim.projekt.EventManager.views.EventView;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.weaver.ResolvedPointcutDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +32,21 @@ public class EventService {
     private OrganizationRepo organizationRepo;
 
     private TicketRepo ticketRepo;
+    private EventViewRepo eventViewRepo;
     private JwtUtil jwtUtil;
 
     @Autowired
-    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo) {
+    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, EventViewRepo eventViewRepo) {
         this.eventRepo = eventRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
         this.organizationRepo = organizationRepo;
         this.placeRepo = placeRepo;
         this.ticketRepo = ticketRepo;
+        this.eventViewRepo = eventViewRepo;
     }
 
-    public ResponseEntity<?> save(HttpServletRequest request, String description, String name, LocalDateTime time, long placeId, long organizationId) {
+    public ResponseEntity<?> save(HttpServletRequest request, String description, String name, LocalDateTime time,LocalDateTime endTime , long placeId, long organizationId) {
         Optional<Organization> organization = organizationRepo.findById(organizationId);
 
         if (!organization.isPresent()) {
@@ -67,8 +71,7 @@ public class EventService {
                 return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
             }
 
-
-            Event event = new Event(description, name, time, place.get(), organization.get());
+            Event event = new Event(description, name, time, place.get(), organization.get(), endTime);
             eventRepo.save(event);
 
             return ResponseHelper.successMessage("Event added");
@@ -145,4 +148,7 @@ public class EventService {
         return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to delete event");
     }
 
+    public List<EventView> getEvents() {
+    return eventViewRepo.findAll();
+    }
 }

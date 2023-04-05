@@ -8,5 +8,5 @@ import java.util.List;
 
 @NoRepositoryBean
 public interface ReadOnlyRepo<T,Z> extends Repository<T,Z> {
-    List<UserView> findAll();
+    List<T> findAll();
 }
