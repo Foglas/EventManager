@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: cz.uhk.fim.projekt.EventManager.EventManagerApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.546 s - in cz.uhk.fim.projekt.EventManager.EventManagerApplicationTests
