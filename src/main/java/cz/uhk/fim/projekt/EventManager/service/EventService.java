@@ -149,6 +149,7 @@ public class EventService {
     }
 
     public List<EventView> getEvents() {
-    return eventViewRepo.findAll();
+        List<EventView> eventViews = eventViewRepo.findAll();
+    return eventViews;
     }
 }

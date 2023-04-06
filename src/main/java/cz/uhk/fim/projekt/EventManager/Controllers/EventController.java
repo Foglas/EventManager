@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class EventController {
 
@@ -39,9 +39,10 @@ public class EventController {
     }
 
 
-    @GetMapping("events")
+    @GetMapping(value = "/events")
     public List<EventView> getEvents(){
-      return eventService.getEvents();
+        List<EventView> eventViews = eventService.getEvents();
+      return eventViews;
     }
 
 
