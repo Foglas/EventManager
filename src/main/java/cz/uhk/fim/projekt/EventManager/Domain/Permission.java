@@ -12,13 +12,13 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "permission_generator")
     @Column(name = "pk_permissionid")
-    private int id;
+    private long id;
 
     @Column(name = "description")
     private String destricption;
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

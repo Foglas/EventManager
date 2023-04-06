@@ -46,7 +46,17 @@ public class EventService {
         this.eventViewRepo = eventViewRepo;
     }
 
-    public ResponseEntity<?> save(HttpServletRequest request, String description, String name, LocalDateTime time,LocalDateTime endTime , long placeId, long organizationId) {
+    public ResponseEntity<?> save(HttpServletRequest request, Map<String, String> body, long organizationId) {
+       String description = body.get("description");
+       String name = body.get("name");
+       LocalDateTime time = LocalDateTime.parse(body.get("time"));
+        LocalDateTime endTime = null;
+
+       if (body.get("endtime") != null) {
+        endTime = LocalDateTime.parse(body.get("endtime"));
+       }
+       long placeId = Long.parseLong(body.get("placeId"));
+
         Optional<Organization> organization = organizationRepo.findById(organizationId);
 
         if (!organization.isPresent()) {
@@ -77,34 +87,6 @@ public class EventService {
             return ResponseHelper.successMessage("Event added");
         }
 
-/*
-        Set<User> userSet = organization.get().getUsers();
-        List<User> users = new ArrayList<>();
-
-        users.addAll(userSet);
-
-
-        for (User eachUser : users) {
-            if (eachUser.getId() == user.getId()) {
-                if (description == null) {
-                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "description is invalid");
-                }
-                if (name == null) {
-                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "name is invalid");
-                }
-                if (time == null) {
-                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
-                }
-
-
-                Event event = new Event(description, name, time, place.get(), organization.get());
-                eventRepo.save(event);
-
-                return ResponseHelper.successMessage("Event added");
-                }
-        }
-
- */
         return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to save event in this organization");
     }
 

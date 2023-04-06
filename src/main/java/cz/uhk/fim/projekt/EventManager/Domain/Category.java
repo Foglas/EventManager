@@ -12,7 +12,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
     generator = "category_generator")
     @Column(name = "pk_categoryid", nullable = false)
-    private int id;
+    private long id;
     @Column(name = "description", nullable = false)
     private String description;
     @Column
@@ -25,7 +25,7 @@ public class Category {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

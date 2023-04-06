@@ -43,8 +43,6 @@ public class UserController {
     );
   }
 
-
-
   @GetMapping("/auth/admin/usersInfo")
   public List<UserView> getUsersInfo(){
     return userService.getUsersInfo();
@@ -55,5 +53,8 @@ public class UserController {
     return userService.save(requestBody);
   }
 
-
+  @DeleteMapping("/auth/user/{id}/delete")
+  public ResponseEntity<?> deleteUser(@PathVariable("id") long id, HttpServletRequest request){
+  return   userService.deleteUser(id, request);
+  }
 }

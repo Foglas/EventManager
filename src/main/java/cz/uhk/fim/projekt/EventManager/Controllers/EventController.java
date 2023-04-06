@@ -35,7 +35,7 @@ public class EventController {
     @PostMapping(value = "/auth/event/organization/{id}/save")
     public ResponseEntity<?> save(@RequestBody Map<String,String> body,
                                   @PathVariable("id") long organizationId, HttpServletRequest request) {
-       return eventService.save(request,body.get("description"), body.get("name"), LocalDateTime.parse(body.get("time")),LocalDateTime.parse(body.get("endtime")),Long.parseLong(body.get("placeId")),organizationId);
+       return eventService.save(request,body, organizationId);
     }
 
 

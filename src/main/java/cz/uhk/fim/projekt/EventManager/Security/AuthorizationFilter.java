@@ -88,7 +88,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                     chain.doFilter(request, response);
                 }
             } catch (Exception exception) {
+            exception.printStackTrace();
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
             }
 
         }

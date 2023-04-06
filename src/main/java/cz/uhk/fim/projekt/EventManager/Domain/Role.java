@@ -21,7 +21,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "role_generator")
     @Column(name = "pk_userroleid")
-    private int id;
+    private long id;
 
     @Column(name = "type")
     private String type;
@@ -40,7 +40,7 @@ public class Role {
         this.type = type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

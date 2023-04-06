@@ -1,7 +1,11 @@
 package cz.uhk.fim.projekt.EventManager.service;
 
+import cz.uhk.fim.projekt.EventManager.Domain.Event;
 import cz.uhk.fim.projekt.EventManager.Domain.Organization;
+import cz.uhk.fim.projekt.EventManager.Domain.Place;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
+import cz.uhk.fim.projekt.EventManager.dao.CommentRepo;
+import cz.uhk.fim.projekt.EventManager.dao.EventRepo;
 import cz.uhk.fim.projekt.EventManager.dao.OrganizationRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
@@ -9,29 +13,40 @@ import cz.uhk.fim.projekt.EventManager.service.serviceinf.OrganizationSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrganizationService implements OrganizationSerInf {
 
     private OrganizationRepo organizationRepo;
     private UserRepo userRepo;
+    private EventRepo eventRepo;
+
+    private CommentRepo commentRepo;
     private JwtUtil jwtUtil;
 
     @Autowired
     public OrganizationService(
             OrganizationRepo organizationRepo,
             JwtUtil jwtUtil,
-            UserRepo userRepo
+            UserRepo userRepo,
+            EventRepo eventRepo,
+            CommentRepo commentRepo
     ) {
         this.organizationRepo = organizationRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
+        this.eventRepo = eventRepo;
+        this.commentRepo = commentRepo;
     }
 
     public void saveOrganization(
@@ -88,5 +103,32 @@ public class OrganizationService implements OrganizationSerInf {
         List<User> userList = new ArrayList<>();
         userList.addAll(usersSet);
         return userList;
+    }
+
+    @Transactional
+    public ResponseEntity<?> deleteOrganization(long id, HttpServletRequest request) {
+    User user = jwtUtil.getUserFromRequest(request, userRepo);
+    if (!organizationRepo.isUserInOrganization(user.getId(), id)){
+        return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user cannot delete organization");
+    }
+    Optional<Organization> organization = organizationRepo.findById(id);
+    if (!organization.isPresent()){
+        return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "organization not found");
+    }
+
+    List<Long> eventsInOrg = organizationRepo.EventsInOrg(id);
+
+    commentRepo.deleteAll();
+    eventRepo.deleteAllByIdInBatch(eventsInOrg);
+      /* List<Event> events = new ArrayList<>();
+        for (Object[] objects: eventsInOrg) {
+            Timestamp timestamp1 = (Timestamp) objects[3];
+            LocalDateTime time = timestamp1.toLocalDateTime();
+            events.add(new Event(Long.valueOf((int)objects[0]),(String)objects[1],(String)objects[2],time,(Place)objects[5],(Organization)objects[6],(LocalDateTime) objects[4],(short[]) objects[7]));
+        }
+       */
+        //   organizationRepo.delete(organization.get());
+
+    return ResponseHelper.successMessage("Organization deleted");
     }
 }

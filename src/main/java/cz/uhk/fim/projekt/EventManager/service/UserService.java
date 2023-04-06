@@ -6,6 +6,7 @@ import cz.uhk.fim.projekt.EventManager.Domain.User;
 import cz.uhk.fim.projekt.EventManager.dao.RoleRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserDetailsRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
+import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.enums.Roles;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.UserServiceInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
@@ -16,7 +17,7 @@ import java.util.*;
 import cz.uhk.fim.projekt.EventManager.views.UserView;
 import cz.uhk.fim.projekt.EventManager.dao.readOnlyRepo.UserViewRepo;
 import jakarta.persistence.PersistenceContext;
-import org.hibernate.Hibernate;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -282,5 +283,19 @@ public class UserService implements UserServiceInf {
         List<Role> usersRoles = new ArrayList<>();
         usersRoles.addAll(roles);
         return usersRoles;
+    }
+
+
+    public ResponseEntity<?> deleteUser(long id, HttpServletRequest request) {
+       User user = userRepo.findById(id);
+        User userFromToken = jwtUtil.getUserFromRequest(request, userRepo);
+       if (user == null){
+        return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
+        } else if (user.getId() != userFromToken.getId()){
+           return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "you dont have access to delete user");
+       } else {
+           userRepo.delete(user);
+           return ResponseHelper.successMessage("user deleted");
+       }
     }
 }
