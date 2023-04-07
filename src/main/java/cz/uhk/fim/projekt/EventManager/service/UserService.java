@@ -133,7 +133,7 @@ public class UserService implements UserServiceInf {
             userDetailsRepo.save(user.getUserDetails());
 
             Set<Role> roles = new HashSet<>();
-            Optional<Role> role = roleRepo.findByType(Roles.USER.name());
+            Optional<Role> role = roleRepo.findByType(Roles.VIEWER.name());
 
             if (role.isPresent()) {
                 roles.add(role.get());

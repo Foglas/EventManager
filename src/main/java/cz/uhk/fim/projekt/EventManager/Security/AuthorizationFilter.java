@@ -89,27 +89,32 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                                 return;
                             }
                         }
-                    } else if (method.equals("POST")){
+                    }
+                    if (method.equals("POST")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.WRITE_ALL) {
                                 chain.doFilter(request, response);
                                 return;
                             }
                         }
-                    } else if(method.equals("DELETE")){
+                    }
+                    if(method.equals("DELETE")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.DELETE_ALL) {
                                 chain.doFilter(request, response);
                                 return;
                             }
                         }
-                    } else if (method.equals("UPDATE")){
+                    }
+                    if (method.equals("UPDATE")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.UPDATE_ALL) {
                                 chain.doFilter(request, response);
                                 return;
                             }
                         }
+                    } else {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     }
                 } else {
 
@@ -120,33 +125,36 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                                 return;
                             }
                         }
-                    } else if (method.equals("POST")){
+                    }
+                    if (method.equals("POST")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.WRITE) {
                                 chain.doFilter(request, response);
                                 return;
                             }
                         }
-                    } else if(method.equals("DELETE")){
+                    }
+                    if(method.equals("DELETE")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.DELETE) {
                                 chain.doFilter(request, response);
                                 return;
                             }
                         }
-                    } else if (method.equals("UPDATE")){
+                    } if (method.equals("UPDATE")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.UPDATE) {
                                 chain.doFilter(request, response);
                                 return;
                             }
                         }
+                    } else {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     }
                 }
             } catch (Exception exception) {
             exception.printStackTrace();
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
             }
 
         }
