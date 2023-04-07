@@ -44,8 +44,10 @@ public class EventController {
         List<EventView> eventViews = eventService.getEvents();
       return eventViews;
     }
-
-
+    @GetMapping("/events/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable("id") long id){
+        return eventService.getEventById(id);
+    }
 
 
     @DeleteMapping("/auth/event/{id}/delete")

@@ -30,8 +30,6 @@ public class OrganizationService implements OrganizationSerInf {
     private OrganizationRepo organizationRepo;
     private UserRepo userRepo;
     private EventRepo eventRepo;
-
-    private CommentRepo commentRepo;
     private JwtUtil jwtUtil;
 
     @Autowired
@@ -39,14 +37,12 @@ public class OrganizationService implements OrganizationSerInf {
             OrganizationRepo organizationRepo,
             JwtUtil jwtUtil,
             UserRepo userRepo,
-            EventRepo eventRepo,
-            CommentRepo commentRepo
+            EventRepo eventRepo
     ) {
         this.organizationRepo = organizationRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
         this.eventRepo = eventRepo;
-        this.commentRepo = commentRepo;
     }
 
     public void saveOrganization(
@@ -115,20 +111,7 @@ public class OrganizationService implements OrganizationSerInf {
     if (!organization.isPresent()){
         return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "organization not found");
     }
-
-    List<Long> eventsInOrg = organizationRepo.EventsInOrg(id);
-
-    commentRepo.deleteAll();
-    eventRepo.deleteAllByIdInBatch(eventsInOrg);
-      /* List<Event> events = new ArrayList<>();
-        for (Object[] objects: eventsInOrg) {
-            Timestamp timestamp1 = (Timestamp) objects[3];
-            LocalDateTime time = timestamp1.toLocalDateTime();
-            events.add(new Event(Long.valueOf((int)objects[0]),(String)objects[1],(String)objects[2],time,(Place)objects[5],(Organization)objects[6],(LocalDateTime) objects[4],(short[]) objects[7]));
-        }
-       */
-        //   organizationRepo.delete(organization.get());
-
+    organizationRepo.delete(organization.get());
     return ResponseHelper.successMessage("Organization deleted");
     }
 }

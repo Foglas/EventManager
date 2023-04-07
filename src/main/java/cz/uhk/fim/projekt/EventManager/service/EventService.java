@@ -134,4 +134,12 @@ public class EventService {
         List<EventView> eventViews = eventViewRepo.findAll();
     return eventViews;
     }
+
+    public ResponseEntity<Event> getEventById(long id) {
+        Optional<Event> event = eventRepo.findById(id);
+        if (!event.isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(event.get());
+    }
 }
