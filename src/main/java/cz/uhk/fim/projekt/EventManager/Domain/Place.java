@@ -13,7 +13,7 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "address_generator")
     @Column(name = "pk_addressid")
-    private int id;
+    private long id;
 
     @Column(name = "destrict")
     private String destrict;
@@ -51,7 +51,7 @@ public class Place {
         this.street = street;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

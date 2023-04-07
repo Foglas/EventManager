@@ -14,7 +14,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "ticket_generator")
     @Column(name = "pk_ticketid")
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "fk_eventid")
@@ -38,7 +38,10 @@ public class Ticket {
         this.createdAt = createdAt;
     }
 
-    public int getId() {
+    public Ticket() {
+    }
+
+    public long getId() {
         return id;
     }
 

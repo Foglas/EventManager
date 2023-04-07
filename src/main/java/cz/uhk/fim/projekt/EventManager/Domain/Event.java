@@ -1,6 +1,8 @@
 package cz.uhk.fim.projekt.EventManager.Domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -16,7 +18,7 @@ public class Event {
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "event_generator")
-    private int id;
+    private long id;
 
     @Column(name = "description")
     private String description;
@@ -26,16 +28,16 @@ public class Event {
     @Column(name = "time")
     private LocalDateTime dateAndTime;
 
-    @Column(name = "endtime")
+    @Column(name = "endtime",nullable = true)
     private LocalDateTime endDateAndTime;
 
     @Column(name = "coordinates")
     private short[] coordinates;
 
-
     @ManyToOne
     @JoinColumn(name = "fk_addressid")
     private Place place;
+
     @ManyToOne
     @JoinColumn(name = "fk_organizationid")
     private Organization organization;
@@ -48,6 +50,16 @@ public class Event {
         this.organization = organization;
         this.place = place;
         this.endDateAndTime = endDateAndTime;
+    }
+    public Event(long pk_eventid,String description, String name, LocalDateTime dateAndTime, Place place, Organization organization, LocalDateTime endDateAndTime, short[] coordinates) {
+        this.id = pk_eventid;
+        this.description = description;
+        this.name = name;
+        this.dateAndTime = dateAndTime;
+        this.organization = organization;
+        this.place = place;
+        this.endDateAndTime = endDateAndTime;
+        this.coordinates = coordinates;
     }
 
     public Event() {

@@ -1,14 +1,12 @@
 package cz.uhk.fim.projekt.EventManager.Controllers;
 
-import cz.uhk.fim.projekt.EventManager.Domain.Comment;
-import cz.uhk.fim.projekt.EventManager.Domain.Event;
-import cz.uhk.fim.projekt.EventManager.Domain.Place;
-import cz.uhk.fim.projekt.EventManager.Domain.User;
+import cz.uhk.fim.projekt.EventManager.Domain.*;
 import cz.uhk.fim.projekt.EventManager.service.CommentService;
 import cz.uhk.fim.projekt.EventManager.service.EventService;
 import cz.uhk.fim.projekt.EventManager.views.EventView;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.Media;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class EventController {
 
@@ -35,16 +35,19 @@ public class EventController {
     @PostMapping(value = "/auth/event/organization/{id}/save")
     public ResponseEntity<?> save(@RequestBody Map<String,String> body,
                                   @PathVariable("id") long organizationId, HttpServletRequest request) {
-       return eventService.save(request,body.get("description"), body.get("name"), LocalDateTime.parse(body.get("time")),LocalDateTime.parse(body.get("endtime")),Long.parseLong(body.get("placeId")),organizationId);
+       return eventService.save(request,body, organizationId);
     }
 
 
-    @GetMapping("events")
+    @GetMapping(value = "/events")
     public List<EventView> getEvents(){
-      return eventService.getEvents();
+        List<EventView> eventViews = eventService.getEvents();
+      return eventViews;
     }
-
-
+    @GetMapping("/events/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable("id") long id){
+        return eventService.getEventById(id);
+    }
 
 
     @DeleteMapping("/auth/event/{id}/delete")
@@ -59,10 +62,21 @@ public class EventController {
         return eventService.attend(body,id,httpServletRequest);
     }
 
+    @DeleteMapping("auth/event/{id}/cancelAttend")
+    public ResponseEntity<?> cancelAttend(@PathVariable("id") long id, HttpServletRequest request){
+     return eventService.cancelAttend(id, request);
+    }
+
 
     @PostMapping("/auth/event/{id}/comment/save")
     public ResponseEntity<?> save(HttpServletRequest request,@RequestBody Comment comment, @PathVariable("id") long id){
         return commentService.save(request,comment, id);
+    }
+
+    @GetMapping("/events/search")
+    public List<EventView> findEventByParameters(@RequestParam(name = "category", required = false) Optional<List<Long>> categoryid,
+                                             @RequestParam(name = "attendence", required = false) Optional<Long> sum){
+    return eventService.findEventByParameters(categoryid, sum);
     }
 
 }

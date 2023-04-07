@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cz.uhk.fim.projekt.EventManager.enums.Roles;
 import jakarta.persistence.*;
 import jakarta.transaction.TransactionScoped;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
@@ -21,7 +25,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "role_generator")
     @Column(name = "pk_userroleid")
-    private int id;
+    private long id;
 
     @Column(name = "type")
     private String type;
@@ -32,15 +36,36 @@ public class Role {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
 
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @ManyToMany()
+    @JoinTable(name = "userrolepermission",
+            joinColumns = {  @JoinColumn(name = "fk_userroleid", referencedColumnName = "pk_userroleid"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "fk_permissionid", referencedColumnName = "pk_permissionid")
+            }
+    )
+
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    private Set<Permission> permissions = new HashSet<>();
+
 
     public Role() {
+    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
     }
 
     public Role(String type) {
         this.type = type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

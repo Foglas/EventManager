@@ -28,6 +28,11 @@ public class OrganizationController {
         return organizationService.getOrganization(id);
     }
 
+    @DeleteMapping("/auth/organization/{id}/delete")
+    public ResponseEntity<?> deleteOrganization(@PathVariable("id") long id, HttpServletRequest request){
+        return organizationService.deleteOrganization(id, request);
+    }
+
     @GetMapping("organization/{id}/users")
     public List<User> getOrganizationUsers(@PathVariable("id") long id){
         return organizationService.getUsers(id);

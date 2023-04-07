@@ -14,7 +14,7 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "photo_generator")
     @Column(name = "pk_photoid")
-    private int id;
+    private long id;
 
     @Column(name = "modified")
     private LocalDateTime modified;

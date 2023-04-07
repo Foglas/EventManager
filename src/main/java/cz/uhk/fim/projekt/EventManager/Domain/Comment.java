@@ -13,7 +13,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "comment_generator")
     @Column(name = "pk_commentid")
-    private int id;
+    private long id;
     @Column(name = "comment")
     private String comment;
 
@@ -29,7 +29,7 @@ public class Comment {
     private User user;
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

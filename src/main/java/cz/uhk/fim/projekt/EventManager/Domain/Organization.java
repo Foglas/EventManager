@@ -15,7 +15,7 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "organization_generator")
     @Column(name = "pk_organizationid")
-    private int id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -52,7 +52,7 @@ public class Organization {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

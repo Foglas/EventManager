@@ -4,20 +4,15 @@ import cz.uhk.fim.projekt.EventManager.Domain.*;
 import cz.uhk.fim.projekt.EventManager.dao.*;
 import cz.uhk.fim.projekt.EventManager.dao.readOnlyRepo.EventViewRepo;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
-import cz.uhk.fim.projekt.EventManager.service.serviceinf.EventSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 import cz.uhk.fim.projekt.EventManager.views.EventView;
 import jakarta.servlet.http.HttpServletRequest;
-import org.aspectj.weaver.ResolvedPointcutDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.embedded.jetty.JettyWebServer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.lang.model.type.ErrorType;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -35,8 +30,9 @@ public class EventService {
     private EventViewRepo eventViewRepo;
     private JwtUtil jwtUtil;
 
+    private CustomQueryEvent customQueryEvent;
     @Autowired
-    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, EventViewRepo eventViewRepo) {
+    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, CustomQueryEvent customQueryEvent, EventViewRepo eventViewRepo) {
         this.eventRepo = eventRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
@@ -44,9 +40,20 @@ public class EventService {
         this.placeRepo = placeRepo;
         this.ticketRepo = ticketRepo;
         this.eventViewRepo = eventViewRepo;
+        this.customQueryEvent = customQueryEvent;
     }
 
-    public ResponseEntity<?> save(HttpServletRequest request, String description, String name, LocalDateTime time,LocalDateTime endTime , long placeId, long organizationId) {
+    public ResponseEntity<?> save(HttpServletRequest request, Map<String, String> body, long organizationId) {
+       String description = body.get("description");
+       String name = body.get("name");
+       LocalDateTime time = LocalDateTime.parse(body.get("time"));
+        LocalDateTime endTime = null;
+
+       if (body.get("endtime") != null) {
+        endTime = LocalDateTime.parse(body.get("endtime"));
+       }
+       long placeId = Long.parseLong(body.get("placeId"));
+
         Optional<Organization> organization = organizationRepo.findById(organizationId);
 
         if (!organization.isPresent()) {
@@ -77,42 +84,22 @@ public class EventService {
             return ResponseHelper.successMessage("Event added");
         }
 
-/*
-        Set<User> userSet = organization.get().getUsers();
-        List<User> users = new ArrayList<>();
-
-        users.addAll(userSet);
-
-
-        for (User eachUser : users) {
-            if (eachUser.getId() == user.getId()) {
-                if (description == null) {
-                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "description is invalid");
-                }
-                if (name == null) {
-                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "name is invalid");
-                }
-                if (time == null) {
-                    return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
-                }
-
-
-                Event event = new Event(description, name, time, place.get(), organization.get());
-                eventRepo.save(event);
-
-                return ResponseHelper.successMessage("Event added");
-                }
-        }
-
- */
         return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to save event in this organization");
     }
 
+    //TODO dodelat aby user nemohl mit dve prihlaseni
     public ResponseEntity<?> attend(Map<String, String> body, long id, HttpServletRequest request) {
         User user = jwtUtil.getUserFromRequest(request, userRepo);
         Optional<Event> event = eventRepo.findById(id);
+
         if (!event.isPresent()) {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "event not found");
+        }
+
+        Optional<Long> ticketid = ticketRepo.findTicketIdByUserId(user.getId(), id);
+
+        if (ticketid.isPresent()){
+            return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "User already have ticket on this event");
         }
 
         String state = body.get("state");
@@ -126,6 +113,8 @@ public class EventService {
 
         return ResponseHelper.successMessage("attended to event");
     }
+
+
 
 
     public ResponseEntity<?> delete(long id, HttpServletRequest request) {
@@ -149,6 +138,46 @@ public class EventService {
     }
 
     public List<EventView> getEvents() {
-    return eventViewRepo.findAll();
+        List<EventView> eventViews = eventViewRepo.findAll();
+    return eventViews;
+    }
+
+    public ResponseEntity<Event> getEventById(long id) {
+        Optional<Event> event = eventRepo.findById(id);
+        if (!event.isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(event.get());
+    }
+
+
+    public ResponseEntity<?> cancelAttend(long id, HttpServletRequest request) {
+        User user = jwtUtil.getUserFromRequest(request, userRepo);
+
+        Optional<Long> ticketid = ticketRepo.findTicketIdByUserId(user.getId(), id);
+        if (ticketid.isPresent()){
+            ticketRepo.deleteById(ticketid.get());
+            return ResponseHelper.successMessage("ticket canceled");
+        } else {
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "ticket not found");
+        }
+    }
+
+    public List<EventView> findEventByParameters(Optional<List<Long>> categoryidList, Optional<Long> sum) {
+        String query = "SELECT * FROM event_information WHERE ";
+        if (categoryidList.isPresent()){
+            for (int i = 0; i<categoryidList.get().size(); i++) {
+                long id = categoryidList.get().get(i);
+                if (i == 0) {
+                    query += "event_information.addressid = " + id + " ";
+                } else {
+                    query += "event_information.addressid = " + id + " ";
+                }
+            }
+        }
+        query+= ";";
+        System.out.println(query);
+        List<EventView> eventView = customQueryEvent.findEventByParameters(query);
+        return eventView;
     }
 }
