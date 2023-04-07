@@ -4,22 +4,15 @@ import cz.uhk.fim.projekt.EventManager.Domain.*;
 import cz.uhk.fim.projekt.EventManager.dao.*;
 import cz.uhk.fim.projekt.EventManager.dao.readOnlyRepo.EventViewRepo;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
-import cz.uhk.fim.projekt.EventManager.service.serviceinf.EventSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 import cz.uhk.fim.projekt.EventManager.views.EventView;
-import jakarta.servlet.annotation.ServletSecurity;
 import jakarta.servlet.http.HttpServletRequest;
-import org.aspectj.weaver.ResolvedPointcutDefinition;
-import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.embedded.jetty.JettyWebServer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.lang.model.type.ErrorType;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -37,8 +30,9 @@ public class EventService {
     private EventViewRepo eventViewRepo;
     private JwtUtil jwtUtil;
 
+    private CustomQueryEvent customQueryEvent;
     @Autowired
-    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, EventViewRepo eventViewRepo) {
+    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, CustomQueryEvent customQueryEvent, EventViewRepo eventViewRepo) {
         this.eventRepo = eventRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
@@ -46,6 +40,7 @@ public class EventService {
         this.placeRepo = placeRepo;
         this.ticketRepo = ticketRepo;
         this.eventViewRepo = eventViewRepo;
+        this.customQueryEvent = customQueryEvent;
     }
 
     public ResponseEntity<?> save(HttpServletRequest request, Map<String, String> body, long organizationId) {
@@ -166,5 +161,23 @@ public class EventService {
         } else {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "ticket not found");
         }
+    }
+
+    public List<EventView> findEventByParameters(Optional<List<Long>> categoryidList, Optional<Long> sum) {
+        String query = "SELECT * FROM event_information WHERE ";
+        if (categoryidList.isPresent()){
+            for (int i = 0; i<categoryidList.get().size(); i++) {
+                long id = categoryidList.get().get(i);
+                if (i == 0) {
+                    query += "event_information.addressid = " + id + " ";
+                } else {
+                    query += "event_information.addressid = " + id + " ";
+                }
+            }
+        }
+        query+= ";";
+        System.out.println(query);
+        List<EventView> eventView = customQueryEvent.findEventByParameters(query);
+        return eventView;
     }
 }
