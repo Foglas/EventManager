@@ -8,8 +8,10 @@ import cz.uhk.fim.projekt.EventManager.service.serviceinf.EventSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 import cz.uhk.fim.projekt.EventManager.views.EventView;
+import jakarta.servlet.annotation.ServletSecurity;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.weaver.ResolvedPointcutDefinition;
+import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.jetty.JettyWebServer;
 import org.springframework.http.HttpStatus;
@@ -90,11 +92,19 @@ public class EventService {
         return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to save event in this organization");
     }
 
+    //TODO dodelat aby user nemohl mit dve prihlaseni
     public ResponseEntity<?> attend(Map<String, String> body, long id, HttpServletRequest request) {
         User user = jwtUtil.getUserFromRequest(request, userRepo);
         Optional<Event> event = eventRepo.findById(id);
+
         if (!event.isPresent()) {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "event not found");
+        }
+
+        Optional<Long> ticketid = ticketRepo.findTicketIdByUserId(user.getId(), id);
+
+        if (ticketid.isPresent()){
+            return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "User already have ticket on this event");
         }
 
         String state = body.get("state");
@@ -108,6 +118,8 @@ public class EventService {
 
         return ResponseHelper.successMessage("attended to event");
     }
+
+
 
 
     public ResponseEntity<?> delete(long id, HttpServletRequest request) {
@@ -141,5 +153,18 @@ public class EventService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(event.get());
+    }
+
+
+    public ResponseEntity<?> cancelAttend(long id, HttpServletRequest request) {
+        User user = jwtUtil.getUserFromRequest(request, userRepo);
+
+        Optional<Long> ticketid = ticketRepo.findTicketIdByUserId(user.getId(), id);
+        if (ticketid.isPresent()){
+            ticketRepo.deleteById(ticketid.get());
+            return ResponseHelper.successMessage("ticket canceled");
+        } else {
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "ticket not found");
+        }
     }
 }

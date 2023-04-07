@@ -62,6 +62,11 @@ public class EventController {
         return eventService.attend(body,id,httpServletRequest);
     }
 
+    @DeleteMapping("auth/event/{id}/cancelAttend")
+    public ResponseEntity<?> cancelAttend(@PathVariable("id") long id, HttpServletRequest request){
+     return eventService.cancelAttend(id, request);
+    }
+
 
     @PostMapping("/auth/event/{id}/comment/save")
     public ResponseEntity<?> save(HttpServletRequest request,@RequestBody Comment comment, @PathVariable("id") long id){

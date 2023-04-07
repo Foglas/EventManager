@@ -38,6 +38,9 @@ public class Ticket {
         this.createdAt = createdAt;
     }
 
+    public Ticket() {
+    }
+
     public long getId() {
         return id;
     }
