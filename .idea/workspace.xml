@@ -5,21 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="init alex">
+      <change beforePath="$PROJECT_DIR$/.idea/EventManager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EventManager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EventManager-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EventManager-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/AuthenticationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/serviceinf/UserServiceInf.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-cz.uhk.fim.projekt.EventManager.EventManagerApplicationTests.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/cz.uhk.fim.projekt.EventManager.EventManagerApplicationTests.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/cz/uhk/fim/projekt/EventManager/EventManagerApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CommentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/EventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/EventController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/OrganizationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/OrganizationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/PlaceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/PlaceController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/RegistrationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Organization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Organization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Place.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Place.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/UserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/UserDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/EventConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/JwtAuthenticationFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/JwtAuthorizationFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/EventRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/EventRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/AuthenticationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CategoryService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/EventService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/OrganizationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/OrganizationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/PlaceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/PlaceService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/JwtUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/ResponseHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/ResponseHelper.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,13 +84,21 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.5678161&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;e92e4355fbc5fa667df8b35955fa6c03&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn compile" />
+      <command value="mvn package" />
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="EventManagerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="EventManager" />
@@ -96,6 +123,26 @@
       <workItem from="1680163128033" duration="962000" />
       <workItem from="1680164421752" duration="84000" />
       <workItem from="1680422244349" duration="583000" />
+      <workItem from="1680422849048" duration="1787000" />
+      <workItem from="1680424658630" duration="2531000" />
+      <workItem from="1680427222844" duration="775000" />
+      <workItem from="1680429784899" duration="1309000" />
+      <workItem from="1680431160643" duration="3562000" />
+      <workItem from="1680435879164" duration="944000" />
+      <workItem from="1680450056459" duration="3809000" />
+      <workItem from="1680508419412" duration="1412000" />
+      <workItem from="1680619093970" duration="95000" />
+      <workItem from="1680629564590" duration="613000" />
+      <workItem from="1680644003491" duration="1353000" />
+      <workItem from="1680675732730" duration="1676000" />
+      <workItem from="1680690094370" duration="781000" />
+      <workItem from="1680695024476" duration="1011000" />
+      <workItem from="1680720692386" duration="3296000" />
+      <workItem from="1680764551124" duration="2952000" />
+      <workItem from="1680770248879" duration="292000" />
+      <workItem from="1680799187355" duration="2531000" />
+      <workItem from="1680854847074" duration="2017000" />
+      <workItem from="1680890693909" duration="1230000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -104,7 +151,28 @@
       <option name="project" value="LOCAL" />
       <updated>1680162263116</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="init alex">
+      <created>1680422934334</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680422934335</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init alex">
+      <created>1680423002808</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680423002808</updated>
+    </task>
+    <task id="LOCAL-00004" summary="init alex">
+      <created>1680423026559</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680423026559</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,7 +189,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="123" />
+                        <option value="origin/Roles" />
                       </list>
                     </value>
                   </entry>
