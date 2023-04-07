@@ -79,4 +79,5 @@ public class EventController {
     return eventService.findEventByParameters(categoryid, sum);
     }
 
+
 }

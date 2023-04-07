@@ -5,45 +5,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="init alex">
-      <change beforePath="$PROJECT_DIR$/.idea/EventManager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EventManager.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/CategoryRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/CategoryRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CommentController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/EventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/EventController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/OrganizationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/OrganizationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/PlaceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/PlaceController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/RegistrationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Organization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Organization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Place.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Place.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/UserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/UserDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/EventConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/JwtAuthenticationFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/JwtAuthorizationFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/config/SecurityConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/EventRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/EventRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/AuthenticationService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CommentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/EventService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/OrganizationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/OrganizationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/PlaceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/PlaceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/JwtUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/ResponseHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/ResponseHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/EventController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/OrganizationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/PlaceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Category.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Comment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Event.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Organization.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Place.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/UserDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/EventManagerApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/CategoryRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/CommentRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/EventRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/PlaceRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserDetailsRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CategoryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CommentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CustomUserDetailsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/EventService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/OrganizationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/PlaceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/serviceinf/UserServiceInf.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/JwtUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/ResponseHelper.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -142,7 +155,8 @@
       <workItem from="1680770248879" duration="292000" />
       <workItem from="1680799187355" duration="2531000" />
       <workItem from="1680854847074" duration="2017000" />
-      <workItem from="1680890693909" duration="1230000" />
+      <workItem from="1680890693909" duration="1410000" />
+      <workItem from="1680893908487" duration="7886000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -172,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680423026559</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="init alex">
+      <created>1680893793399</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680893793399</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

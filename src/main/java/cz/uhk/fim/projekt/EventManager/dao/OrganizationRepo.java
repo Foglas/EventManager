@@ -22,5 +22,6 @@ public interface OrganizationRepo extends JpaRepository<Organization, Long> {
     @Procedure
     @Query(value = "SELECT pk_eventid FROM eventsinorg(?1)", nativeQuery = true)
     List<Long> EventsInOrg(long id);
+
 }
 
