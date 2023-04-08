@@ -2,11 +2,16 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-
-import java.sql.Timestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "event")
@@ -42,6 +47,19 @@ public class Event {
     @JoinColumn(name = "fk_organizationid")
     private Organization organization;
 
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @ManyToMany()
+    @JoinTable(name = "eventcategory",
+            joinColumns = {  @JoinColumn(name = "fk_eventid", referencedColumnName = "pk_eventid"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "fk_categoryid", referencedColumnName = "pk_categoryid")
+            }
+    )
+    private Set<Category> categories = new HashSet<>();
+
 
     public Event(String description, String name, LocalDateTime dateAndTime, Place place, Organization organization, LocalDateTime endDateAndTime) {
         this.description = description;
@@ -63,6 +81,14 @@ public class Event {
     }
 
     public Event() {
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public short[] getCoordinates() {

@@ -32,13 +32,14 @@ public class EventService {
 
     private OrganizationRepo organizationRepo;
 
+    private CategoryRepo categoryRepo;
     private TicketRepo ticketRepo;
     private EventViewRepo eventViewRepo;
     private JwtUtil jwtUtil;
 
     private CustomQueryEvent customQueryEvent;
     @Autowired
-    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, CustomQueryEvent customQueryEvent, EventViewRepo eventViewRepo) {
+    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, CustomQueryEvent customQueryEvent, EventViewRepo eventViewRepo, CategoryRepo categoryRepo) {
         this.eventRepo = eventRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
@@ -47,13 +48,14 @@ public class EventService {
         this.ticketRepo = ticketRepo;
         this.eventViewRepo = eventViewRepo;
         this.customQueryEvent = customQueryEvent;
+        this.categoryRepo = categoryRepo;
     }
 
     public ResponseEntity<?> save(HttpServletRequest request, Map<String, String> body, long organizationId) {
        String description = body.get("description");
        String name = body.get("name");
        LocalDateTime time = LocalDateTime.parse(body.get("time"));
-        LocalDateTime endTime = null;
+       LocalDateTime endTime = null;
 
        if (body.get("endtime") != null) {
         endTime = LocalDateTime.parse(body.get("endtime"));
@@ -70,6 +72,17 @@ public class EventService {
         if (!place.isPresent()) {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Address not found");
         }
+        String categoriesid = body.get("categoriesid");
+        String[] categoryid = categoriesid.split(",");
+        Set<Category> categories = new HashSet<>();
+        for (String stringCateid : categoryid ){
+            Optional<Category> category = categoryRepo.findById(Long.parseLong(stringCateid));
+            if (category.isPresent()){
+                categories.add(category.get());
+            } else {
+                return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "category not found");
+            }
+        }
 
         User user = jwtUtil.getUserFromRequest(request, userRepo);
 
@@ -85,6 +98,7 @@ public class EventService {
             }
 
             Event event = new Event(description, name, time, place.get(), organization.get(), endTime);
+            event.setCategories(categories);
             eventRepo.save(event);
 
             return ResponseHelper.successMessage("Event added");
@@ -241,4 +255,15 @@ public class EventService {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+
+    public ResponseEntity<?> getEventCategory(long id) {
+        Optional<Event> event = eventRepo.findById(id);
+        if (!event.isPresent()){
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "event not found");
+        }
+        Set<Category> categorySet = event.get().getCategories();
+        List<Category> categories = new ArrayList<>();
+        categories.addAll(categorySet);
+        return ResponseEntity.ok(categories);
+    }
 }

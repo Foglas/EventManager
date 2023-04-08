@@ -86,4 +86,10 @@ public class EventController {
         return eventService.getNumberOfPeopleOnEvent(id);
     }
 
+
+    @GetMapping("/event/{id}/category")
+    public ResponseEntity<?> getEventCategory(@PathVariable("id") long id){
+        return eventService.getEventCategory(id);
+    }
+
 }
