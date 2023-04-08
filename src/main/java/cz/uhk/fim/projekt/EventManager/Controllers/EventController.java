@@ -81,4 +81,9 @@ public class EventController {
     return eventService.findEventByParameters(region, destrict, time, city);
     }
 
+    @GetMapping("event/{id}/peoples")
+    public ResponseEntity<Long> getNumberOfPeopleOnEvent(@PathVariable("id") long id){
+        return eventService.getNumberOfPeopleOnEvent(id);
+    }
+
 }

@@ -175,7 +175,7 @@ public class EventService {
      * @param destrict okres
      * @param time cas zacatku
      * @param city mesto konani
-     * @return
+     * @return list EventView, ktere odpovida vyhledavacim parametrum
      */
     public List<EventView> findEventByParameters(Optional<String> region, Optional<String> destrict, Optional<LocalDateTime> time, Optional<String> city) {
         String query = "SELECT * FROM event_information WHERE";
@@ -234,4 +234,11 @@ public class EventService {
         List<EventView> eventView = customQueryEvent.findEventByParameters(query);
         return eventView;
     }
+
+    public ResponseEntity<Long> getNumberOfPeopleOnEvent(long id) {
+        if (eventRepo.existsById(id)) {
+            return ResponseEntity.ok((eventRepo.getNumberOfPeopleOnEvent(id)));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 }
