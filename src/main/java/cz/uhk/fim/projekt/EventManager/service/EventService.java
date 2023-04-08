@@ -13,7 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.Normalizer;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -163,18 +169,66 @@ public class EventService {
         }
     }
 
-    public List<EventView> findEventByParameters(Optional<List<Long>> categoryidList, Optional<Long> sum) {
-        String query = "SELECT * FROM event_information WHERE ";
-        if (categoryidList.isPresent()){
-            for (int i = 0; i<categoryidList.get().size(); i++) {
-                long id = categoryidList.get().get(i);
-                if (i == 0) {
-                    query += "event_information.addressid = " + id + " ";
-                } else {
-                    query += "event_information.addressid = " + id + " ";
-                }
+    /**
+     * Metoda tvori custom query pro vyhledavani v databazi
+     * @param region kraj
+     * @param destrict okres
+     * @param time cas zacatku
+     * @param city mesto konani
+     * @return
+     */
+    public List<EventView> findEventByParameters(Optional<String> region, Optional<String> destrict, Optional<LocalDateTime> time, Optional<String> city) {
+        String query = "SELECT * FROM event_information WHERE";
+        int count = 0;
+
+
+        if (region.isPresent()){
+            if (count==0){
+                query += " event_information.region = " + "'" + region.get() + "'";
+                count++;
+
+            }else {
+                query += " AND event_information.region = " + "'" + region.get() + "'";
+
             }
         }
+
+        Timestamp timestamp = null;
+        if (time.isPresent()){
+            timestamp =new Timestamp(time.get().toInstant(ZoneOffset.UTC).toEpochMilli());
+            if (count==0){
+                query += " " + "'"+ timestamp + "'"+ " <= event_information.time ";
+                count++;
+
+            }else {
+                query += " AND "  + "'"+timestamp  + "'"+  " <= event_information.time ";
+
+            }
+        }
+
+
+        if (destrict.isPresent()){
+            if (count==0){
+                query += " event_information.destrict = " + "'" + destrict.get() + "'";
+                count++;
+
+            }else {
+                query += " AND event_information.destrict = " + "'" + destrict.get() + "'";
+
+            }
+        }
+
+        if (city.isPresent()){
+            if (count==0){
+                query += " event_information.city = " + "'" + city.get() + "'";
+                count++;
+
+            }else {
+                query += " AND event_information.city = " + "'" + city.get() + "'";
+
+            }
+        }
+
         query+= ";";
         System.out.println(query);
         List<EventView> eventView = customQueryEvent.findEventByParameters(query);

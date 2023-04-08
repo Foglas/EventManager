@@ -74,9 +74,11 @@ public class EventController {
     }
 
     @GetMapping("/events/search")
-    public List<EventView> findEventByParameters(@RequestParam(name = "category", required = false) Optional<List<Long>> categoryid,
-                                             @RequestParam(name = "attendence", required = false) Optional<Long> sum){
-    return eventService.findEventByParameters(categoryid, sum);
+    public List<EventView> findEventByParameters(@RequestParam(name = "region", required = false) Optional<String> region,
+                                                 @RequestParam(name = "destrict", required = false) Optional<String> destrict,
+                                                 @RequestParam(name = "time", required = false) Optional<LocalDateTime> time,
+                                                 @RequestParam(name = "city", required = false) Optional<String> city){
+    return eventService.findEventByParameters(region, destrict, time, city);
     }
 
 }
