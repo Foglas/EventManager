@@ -67,10 +67,20 @@ public class User {
     public User() {
     }
 
+
+
     public User(String email, String username, String password) {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public void setUserWithoutIdAndPassword(User user) {
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.userDetails = user.getUserDetails();
+        this.organization = user.getOrganization();
+        this.roles = user.getRoles();
     }
 
     public long getId() {

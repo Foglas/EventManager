@@ -298,4 +298,21 @@ public class UserService implements UserServiceInf {
            return ResponseHelper.successMessage("user deleted");
        }
     }
+
+
+    public ResponseEntity<?> updateUser(User user, HttpServletRequest httpServletRequest){
+        User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest,userRepo);
+
+        if (user==null){
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
+        }
+
+
+
+        userFromToken.setUserWithoutIdAndPassword(user);
+
+        userRepo.save(userFromToken);
+
+        return ResponseHelper.successMessage("user updated");
+    }
 }
