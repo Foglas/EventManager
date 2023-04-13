@@ -37,11 +37,24 @@ public class EventView {
     @Column(name = "addressid")
     private int addressId;
 
+    @Column(name = "destrict")
+    private String destrict;
+    @Column(name = "region")
+    private String region;
+
     public EventView() {
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getDestrict() {
+        return destrict;
+    }
+
+    public String getRegion() {
+        return region;
     }
 
     public String getDescription() {

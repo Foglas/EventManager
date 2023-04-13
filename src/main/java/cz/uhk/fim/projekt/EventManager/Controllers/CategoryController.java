@@ -23,7 +23,7 @@ public class CategoryController {
         return categoryService.getCategory();
     }
 
-    @PostMapping(value = "auth/admin/category/save", consumes = "application/json")
+    @PostMapping( "auth/admin/category/save")
     public ResponseEntity<?> saveCategory(@RequestBody Category category){
        return categoryService.saveCategory(category);
     }

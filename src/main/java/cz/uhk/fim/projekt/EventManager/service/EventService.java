@@ -13,7 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.Normalizer;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -26,13 +32,14 @@ public class EventService {
 
     private OrganizationRepo organizationRepo;
 
+    private CategoryRepo categoryRepo;
     private TicketRepo ticketRepo;
     private EventViewRepo eventViewRepo;
     private JwtUtil jwtUtil;
 
     private CustomQueryEvent customQueryEvent;
     @Autowired
-    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, CustomQueryEvent customQueryEvent, EventViewRepo eventViewRepo) {
+    public EventService(EventRepo eventRepo, UserRepo userRepo, JwtUtil jwtUtil, PlaceRepo placeRepo, OrganizationRepo organizationRepo, TicketRepo ticketRepo, CustomQueryEvent customQueryEvent, EventViewRepo eventViewRepo, CategoryRepo categoryRepo) {
         this.eventRepo = eventRepo;
         this.userRepo = userRepo;
         this.jwtUtil = jwtUtil;
@@ -41,13 +48,14 @@ public class EventService {
         this.ticketRepo = ticketRepo;
         this.eventViewRepo = eventViewRepo;
         this.customQueryEvent = customQueryEvent;
+        this.categoryRepo = categoryRepo;
     }
 
     public ResponseEntity<?> save(HttpServletRequest request, Map<String, String> body, long organizationId) {
        String description = body.get("description");
        String name = body.get("name");
        LocalDateTime time = LocalDateTime.parse(body.get("time"));
-        LocalDateTime endTime = null;
+       LocalDateTime endTime = null;
 
        if (body.get("endtime") != null) {
         endTime = LocalDateTime.parse(body.get("endtime"));
@@ -64,6 +72,17 @@ public class EventService {
         if (!place.isPresent()) {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Address not found");
         }
+        String categoriesid = body.get("categoriesid");
+        String[] categoryid = categoriesid.split(",");
+        Set<Category> categories = new HashSet<>();
+        for (String stringCateid : categoryid ){
+            Optional<Category> category = categoryRepo.findById(Long.parseLong(stringCateid));
+            if (category.isPresent()){
+                categories.add(category.get());
+            } else {
+                return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "category not found");
+            }
+        }
 
         User user = jwtUtil.getUserFromRequest(request, userRepo);
 
@@ -79,6 +98,7 @@ public class EventService {
             }
 
             Event event = new Event(description, name, time, place.get(), organization.get(), endTime);
+            event.setCategories(categories);
             eventRepo.save(event);
 
             return ResponseHelper.successMessage("Event added");
@@ -163,21 +183,87 @@ public class EventService {
         }
     }
 
-    public List<EventView> findEventByParameters(Optional<List<Long>> categoryidList, Optional<Long> sum) {
-        String query = "SELECT * FROM event_information WHERE ";
-        if (categoryidList.isPresent()){
-            for (int i = 0; i<categoryidList.get().size(); i++) {
-                long id = categoryidList.get().get(i);
-                if (i == 0) {
-                    query += "event_information.addressid = " + id + " ";
-                } else {
-                    query += "event_information.addressid = " + id + " ";
-                }
+    /**
+     * Metoda tvori custom query pro vyhledavani v databazi
+     * @param region kraj
+     * @param destrict okres
+     * @param time cas zacatku
+     * @param city mesto konani
+     * @return list EventView, ktere odpovida vyhledavacim parametrum
+     */
+    public List<EventView> findEventByParameters(Optional<String> region, Optional<String> destrict, Optional<LocalDateTime> time, Optional<String> city) {
+        String query = "SELECT * FROM event_information WHERE";
+        int count = 0;
+
+
+        if (region.isPresent()){
+            if (count==0){
+                query += " event_information.region = " + "'" + region.get() + "'";
+                count++;
+
+            }else {
+                query += " AND event_information.region = " + "'" + region.get() + "'";
+
             }
         }
+
+        Timestamp timestamp = null;
+        if (time.isPresent()){
+            timestamp =new Timestamp(time.get().toInstant(ZoneOffset.UTC).toEpochMilli());
+            if (count==0){
+                query += " " + "'"+ timestamp + "'"+ " <= event_information.time ";
+                count++;
+
+            }else {
+                query += " AND "  + "'"+timestamp  + "'"+  " <= event_information.time ";
+
+            }
+        }
+
+
+        if (destrict.isPresent()){
+            if (count==0){
+                query += " event_information.destrict = " + "'" + destrict.get() + "'";
+                count++;
+
+            }else {
+                query += " AND event_information.destrict = " + "'" + destrict.get() + "'";
+
+            }
+        }
+
+        if (city.isPresent()){
+            if (count==0){
+                query += " event_information.city = " + "'" + city.get() + "'";
+                count++;
+
+            }else {
+                query += " AND event_information.city = " + "'" + city.get() + "'";
+
+            }
+        }
+
         query+= ";";
         System.out.println(query);
         List<EventView> eventView = customQueryEvent.findEventByParameters(query);
         return eventView;
+    }
+
+    public ResponseEntity<Long> getNumberOfPeopleOnEvent(long id) {
+        if (eventRepo.existsById(id)) {
+            return ResponseEntity.ok((eventRepo.getNumberOfPeopleOnEvent(id)));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+    public ResponseEntity<?> getEventCategory(long id) {
+        Optional<Event> event = eventRepo.findById(id);
+        if (!event.isPresent()){
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "event not found");
+        }
+        Set<Category> categorySet = event.get().getCategories();
+        List<Category> categories = new ArrayList<>();
+        categories.addAll(categorySet);
+        return ResponseEntity.ok(categories);
     }
 }
