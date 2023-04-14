@@ -75,14 +75,6 @@ public class User {
         this.password = password;
     }
 
-    public void setUserWithoutIdAndPassword(User user) {
-        this.email = user.getEmail();
-        this.username = user.getUsername();
-        this.userDetails = user.getUserDetails();
-        this.organization = user.getOrganization();
-        this.roles = user.getRoles();
-    }
-
     public long getId() {
         return id;
     }

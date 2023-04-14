@@ -12,6 +12,7 @@ import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.OrganizationSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
+import cz.uhk.fim.projekt.EventManager.views.EventView;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.sql.Timestamp;
@@ -113,5 +114,16 @@ public class OrganizationService implements OrganizationSerInf {
     }
     organizationRepo.delete(organization.get());
     return ResponseHelper.successMessage("Organization deleted");
+    }
+
+    @Transactional
+    public ResponseEntity<?> findEventByOrg(long id) {
+        if (!organizationRepo.existsById(id)){
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "organizaition not found");
+        }
+        List<Long> eventsId = organizationRepo.EventsInOrg(id);
+        List<Event> events = eventRepo.findAllById(eventsId);
+        return ResponseEntity.ok().body(events);
+
     }
 }

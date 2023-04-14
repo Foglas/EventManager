@@ -1,5 +1,6 @@
 package cz.uhk.fim.projekt.EventManager.Controllers;
 
+import cz.uhk.fim.projekt.EventManager.Domain.Event;
 import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
 import cz.uhk.fim.projekt.EventManager.service.OrganizationService;
@@ -47,6 +48,11 @@ public class OrganizationController {
     @PostMapping("/auth/organization/save")
     public void save(@RequestBody Organization organization, HttpServletRequest request){
         organizationService.saveOrganization(organization, request);
+    }
+
+    @GetMapping("organization/{id}/events")
+    public ResponseEntity<?> findEventsByOrg(@PathVariable("id") long id){
+     return    organizationService.findEventByOrg(id);
     }
 
 

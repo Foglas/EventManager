@@ -6,13 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
 public interface EventRepo extends JpaRepository<Event, Long> {
-    Optional<Event> findEventByOrganizationId(Long id);
 
     @Query(value = "SELECT numberofpeopleonevent(?1)", nativeQuery = true)
     Long getNumberOfPeopleOnEvent(long id);
+
+    @Query(value = "SELECT eventsandattendance(?1)", nativeQuery = true)
+    List<String> getEventNameByAttendence(int id);
 
 }

@@ -2,6 +2,7 @@ package cz.uhk.fim.projekt.EventManager.dao;
 
 import cz.uhk.fim.projekt.EventManager.Domain.Event;
 import cz.uhk.fim.projekt.EventManager.Domain.Organization;
+import cz.uhk.fim.projekt.EventManager.views.EventView;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,8 +20,8 @@ public interface OrganizationRepo extends JpaRepository<Organization, Long> {
     boolean isUserInOrganization(long userId, long organizationId);
 
     // new Event(pk_userid, description, name, time, endtime, coordinates, fk_addressid, fk_organizationid) FROM
-    @Procedure
-    @Query(value = "SELECT pk_eventid FROM eventsinorg(?1)", nativeQuery = true)
+
+    @Query(value = "SELECT eventsinorg(?1)", nativeQuery = true)
     List<Long> EventsInOrg(long id);
 }
 

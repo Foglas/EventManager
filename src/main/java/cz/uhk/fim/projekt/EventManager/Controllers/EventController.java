@@ -92,4 +92,9 @@ public class EventController {
         return eventService.getEventCategory(id);
     }
 
+
+    @GetMapping("events/attendence")
+    public ResponseEntity<?> getEventByAttendence(@RequestParam("number") String number){
+        return eventService.getEventByAttendence(number);
+    }
 }

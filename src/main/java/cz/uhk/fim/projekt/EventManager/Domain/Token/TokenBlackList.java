@@ -18,6 +18,13 @@ public class TokenBlackList {
     @Column(name = "token")
     private String token;
 
+    public TokenBlackList(){
+
+    }
+
+    public TokenBlackList(String token){
+        this.token = token;
+    }
     public void setToken(String token) {
         this.token = token;
     }

@@ -2,8 +2,10 @@ package cz.uhk.fim.projekt.EventManager.service;
 
 import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.Domain.Role;
+import cz.uhk.fim.projekt.EventManager.Domain.Token.TokenBlackList;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
 import cz.uhk.fim.projekt.EventManager.dao.RoleRepo;
+import cz.uhk.fim.projekt.EventManager.dao.TokenBlackListRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserDetailsRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
@@ -12,6 +14,7 @@ import cz.uhk.fim.projekt.EventManager.service.serviceinf.UserServiceInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import cz.uhk.fim.projekt.EventManager.views.UserView;
@@ -24,6 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class UserService implements UserServiceInf {
@@ -41,13 +45,16 @@ public class UserService implements UserServiceInf {
 
     private UserViewRepo userViewRepo;
 
+    private TokenBlackListRepo tokenBlackListRepo;
+
     @Autowired
     public UserService(
             JwtUtil jwtUtil,
             UserRepo userRepo,
             UserDetailsRepo userDetailsRepo,
             UserViewRepo userViewRepo,
-            RoleRepo roleRepo
+            RoleRepo roleRepo,
+            TokenBlackListRepo blackListRepo
     ) {
         this.jwtUtil = jwtUtil;
         this.userRepo = userRepo;
@@ -55,6 +62,7 @@ public class UserService implements UserServiceInf {
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.userViewRepo = userViewRepo;
         this.roleRepo = roleRepo;
+        this.tokenBlackListRepo = blackListRepo;
     }
 
     public Optional<User> findUserByID(Long id) {
@@ -300,19 +308,75 @@ public class UserService implements UserServiceInf {
     }
 
 
-    public ResponseEntity<?> updateUser(User user, HttpServletRequest httpServletRequest){
+    public ResponseEntity<?> updateUser(Map<String, String> user, HttpServletRequest httpServletRequest){
         User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest,userRepo);
+
+        String username = user.get("username");
+        String email = user.get("email");
+        String phone = user.get("phone");
+        String surname = user.get("surname");
+        String dateOfBirth = user.get("dateOfBirth");
+        String name = user.get("name");
+        LocalDate localDateOfBirth = LocalDate.parse(dateOfBirth);
 
         if (user==null){
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
         }
 
 
+        userRepo.updateUser(userFromToken.getUserDetails().getId(),email,username,localDateOfBirth,name ,phone,surname);
 
-        userFromToken.setUserWithoutIdAndPassword(user);
-
-        userRepo.save(userFromToken);
-
-        return ResponseHelper.successMessage("user updated");
+        return ResponseHelper.successMessage(jwtUtil.generateToken(email));
     }
+
+    public ResponseEntity<?> updatePassword(Map<String, String> body, HttpServletRequest httpServletRequest){
+       User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest,userRepo);
+
+        String oldPassword = body.get("oldPassword");
+        if (oldPassword == null){
+            return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null old password");
+        }
+
+        if (!passwordEncoder.matches(oldPassword, userFromToken.getPassword())){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "old password is incorrect");
+        }
+
+       String password = body.get("password");
+       if (password == null){
+           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null password");
+       }
+        String password2 = body.get("password2");
+       if (password2 == null){
+           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null second password");
+       }
+
+       if (password.equals(userFromToken.getPassword())){
+           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "new and old password are same");
+       }
+
+       if (!password.equals(password2)){
+           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "passwords is not same");
+       }
+
+       userRepo.updatePassword(userFromToken.getId(), userFromToken.getPassword(), passwordEncoder.encode(password));
+        return ResponseHelper.successMessage("password changed");
+    }
+
+    public ResponseEntity<?> logout(HttpServletRequest request){
+         String header = request.getHeader("Authorization");
+         String token = header.replace("Bearer ", "");
+
+         TokenBlackList tokenBlackList = new TokenBlackList(token);
+         tokenBlackListRepo.save(tokenBlackList);
+         return ResponseHelper.successMessage("logout");
+    }
+
+    public boolean existsTokenInBlackList(String token){
+        if (tokenBlackListRepo.existsInBlackListByToken(token).isPresent()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

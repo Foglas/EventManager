@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -56,5 +57,20 @@ public class UserController {
   @DeleteMapping("/auth/user/{id}/delete")
   public ResponseEntity<?> deleteUser(@PathVariable("id") long id, HttpServletRequest request){
   return   userService.deleteUser(id, request);
+  }
+
+  @PostMapping("/auth/user/update")
+  public ResponseEntity<?> updateUser(@RequestBody Map<String, String> body, HttpServletRequest httpServletRequest){
+   return userService.updateUser(body, httpServletRequest);
+  }
+
+  @PostMapping("/auth/user/resetPassword")
+  public ResponseEntity<?> updatePassword(@RequestBody Map<String, String> body, HttpServletRequest httpServletRequest){
+    return userService.updatePassword(body, httpServletRequest);
+  }
+
+  @PostMapping("/auth/user/logout")
+  public ResponseEntity<?> logout(HttpServletRequest httpServletRequest){
+    return userService.logout(httpServletRequest);
   }
 }

@@ -56,6 +56,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
 
         } else { //potrebuje autorizaci tokenu
+
             try {
                 String header = request.getHeader("Authorization");
 
@@ -64,7 +65,13 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                     return;
                 }
 
+
                 String token = header.replace("Bearer ", "");
+                if (userService.existsTokenInBlackList(token)){
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+
                 String email = jwtUtil.getEmailFromToken(token);
 
                 User user = userService.findUserByEmail(email);

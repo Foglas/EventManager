@@ -266,4 +266,13 @@ public class EventService {
         categories.addAll(categorySet);
         return ResponseEntity.ok(categories);
     }
+
+    public ResponseEntity<?> getEventByAttendence(String number) {
+        if (number == null){
+            return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "number is null");
+        }
+        int intNumber = Integer.parseInt(number);
+        List< String> eventsname = eventRepo.getEventNameByAttendence(intNumber);
+        return ResponseEntity.ok(eventsname);
+    }
 }
