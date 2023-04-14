@@ -4,47 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="init alex">
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="LOGIN AND REGISTRATION">
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/RegistrationBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginApp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/CategoryRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/CategoryRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/AuthController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/CategoryController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/EventController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/OrganizationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/PlaceController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Controllers/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Category.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Comment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Event.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Organization.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/Place.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/Domain/UserDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/EventManagerApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/CategoryRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/CommentRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/EventRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/OrganizationRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/PlaceRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserDetailsRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/dao/UserRepo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CategoryService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CommentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/CustomUserDetailsService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/EventService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/OrganizationService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/PlaceService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/service/serviceinf/UserServiceInf.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/JwtUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/uhk/fim/projekt/EventManager/util/ResponseHelper.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +61,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/alexz/Downloads/EventManager-IDK&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/alexz/OneDrive - Univerzita Hradec Králové/Plocha/DBS PROJECT/EventManager&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -156,7 +126,14 @@
       <workItem from="1680799187355" duration="2531000" />
       <workItem from="1680854847074" duration="2017000" />
       <workItem from="1680890693909" duration="1410000" />
-      <workItem from="1680893908487" duration="7886000" />
+      <workItem from="1680893908487" duration="7962000" />
+      <workItem from="1680934550668" duration="88000" />
+      <workItem from="1680966914076" duration="102000" />
+      <workItem from="1681370271354" duration="606000" />
+      <workItem from="1681405189347" duration="35000" />
+      <workItem from="1681405373522" duration="381000" />
+      <workItem from="1681408478472" duration="3495000" />
+      <workItem from="1681478143591" duration="4133000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -193,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680893793399</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="getcategoryfromevent">
+      <created>1680901907198</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680901907198</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,7 +194,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/Roles" />
+                        <option value="origin/IDK" />
                       </list>
                     </value>
                   </entry>
@@ -224,6 +208,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init alex" />
-    <option name="LAST_COMMIT_MESSAGE" value="init alex" />
+    <MESSAGE value="getcategoryfromevent" />
+    <MESSAGE value="LOGIN AND REGISTRATION" />
+    <option name="LAST_COMMIT_MESSAGE" value="LOGIN AND REGISTRATION" />
   </component>
 </project>
