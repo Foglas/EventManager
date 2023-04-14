@@ -1,5 +1,5 @@
-import { getDefaultNormalizer } from "@testing-library/react";
-import React, { useDebugValue, useEffect, useState } from "react";
+
+import React, {useEffect, useState } from "react";
 
 
 
@@ -19,7 +19,6 @@ function GetEvent ()  {
         }).catch((error) => console.log(error))
     }, [])
 
-    var place = data.place;
 
     return (
     <div className="hadding"> 
@@ -55,7 +54,7 @@ const Login = () => {
         console.log(user.body);
         fetch('http://localhost:8080/api/user/register', user)
        .then((response) => {
-       if (response.status == 200){
+       if (response.status === 200){
         console.log('3sdhsdh');
         return response.json();
        } else{

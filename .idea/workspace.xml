@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="LOGIN AND REGISTRATION">
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/RegistrationBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginApp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package.json" afterDir="false" />
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="LOGIN AND REGISTRATION 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +126,10 @@
       <workItem from="1681405189347" duration="35000" />
       <workItem from="1681405373522" duration="381000" />
       <workItem from="1681408478472" duration="3495000" />
-      <workItem from="1681478143591" duration="4133000" />
+      <workItem from="1681478143591" duration="4409000" />
+      <workItem from="1681496446604" duration="128000" />
+      <workItem from="1681502966366" duration="4946000" />
+      <workItem from="1681628288799" duration="18000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -177,7 +173,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680901907198</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="LOGIN AND REGISTRATION">
+      <created>1681486288850</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681486288850</updated>
+    </task>
+    <task id="LOCAL-00008" summary="LOGIN AND REGISTRATION 2">
+      <created>1681504896799</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681504896799</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,6 +220,7 @@
     <MESSAGE value="init alex" />
     <MESSAGE value="getcategoryfromevent" />
     <MESSAGE value="LOGIN AND REGISTRATION" />
-    <option name="LAST_COMMIT_MESSAGE" value="LOGIN AND REGISTRATION" />
+    <MESSAGE value="LOGIN AND REGISTRATION 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="LOGIN AND REGISTRATION 2" />
   </component>
 </project>
