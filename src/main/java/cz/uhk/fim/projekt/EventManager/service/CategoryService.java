@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,6 +33,11 @@ public class CategoryService {
         List<Category> categoryList = categoryRepo.findAll();
         return categoryList;
     }
+    public List <Category>getCategoryFromID(long id){
+        List<Category> categoryList = categoryRepo.findAllById(Collections.singleton(id));
+        return categoryList;
+    }
+
 
 
     /**

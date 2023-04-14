@@ -23,5 +23,6 @@ public interface OrganizationRepo extends JpaRepository<Organization, Long> {
 
     @Query(value = "SELECT eventsinorg(?1)", nativeQuery = true)
     List<Long> EventsInOrg(long id);
+
 }
 

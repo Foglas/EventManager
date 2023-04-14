@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="LOGIN AND REGISTRATION">
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/RegistrationBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginApp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2NY55qPeR5XM29LiJo6WGlMB894" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/alexz/OneDrive - Univerzita Hradec Králové/Plocha/DBS PROJECT/EventManager&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.5678161&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;e92e4355fbc5fa667df8b35955fa6c03&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn compile" />
+      <command value="mvn package" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="EventManagerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="EventManager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="cz.uhk.fim.projekt.EventManager.EventManagerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="" />
+      <created>1679827995639</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679827995639</updated>
+      <workItem from="1679827998571" duration="843000" />
+      <workItem from="1679854093992" duration="2035000" />
+      <workItem from="1680159978502" duration="714000" />
+      <workItem from="1680160712073" duration="2309000" />
+      <workItem from="1680163128033" duration="962000" />
+      <workItem from="1680164421752" duration="84000" />
+      <workItem from="1680422244349" duration="583000" />
+      <workItem from="1680422849048" duration="1787000" />
+      <workItem from="1680424658630" duration="2531000" />
+      <workItem from="1680427222844" duration="775000" />
+      <workItem from="1680429784899" duration="1309000" />
+      <workItem from="1680431160643" duration="3562000" />
+      <workItem from="1680435879164" duration="944000" />
+      <workItem from="1680450056459" duration="3809000" />
+      <workItem from="1680508419412" duration="1412000" />
+      <workItem from="1680619093970" duration="95000" />
+      <workItem from="1680629564590" duration="613000" />
+      <workItem from="1680644003491" duration="1353000" />
+      <workItem from="1680675732730" duration="1676000" />
+      <workItem from="1680690094370" duration="781000" />
+      <workItem from="1680695024476" duration="1011000" />
+      <workItem from="1680720692386" duration="3296000" />
+      <workItem from="1680764551124" duration="2952000" />
+      <workItem from="1680770248879" duration="292000" />
+      <workItem from="1680799187355" duration="2531000" />
+      <workItem from="1680854847074" duration="2017000" />
+      <workItem from="1680890693909" duration="1410000" />
+      <workItem from="1680893908487" duration="7962000" />
+      <workItem from="1680934550668" duration="88000" />
+      <workItem from="1680966914076" duration="102000" />
+      <workItem from="1681370271354" duration="606000" />
+      <workItem from="1681405189347" duration="35000" />
+      <workItem from="1681405373522" duration="381000" />
+      <workItem from="1681408478472" duration="3495000" />
+      <workItem from="1681478143591" duration="4133000" />
+    </task>
+    <task id="LOCAL-00001" summary="init alex">
+      <created>1680162263116</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680162263116</updated>
+    </task>
+    <task id="LOCAL-00002" summary="init alex">
+      <created>1680422934334</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680422934335</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init alex">
+      <created>1680423002808</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680423002808</updated>
+    </task>
+    <task id="LOCAL-00004" summary="init alex">
+      <created>1680423026559</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680423026559</updated>
+    </task>
+    <task id="LOCAL-00005" summary="init alex">
+      <created>1680893793399</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680893793399</updated>
+    </task>
+    <task id="LOCAL-00006" summary="getcategoryfromevent">
+      <created>1680901907198</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680901907198</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/IDK" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init alex" />
+    <MESSAGE value="getcategoryfromevent" />
+    <MESSAGE value="LOGIN AND REGISTRATION" />
+    <option name="LAST_COMMIT_MESSAGE" value="LOGIN AND REGISTRATION" />
+  </component>
+</project>

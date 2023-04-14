@@ -33,4 +33,10 @@ public class CategoryController {
         return categoryService.deleteCategory(id);
     }
 
+    @GetMapping("/auth/admin/getcategoryfromevent/{id}")
+    public List<Category> getcategoriesfromevent(@PathVariable("id") Long id) {
+        return categoryService.getCategoryFromID(id);
+
+    }
+
 }
