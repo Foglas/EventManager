@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
-import Login from "./login";
+import LoginPage from "./loginPage";
 
  const page = ReactDOM.createRoot(document.getElementById('root'));
 
- page.render(<Login/>);
+ page.render(<LoginPage/>);

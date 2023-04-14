@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="LOGIN AND REGISTRATION">
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/RegistrationBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginApp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginApp.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +128,9 @@
       <workItem from="1681405189347" duration="35000" />
       <workItem from="1681405373522" duration="381000" />
       <workItem from="1681408478472" duration="3495000" />
-      <workItem from="1681478143591" duration="4133000" />
+      <workItem from="1681478143591" duration="4409000" />
+      <workItem from="1681496446604" duration="128000" />
+      <workItem from="1681502966366" duration="1695000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -177,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680901907198</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="LOGIN AND REGISTRATION">
+      <created>1681486288850</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681486288850</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +198,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/IDK" />
+                        <option value="123" />
                       </list>
                     </value>
                   </entry>
