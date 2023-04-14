@@ -32,7 +32,6 @@ function GetEvent ()  {
 const Login = () => {
     const [message, setMessage] = useState('');
 
-
     useEffect(() => {
         const user = {
             method: "POST",
@@ -41,8 +40,8 @@ const Login = () => {
                 'Content-Type' : 'application/json'
             },
             body : JSON.stringify({
-                email : 'react13@dns.cz',
-                username : 'react13',
+                email : 'react34@dns.cz',
+                username : 'react34',
                 password : 'password1',
                 passwordAgain: 'password1',
                 userDetails:{
@@ -56,23 +55,24 @@ const Login = () => {
         console.log(user.body);
         fetch('http://localhost:8080/api/user/register', user)
        .then((response) => {
-       if (response.status = 200){
-        response.json();
+       if (response.status == 200){
         console.log('3sdhsdh');
+        return response.json();
        } else{
        throw response
        }
     })
-  //     .then((response) =>    
-//        console.log(response.message))
-       .then((data) => {setMessage('messageeeeeees')})
+       .then((response) => {   
+        console.log(response.message);
+        return response})
+       .then((response) => {setMessage(response.message)})
        .catch((error) => console.log(error))
 }, [])
 
     return (
     <div className="hadding"> 
     <h1>message</h1>
-    <p>{message.message}</p>
+    <p>{message}</p>
     <p>sdj</p>
     <GetEvent/>
     </div>
