@@ -6,7 +6,6 @@ import { Paper, Button} from '@mui/material';
 
 
 export default function RegistrationBar() {
-    const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
     const [email, setEmail]=React.useState('')
     const [username, setUsername]= useState('')
     const [name, setName]=React.useState('')
@@ -48,7 +47,6 @@ export default function RegistrationBar() {
 
   return (
     <Container>
-<Paper elevation={3} style={paperStyle}>
             <h1 style={{color:"blue"}}><u>Registration</u></h1>
     <form noValidate autoComplete="off">
 
@@ -71,7 +69,6 @@ export default function RegistrationBar() {
      <TextField style={{margin:"10px auto"}} id="outlined-basic" label="Phone" variant="outlined" fullWidth 
       value={phone}
       onChange={(e)=>setPhone(e.target.value)} />
-      <externalDatePicker/>
     
       <input style={{margin:"10px auto"}} type="date" onChange={e=>setDateofbirth(e.target.value)}/>
 
@@ -81,8 +78,8 @@ export default function RegistrationBar() {
     
      <Button variant="contained" onClick={handleClick}> Submit </Button>
     </form>
-    
-    </Paper>
     </Container>
   );
+
+
 }

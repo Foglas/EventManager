@@ -55,7 +55,6 @@ const Login = () => {
         fetch('http://localhost:8080/api/user/register', user)
        .then((response) => {
        if (response.status === 200){
-        console.log('3sdhsdh');
         return response.json();
        } else{
        throw response
