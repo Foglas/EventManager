@@ -38,7 +38,7 @@ export default function LoginBar() {
             }
 
             if(token != ''){
-              localStorage.setItem(email, token);
+              localStorage.setItem('token', token);
             }
             console.log('token ' + token);
 
