@@ -10,7 +10,7 @@ import Organization from "./organization";
     const [buttonName, setButtonName] = useState('Registration');
 
     const HandleRegistration= () =>{
-        if(registration == true){
+        if(registration === true){
             setButtonName('Registration');
             setRegistration(false);
         } else {
