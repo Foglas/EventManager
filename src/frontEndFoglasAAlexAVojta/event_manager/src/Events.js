@@ -23,43 +23,38 @@ function Events() {
         const [clickedCount, setClickedCount] = useState(0);
 
 
-
         useEffect(() => {
-            const userFromRequest = {
-                method: "GET",
-                headers : {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                    'Content-Type' : 'application/json'
-                }
+          const userFromRequest = {
+            method: "GET",
+            headers : {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type' : 'application/json'
             }
-             fetch('http://localhost:8080/api/auth/currentUser', userFromRequest)
-            .then((response) => {
-               return response.json()})
+          }
+        
+          fetch('http://localhost:8080/api/auth/currentUser', userFromRequest)
+            .then((response) => response.json())
             .then((user) => {
-                console.log('user3 ' + user.id);
-                setUser(user);
-                return user;
-            }).then((user) => fetch('http://localhost:8080/api/user/'+user.id+'/organization')
-            .then((response) => {
-                console.log(response)
-               return response.json();
-               })
-            .then((data) => {
-                console.log('data '+data)
-              setOrgs(data);
-              console.log('user orgs : '  + orgs)
-           })
-           .then(fetch('http://localhost:8080/api/places'))
-           .then((response) => {
-           return response.json();
-           })
-           .then((data) => {
-          setPlaces(data);
-          console.log('places : '  + places)
-       })
+              console.log('user3 ' + user.id);
+              setUser(user);
+              return user;
+            })
+            .then((user) => {
+              return fetch('http://localhost:8080/api/user/'+user.id+'/organization')
+                .then((response) => response.json())
+                .then((data) => setOrgs(data))
+            })
+            .then(() => {
+              return fetch('http://localhost:8080/api/places')
+                .then((response) => response.json())
+                .then((data) => setPlaces(data))
+            })
+            .catch((error) => {
+              console.log('Error fetching data: ', error);
+            });
+        }, [clickedCount]);
 
-
-           )},[clickedCount]);
+       
 
     return(
         <Container>
@@ -115,7 +110,7 @@ function Events() {
             id="select-place"
             onChange={e=>{setPlace(e.target.value);console.log(place)}} >
                   {places.map((places) => (
-                      <option value={places.id}>{places.name}</option>
+                      <option value={places.id}>{places.city}</option>
                     ))}
                     </select>
                     <br/> <br/>
@@ -151,7 +146,7 @@ function createEvent(e){
               'Content-Type' : 'application/json'
           },
           body : JSON.stringify({name : eventName, description : eventDescription,
-          time : eventTime, endtime : eventEndTime, categoriesid : "6,7", placeId : 47})
+          time : eventTime, endtime : eventEndTime, categoriesid : "6,7", placeId : place})
       }
       console.log(event)
     fetch('http://localhost:8080/api/auth/event/organization/'+parentOrg+'/save', event)
