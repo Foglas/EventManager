@@ -18,4 +18,6 @@ public interface EventRepo extends JpaRepository<Event, Long> {
     @Query(value = "SELECT eventsandattendance(?1)", nativeQuery = true)
     List<String> getEventNameByAttendence(int id);
 
+    @Query(value = "SELECT iseventscategory(?1,?2)", nativeQuery = true)
+    boolean iseventscatagory(long eventid, long categoryid);
 }

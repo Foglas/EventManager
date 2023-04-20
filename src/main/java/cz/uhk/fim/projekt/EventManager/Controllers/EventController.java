@@ -67,6 +67,11 @@ public class EventController {
      return eventService.cancelAttend(id, request);
     }
 
+    @GetMapping("/auth/event/{id}/users")
+    public ResponseEntity<?> getUserAttendedOnEvent(@PathVariable("id") long id){
+        return eventService.getUserAttendedOnEvent(id);
+    }
+
 
     @PostMapping("/auth/event/{id}/comment/save")
     public ResponseEntity<?> save(HttpServletRequest request,@RequestBody Comment comment, @PathVariable("id") long id){
@@ -74,13 +79,21 @@ public class EventController {
     }
 
     @GetMapping("/events/search")
-    public List<EventView> findEventByParameters(@RequestParam(name = "region", required = false) Optional<String> region,
+    public ResponseEntity<?> findEventByParameters(@RequestParam(name = "region", required = false) Optional<String> region,
                                                  @RequestParam(name = "destrict", required = false) Optional<String> destrict,
                                                  @RequestParam(name = "time", required = false) Optional<LocalDateTime> time,
-                                                 @RequestParam(name = "city", required = false) Optional<String> city){
-    return eventService.findEventByParameters(region, destrict, time, city);
+                                                 @RequestParam(name = "city", required = false) Optional<String> city,
+                                                 @RequestParam(name = "categories", required = false) Optional<String> categories){
+    return eventService.findEventByParameters(region, destrict, time, city, categories);
+    }
+/*
+    @GetMapping("/events/{id}/category")
+    public List<Category> findEventsCategory(){
+
     }
 
+
+ */
     @GetMapping("event/{id}/peoples")
     public ResponseEntity<Long> getNumberOfPeopleOnEvent(@PathVariable("id") long id){
         return eventService.getNumberOfPeopleOnEvent(id);

@@ -1,11 +1,14 @@
 package cz.uhk.fim.projekt.EventManager.views;
 
+import cz.uhk.fim.projekt.EventManager.Domain.Category;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import org.hibernate.annotations.Immutable;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name = "event_information")
 @Immutable
@@ -13,7 +16,7 @@ public class EventView {
 
     @Column(name = "pk_eventid")
     @Id
-    private int id;
+    private long id;
 
     @Column(name = "description")
     private String description;
@@ -42,10 +45,22 @@ public class EventView {
     @Column(name = "region")
     private String region;
 
+    @Transient
+    private List<Category> categoryList;
+
+
     public EventView() {
     }
 
-    public int getId() {
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public long getId() {
         return id;
     }
 
