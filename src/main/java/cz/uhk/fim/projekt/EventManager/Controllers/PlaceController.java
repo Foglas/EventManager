@@ -17,6 +17,11 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
+    @GetMapping("/places")
+
+    public ResponseEntity<?> getAllPlaces(){
+    return placeService.getAllPlaces();
+    }
     @PostMapping("/auth/admin/place/save")
     public ResponseEntity<?> save(@RequestBody Place place){
        return placeService.save(place);

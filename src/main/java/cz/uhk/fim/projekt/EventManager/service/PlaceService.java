@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PlaceService {
 
@@ -39,4 +41,9 @@ public class PlaceService {
     placeRepo.save(place);
    return    ResponseHelper.successMessage("place added");
   }
+
+    public ResponseEntity<?> getAllPlaces() {
+    List<Place> places = placeRepo.findAll();
+    return ResponseEntity.ok(places);
+    }
 }
