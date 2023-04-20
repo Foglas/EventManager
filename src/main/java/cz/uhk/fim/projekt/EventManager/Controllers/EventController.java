@@ -110,4 +110,8 @@ public class EventController {
     public ResponseEntity<?> getEventByAttendence(@RequestParam("number") String number){
         return eventService.getEventByAttendence(number);
     }
+    @GetMapping("/events/{id}/getAttendedEvents")
+    public ResponseEntity<?> findAllEventViews(@PathVariable("id") long id) {
+        return eventService.getEventViewsFromUser(id);
+    }
 }

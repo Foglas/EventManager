@@ -16,4 +16,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
 
     @Query(value = "SELECT fk_userid FROM Ticket WHERE Ticket.fk_eventid = ?1", nativeQuery = true)
     Optional<List<Long>> findUsersIdByEventId(long eventid);
+
+
+    @Query(value = "SELECT fk_eventid FROM Ticket WHERE Ticket.fk_userid = ?1", nativeQuery = true)
+    Optional<List<Long>> findEventsIdByUserId(long userid);
 }

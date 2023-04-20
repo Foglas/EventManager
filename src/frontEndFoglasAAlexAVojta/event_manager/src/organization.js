@@ -7,7 +7,6 @@ import { Paper, Button} from '@mui/material';
 function Organization(){
     const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
     const [organizationName, setOrganizationName] = useState('');
-    const [success, setSuccess] = useState('');
     const [organizations, setOrganizations] = useState([]);
     const [user, setUser] = useState('');
     const [organizationUl, setOrganizationUl] = useState('');
@@ -77,7 +76,6 @@ setOrganizationUl(organizationUl);
             <TextField style={{margin:"10px auto"}} variant='outlined' label = "organization name" value={organizationName} fullWidth onChange={(e) => setOrganizationName(e.target.value)}> organizationName</TextField>
             <Button variant="contained" onClick={createOrganization}>Create organization</Button>
         </form>
-        <h3>{success}</h3>
         
         <h2>Organizace uživatele: </h2>
             <ul>

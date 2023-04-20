@@ -115,6 +115,7 @@ function Events() {
                     </select>
                     <br/> <br/>
             <Button variant="contained" onClick={createEvent}> Create Event</Button>
+            <input type = "checkbox" value={place} onChange={e=>testFunc(e.target.value)}/>
             
         </form>
         <h3>{success}</h3>
@@ -134,7 +135,9 @@ function Events() {
    
     </Container>
     );
-
+function testFunc(e){
+  console.log(e)
+}
         
 function createEvent(e){
     console.log('trying to create event')

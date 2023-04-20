@@ -337,4 +337,24 @@ public class EventService {
         return ResponseEntity.ok(users);
     }
 
+    public ResponseEntity<?> getEventViewsFromUser(long id){
+        Optional<List<Long>> eventid = ticketRepo.findEventsIdByUserId(id);
+
+        if (!eventid.isPresent()){
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user has 0 tickets");
+        }
+        Optional<List<EventView>> events = eventViewRepo.findAllEventViews(eventid.get());
+
+        if(!events.isEmpty()){
+            for (EventView e : events.get()){
+                    Iterable<Long> iterableList = Arrays.asList(e.getId());
+                  e.setCategoryList(categoryRepo.findAllById(iterableList));
+            }
+        }
+
+
+        return ResponseEntity.ok(events);
+    }
+
+
 }

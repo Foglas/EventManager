@@ -2,7 +2,7 @@ import { Button, Paper } from "@mui/material";
 import LoginBar from "./loginBar";
 import RegistrationBar from "./RegistrationBar";
 import { useState } from "react";
-import Organization from "./organization";
+import Organization from "./Organization";
 import FindEvent from "./findEvent";
 
  function LoginPage(){
