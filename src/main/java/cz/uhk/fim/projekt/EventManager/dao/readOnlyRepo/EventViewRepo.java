@@ -10,6 +10,6 @@ public interface EventViewRepo extends ReadOnlyRepo<EventView, Long>{
 
     Optional<EventView> findById(long id);
 
-    Optional<EventView> findAllEventViews(long id);
+    //Optional<EventView> findAllEventViews(long id);
 
 }

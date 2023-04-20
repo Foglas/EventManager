@@ -16,6 +16,7 @@ function Events() {
         const [eventTime, setEventTime] = useState(new Date());
         const [eventEndTime, setEventEndTime] = useState(new Date());
         const [place, setPlace] = useState('');
+        const [places, setPlaces] = useState([]);
         const [eventUl, setEventUl] = useState('');
         const [parentOrg, setParentOrg] = useState('');
         const [orgs, setOrgs] = useState([]);
@@ -31,7 +32,6 @@ function Events() {
                     'Content-Type' : 'application/json'
                 }
             }
-            
              fetch('http://localhost:8080/api/auth/currentUser', userFromRequest)
             .then((response) => {
                return response.json()})
@@ -49,8 +49,14 @@ function Events() {
               setOrgs(data);
               console.log('user orgs : '  + orgs)
            })
-
-          // .then((user) => fetch())
+           .then(fetch('http://localhost:8080/api/places'))
+           .then((response) => {
+           return response.json();
+           })
+           .then((data) => {
+          setPlaces(data);
+          console.log('places : '  + places)
+       })
 
 
            )},[clickedCount]);
@@ -107,7 +113,6 @@ function Events() {
           
           <select
             id="select-place"
-            value={placeId}
             onChange={e=>{setPlace(e.target.value);console.log(place)}} >
                   {places.map((places) => (
                       <option value={places.id}>{places.name}</option>
