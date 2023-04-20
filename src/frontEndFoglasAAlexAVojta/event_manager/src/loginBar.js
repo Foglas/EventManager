@@ -2,9 +2,8 @@
 import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
-import { Paper, Button} from '@mui/material';
-import RegistrationBar from './RegistrationBar';
-import LoginPage from './loginPage';
+import { Button} from '@mui/material';
+
 
 export default function LoginBar() {
     const [email, setEmail]=React.useState('')
@@ -37,7 +36,7 @@ export default function LoginBar() {
                 console.log(email, password)
             }
 
-            if(token != ''){
+            if(token !== ''){
               localStorage.setItem('token', token);
             }
             console.log('token ' + token);
@@ -54,7 +53,7 @@ export default function LoginBar() {
      value={password}
      onChange={(e)=>setPassword(e.target.value)} />
     <h3>{error}</h3>
-     <Button variant="contained" onClick={handleClick}> Submit </Button>
+     <Button  style={{margin:"10px auto"}} variant="contained" onClick={handleClick}> Submit </Button>
     </form>
     </Container>
   );

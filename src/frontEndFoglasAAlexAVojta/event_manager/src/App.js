@@ -1,8 +1,10 @@
 import {Route, Routes} from "react-router-dom"
 import LoginPage from "./loginPage"
-import Menu from "./Menu"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
+import Organization from "./Organization"
+import Events from "./Events"
+import "./style.css"
 
 
 export default function App(){
@@ -14,9 +16,10 @@ export default function App(){
          <Navbar/>
                 <div>
                     <Routes>
-                        <Route path="/" element={<Menu/>}/>
+                        <Route path="/" element={<LoginPage/>}/>
                         <Route path="/LoginPage" element={<LoginPage/>}/>
-                        <Route path="/Menu" element={<Menu/>}/>
+                        <Route path="/organization" element={<Organization/>}/>
+                        <Route path="/events" element={<Events/>}/>
                     </Routes>
                 </div>
     

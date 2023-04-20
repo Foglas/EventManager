@@ -10,7 +10,10 @@ export default function Navbar() {
                     <FLink to="/loginPage"> Login</FLink>
                 </li>
                 <li>
-                    <FLink to="/Menu"> Menu </FLink>
+                    <FLink to="/organization"> My Organizations </FLink>
+                </li>
+                <li>
+                    <FLink to="/events"> My Events </FLink>
                 </li>
             </ul>
 

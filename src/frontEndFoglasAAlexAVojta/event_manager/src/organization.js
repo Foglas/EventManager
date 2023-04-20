@@ -51,14 +51,17 @@ function Organization(){
         return user;
     }).then((user) => fetch('http://localhost:8080/api/user/'+user.id+'/organization')
     .then((response) => {
-       return response.json();})
+   
+       return response.json();
+    })
     .then((data) => {
       setOrganizations(data)
+      console.log(organizations)
    }))},[clickedCount]);
   
     
    useEffect(()=> {
-    console.log('use ' +organizations);
+    console.log('use ' + organizations);
   const organizationUl = organizations.map((organization) => <li>{organization.name}</li>);
 setOrganizationUl(organizationUl);
    },[organizations]);
@@ -70,9 +73,9 @@ setOrganizationUl(organizationUl);
      <Paper  elevation={3} style={paperStyle}>
         <h1> Organizace </h1>
         <form noValidate autoComplete="off"> 
-            <label> Organization name </label>
-            <TextField variant='outlined' label = "organization name" value={organizationName} onChange={(e) => setOrganizationName(e.target.value)}> organizationName</TextField>
-            <button variant="contained" onClick={createOrganization}>Create organization</button>
+            
+            <TextField style={{margin:"10px auto"}} variant='outlined' label = "organization name" value={organizationName} fullWidth onChange={(e) => setOrganizationName(e.target.value)}> organizationName</TextField>
+            <Button variant="contained" onClick={createOrganization}>Create organization</Button>
         </form>
         <h3>{success}</h3>
         

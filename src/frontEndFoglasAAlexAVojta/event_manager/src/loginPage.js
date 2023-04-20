@@ -2,7 +2,7 @@ import { Button, Paper } from "@mui/material";
 import LoginBar from "./loginBar";
 import RegistrationBar from "./RegistrationBar";
 import { useState } from "react";
-import Organization from "./organization";
+
 
  function LoginPage(){
     const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
@@ -30,10 +30,10 @@ import Organization from "./organization";
      
      )
  }
-    <Button variant="contained" onClick={HandleRegistration}>{buttonName}</Button>  
+    <Button  style={{margin:"10px auto"}} variant="contained" onClick={HandleRegistration}>{buttonName}</Button>  
    
     </Paper>
-    <Organization/>
+   
     </div>
     )
 }

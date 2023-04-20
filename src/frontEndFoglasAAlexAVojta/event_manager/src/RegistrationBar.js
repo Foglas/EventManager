@@ -1,8 +1,7 @@
-
 import React,{useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
-import { Paper, Button} from '@mui/material';
+import { Button} from '@mui/material';
 
 
 export default function RegistrationBar() {
@@ -69,6 +68,10 @@ export default function RegistrationBar() {
      <TextField style={{margin:"10px auto"}} id="outlined-basic" label="Phone" variant="outlined" fullWidth 
       value={phone}
       onChange={(e)=>setPhone(e.target.value)} />
+
+      <label>
+        Birth date  
+      </label>
     
       <input style={{margin:"10px auto"}} type="date" onChange={e=>setDateofbirth(e.target.value)}/>
 
