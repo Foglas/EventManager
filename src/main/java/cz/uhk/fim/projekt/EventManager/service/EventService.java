@@ -343,7 +343,7 @@ public class EventService {
         if (!eventid.isPresent()){
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user has 0 tickets");
         }
-        Optional<List<EventView>> events = eventViewRepo.findAllEventViews(eventid.get());
+        Optional<List<EventView>> events = eventViewRepo.findAllById(eventid.get());
 
         if(!events.isEmpty()){
             for (EventView e : events.get()){
