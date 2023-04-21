@@ -34,8 +34,7 @@ import FindEvent from "./findEvent";
     <Button variant="contained" onClick={HandleRegistration}>{buttonName}</Button>  
    
     </Paper>
-    <Organization/>
-    <FindEvent/>
+  
     </div>
     )
 }

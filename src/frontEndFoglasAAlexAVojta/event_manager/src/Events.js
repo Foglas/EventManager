@@ -4,10 +4,13 @@ import { Container} from '@mui/system';
 import { Paper, Button} from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import FindEvent from './findEvent';
+import "./style.css"
 
 
 function Events() {
-        const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
+        const paperStyle={padding:'50px 20px',width:400,margin:'20px auto'}
+        const paperStyle2={padding:' 20px',width:200,margin:'20px auto'}
         const [success, setSuccess] = useState('');
         const [events, setEvents] = useState([]);
         const [user, setUser] = useState('');
@@ -17,6 +20,7 @@ function Events() {
         const [eventEndTime, setEventEndTime] = useState(new Date());
         const [place, setPlace] = useState('');
         const [places, setPlaces] = useState([]);
+        const [attendedEvents, setAttendedEvents] = useState([]);
         const [eventUl, setEventUl] = useState('');
         const [parentOrg, setParentOrg] = useState('');
         const [orgs, setOrgs] = useState([]);
@@ -48,23 +52,36 @@ function Events() {
               return fetch('http://localhost:8080/api/places')
                 .then((response) => response.json())
                 .then((data) => setPlaces(data))
+                
             })
             .catch((error) => {
               console.log('Error fetching data: ', error);
+            })
+            .then(() => {
+              return fetch('http://localhost:8080/api/events/'+user.id+'/getAttendedEvents')
+                .then((response) => response.json())
+                .then((data) => setAttendedEvents(data))
+                
+            })
+            .catch((error) => {
+              console.log('Error fetching data: ', error + user.id);
+              console.log('attended: ', attendedEvents);
             });
+            
         }, [clickedCount]);
 
        
 
     return(
-        <Container>
-              
 
-
-
-  <Container>
-     <Paper  elevation={3} style={paperStyle}>
-        <h1> Events </h1>
+           <Container >
+              <div class='div1'> 
+              <div class="x"> <FindEvent/></div>
+             
+           
+              <div class="x"> 
+     <Paper  elevation={3} style={paperStyle }>
+        <h1> Create Event</h1>
         <form noValidate autoComplete="off"> 
             <TextField style={{margin:"10px auto"}}  fullWidth variant='outlined' label = "event name" value={eventName} onChange={(e) => setEventName(e.target.value)}> Event name </TextField>
             <br></br>
@@ -80,7 +97,7 @@ function Events() {
       noValidate
       autoComplete="off"
     >
-      <div>
+      
        
         <TextField
           id="outlined-multiline-static"
@@ -90,7 +107,7 @@ function Events() {
           rows={4}
           onChange={e=>setDescription(e.target.value)}
         />
-      </div>
+     
      
     </Box>
             <label>Select parent organization</label>
@@ -115,25 +132,29 @@ function Events() {
                     </select>
                     <br/> <br/>
             <Button variant="contained" onClick={createEvent}> Create Event</Button>
+
+
+            
             <input type = "checkbox" value={place} onChange={e=>testFunc(e.target.value)}/>
             
         </form>
-        <h3>{success}</h3>
-        </Paper>
         
-            <Paper elevation={3} style={paperStyle}>
-            <h2> Attended events :</h2>
+        </Paper>
+        </div>
+        <div class="x"> <Paper elevation={3} style={paperStyle}>
+            <h2 class="h2att"> Attended events :</h2>
             <ul>
-                {eventUl}
-            </ul>
-            </Paper>
-       
-
-   
+            { attendedEvents.map((attendedEvents) => <Paper style={paperStyle2}><li><h2>{attendedEvents.name}</h2> <br/>
+                                                                                    {attendedEvents.description}</li></Paper>)
+           }
+          </ul>
+        </Paper></div>
+        
+           
+      
+    </div>
     </Container>
-
    
-    </Container>
     );
 function testFunc(e){
   console.log(e)

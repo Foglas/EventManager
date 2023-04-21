@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="rozpracovane attended events">
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="attended events funguje">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/readOnlyRepo/EventViewRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/dao/readOnlyRepo/EventViewRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Events.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/findEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/findEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="IDK_2_places" />
+        <entry key="$PROJECT_DIR$" value="IDK" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -140,7 +142,8 @@
       <workItem from="1681984597896" duration="234000" />
       <workItem from="1682001395029" duration="988000" />
       <workItem from="1682002722643" duration="8728000" />
-      <workItem from="1682053690338" duration="317000" />
+      <workItem from="1682053690338" duration="612000" />
+      <workItem from="1682066739664" duration="1824000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -240,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682025464522</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="attended events funguje">
+      <created>1682054302516</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1682054302516</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +267,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="IDK" />
+                        <option value="origin/searchingCategory" />
                       </list>
                     </value>
                   </entry>
@@ -278,7 +288,8 @@
     <MESSAGE value="Events - places zatim nejede" />
     <MESSAGE value="Events - vše ready az na kategorie" />
     <MESSAGE value="rozpracovane attended events" />
-    <option name="LAST_COMMIT_MESSAGE" value="rozpracovane attended events" />
+    <MESSAGE value="attended events funguje" />
+    <option name="LAST_COMMIT_MESSAGE" value="attended events funguje" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

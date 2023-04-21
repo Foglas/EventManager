@@ -2,13 +2,12 @@ import React,{useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
 import { Paper, Button} from '@mui/material';
-import { eventWrapper } from '@testing-library/user-event/dist/utils';
-import userEvent from '@testing-library/user-event';
-import { stringify } from 'json5';
+
 
 function FindEvent(){
 
-    const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
+    const paperStyle={padding:'50px 20px',width:400,margin:'20px auto'}
+    const paperStyle2={padding:'20px 10px', margin:'20px auto', width:200 }
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');
     const [destrict, setDestrict] = useState('');
@@ -17,7 +16,7 @@ function FindEvent(){
     const [selectedCategory, setSelectedCategory] = useState(['']);
     const [checked, setChecked] = useState([]);
     const [events, setEvents] = useState([]);
-    const [currentEventId, setCurrentEventId] = useState('');
+    //const [currentEventId, setCurrentEventId] = useState('');
 
     const handleInput = (event) => {
         event.preventDefault();
@@ -158,17 +157,23 @@ e.preventDefault();
         <Paper  elevation={3} style={paperStyle}>
         <h1>Najdi event</h1>
         <form>
-        <label>Region   <TextField variant='outlined' label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/></label>
-          
-        <label>Destrict     <TextField variant='outlined' label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/> </label>
-          <label>City   <TextField variant='outlined' label = "city" value={city} onChange={(e) => setCity(e.target.value)}/></label>
+         <TextField style={{margin:"10px auto"}} variant='outlined' fullWidth label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/>
+          <br/>
+       <TextField style={{margin:"10px auto"}} variant='outlined' fullWidth label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/>
+       <br/>
+        <TextField style={{margin:"10px auto"}} variant='outlined' fullWidth label = "city" value={city} onChange={(e) => setCity(e.target.value)}/>
+        <br/>
           <label>Time <input style={{margin:"10px auto"}} type="datetime-local" onChange={e=>setTime(e.target.value)}/></label> 
-          { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label>)}
-          <button variant="contained" onClick={HandleSearch}>find</button>
+        <br/>
+          { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label> )}
+          <br/>
+          <Button variant="contained" onClick={HandleSearch}>find</Button>
         </form>
         <h1>Akce</h1>    
         <ul>
-            { events.map((event) => <li>{event.city} <div><form onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form></div></li>)
+            { events.map((event) => <Paper style={paperStyle2}><li>{event.name} <div><form onSubmit={(e) => handleAttend(e,event.id)}>
+               
+                <Button type='submit' variant='contained'>Attend</Button></form></div></li></Paper>)
            }
         </ul>
 
