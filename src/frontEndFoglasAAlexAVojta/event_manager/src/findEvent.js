@@ -4,6 +4,7 @@ import { Container} from '@mui/system';
 import { Paper, Button} from '@mui/material';
 import { eventWrapper } from '@testing-library/user-event/dist/utils';
 import userEvent from '@testing-library/user-event';
+import { stringify } from 'json5';
 
 function FindEvent(){
 
@@ -16,8 +17,10 @@ function FindEvent(){
     const [selectedCategory, setSelectedCategory] = useState(['']);
     const [checked, setChecked] = useState([]);
     const [events, setEvents] = useState([]);
-    
+    const [currentEventId, setCurrentEventId] = useState('');
+
     const handleInput = (event) => {
+        event.preventDefault();
         var array = [...checked];
     if (event.target.checked) {
         console.log("checked " + event.target.checked);
@@ -100,8 +103,32 @@ function FindEvent(){
         console.log('data ' + data);
      })
     }
+function handleAttend(e,id){
+e.preventDefault();
+    const  header = {
+        method: "POST",
+        headers : {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({'state' : 'koupeno'})
+    }
+    console.log('id ' + id);
 
+  fetch('http://localhost:8080/api/auth/event/'+id+'/attend', header)
+  .then((response)=>{
+    if(response.status === 200){
+    return response.json();
+}else{
+    
+    throw response;
+}})
+.then((data) => {
+    console.log('data ' + data);
+ })
 
+}
+     
       const checkedCategoriesString = checked.length ? checked.reduce((total, category) => {return total + ','+ category;}) : '';
 
     useEffect(() => {
@@ -117,7 +144,7 @@ function FindEvent(){
         .then((response) => {
             if(response.status == 200){
             console.log('categories  ok');
-            }
+            } 
            return response.json()})
         .then((category) => {
             setCategories(category);
@@ -139,10 +166,10 @@ function FindEvent(){
           { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label>)}
           <button variant="contained" onClick={HandleSearch}>find</button>
         </form>
-       
+        <h1>Akce</h1>    
         <ul>
-            <h1>events</h1>
-            { events.map((event) => <li>{event.city}</li>)}
+            { events.map((event) => <li>{event.city} <div><form onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form></div></li>)
+           }
         </ul>
 
        </Paper>
