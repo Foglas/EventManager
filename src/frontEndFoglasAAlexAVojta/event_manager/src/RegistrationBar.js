@@ -73,7 +73,7 @@ export default function RegistrationBar() {
         Birth date  
       </label>
     
-      <input style={{margin:"10px auto"}} type="date" onChange={e=>setDateofbirth(e.target.value)}/>
+      <input style={{margin:"10px auto"}} type="date" onChange={e=>{setDateofbirth(e.target.value); console.log(e.target.value)}}/>
 
       <TextField style={{margin:"10px auto"}} id="outlined-basic" label="Password" variant="outlined" fullWidth 
      value={password}
