@@ -26,49 +26,64 @@ function Events() {
         const [orgs, setOrgs] = useState([]);
         const [clickedCount, setClickedCount] = useState(0);
 
+//chatgpt
 
-        useEffect(() => {
-          const userFromRequest = {
-            method: "GET",
-            headers : {
-              'Authorization': 'Bearer ' + localStorage.getItem('token'),
-              'Content-Type' : 'application/json'
-            }
-          }
-        
-          fetch('http://localhost:8080/api/auth/currentUser', userFromRequest)
-            .then((response) => response.json())
-            .then((user) => {
-              console.log('user3 ' + user.id);
-              setUser(user);
-              return user;
-            })
-            .then((user) => {
-              return fetch('http://localhost:8080/api/user/'+user.id+'/organization')
-                .then((response) => response.json())
-                .then((data) => setOrgs(data))
-            })
-            .then(() => {
-              return fetch('http://localhost:8080/api/places')
-                .then((response) => response.json())
-                .then((data) => setPlaces(data))
-                
-            })
-            .catch((error) => {
-              console.log('Error fetching data: ', error);
-            })
-            .then(() => {
-              return fetch('http://localhost:8080/api/events/'+user.id+'/getAttendedEvents')
-                .then((response) => response.json())
-                .then((data) => setAttendedEvents(data))
-                
-            })
-            .catch((error) => {
-              console.log('Error fetching data: ', error + user.id);
-              console.log('attended: ', attendedEvents);
-            });
-            
-        }, [clickedCount]);
+const [selectedCategories, setSelectedCategories] = useState("");
+
+const handleCheckboxChange = (e) => {
+  const category = e.target.value;
+  if (e.target.checked) {
+    setSelectedCategories((prevSelectedCategories) =>
+      prevSelectedCategories ? `${prevSelectedCategories},${category}` : category
+    );
+  } else {
+    setSelectedCategories((prevSelectedCategories) =>
+      prevSelectedCategories
+        .split(",")
+        .filter((c) => c !== category)
+        .join(",")
+    );
+  }
+};
+//chatgpt
+
+      useEffect(() => {
+  const userFromRequest = {
+    method: "GET",
+    headers : {
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type' : 'application/json'
+    }
+  }
+
+  fetch('http://localhost:8080/api/auth/currentUser', userFromRequest)
+    .then((response) => response.json())
+    .then((user) => {
+      console.log('user3 ' + user.id);
+      setUser(user);
+      return user;
+    })
+    .then((user) => {
+      return fetch('http://localhost:8080/api/user/'+user.id+'/organization')
+        .then((response) => response.json())
+        .then((data) => setOrgs(data))
+        .then(() => user);
+    })
+    .then((user) => {
+      return fetch('http://localhost:8080/api/places')
+        .then((response) => response.json())
+        .then((data) => setPlaces(data))
+        .then(() => user);
+    })
+    .then((user) => {
+      return fetch('http://localhost:8080/api/events/'+user.id+'/getAttendedEvents')
+        .then((response) => response.json())
+        .then((data) => setAttendedEvents(data));
+    })
+    .catch((error) => {
+      console.log('Error fetching data: ', error);
+    });
+}, [clickedCount]);
 
        
 
@@ -76,7 +91,7 @@ function Events() {
 
            <Container >
               <div class='div1'> 
-              <div class="x"> <FindEvent/></div>
+            
              
            
               <div class="x"> 
@@ -112,30 +127,85 @@ function Events() {
     </Box>
             <label>Select parent organization</label>
           
-  <select
-    id="select-parentOrg"
-    value={parentOrg}
-    onChange={e=>{setParentOrg(e.target.value);console.log(parentOrg)}} >
-          {orgs.map((orgs) => (
-              <option value={orgs.id}>{orgs.name}</option>
-            ))}
-            </select>
+            <select
+  id="select-parentOrg"
+  value={parentOrg}
+  onChange={(e) => {
+    const selectedParentOrg = e.target.value;
+    setParentOrg(selectedParentOrg);
+    console.log(selectedParentOrg);
+  }}
+>
+  <option value="" disabled>Select parent organization</option>
+  {orgs.map((org) => (
+    <option key={org.id} value={org.id}>{org.name}</option>
+  ))}
+</select>
             <br/> <br/>
             <label>Select Place for event</label>
           
-          <select
-            id="select-place"
-            onChange={e=>{setPlace(e.target.value);console.log(place)}} >
-                  {places.map((places) => (
-                      <option value={places.id}>{places.city}</option>
-                    ))}
-                    </select>
+            <select
+  id="select-place"
+  value={place}
+  onChange={(e) => {
+    setPlace(e.target.value);
+    console.log(e.target.value);
+  }}
+>
+  <option value="" disabled>Select place for event</option>
+  {places.map((place) => (
+    <option key={place.id} value={place.id}>
+      {place.city}
+    </option>
+  ))}
+</select>
                     <br/> <br/>
+                    
+
+                    <label>
+
+
+
+
+
+        <input
+          type="checkbox"
+          value="6"
+          checked={selectedCategories.includes("6")}
+          onChange={handleCheckboxChange}
+        />
+        Zavod
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="7"
+          checked={selectedCategories.includes("7")}
+          onChange={handleCheckboxChange}
+        />
+        Workshop
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="8"
+          checked={selectedCategories.includes("8")}
+          onChange={handleCheckboxChange}
+        />
+        Koncert
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="9"
+          checked={selectedCategories.includes("9")}
+          onChange={handleCheckboxChange}
+        />
+       Koncert
+      </label>
+      
+
             <Button variant="contained" onClick={createEvent}> Create Event</Button>
-
-
-            
-            <input type = "checkbox" value={place} onChange={e=>testFunc(e.target.value)}/>
             
         </form>
         
@@ -156,10 +226,7 @@ function Events() {
     </Container>
    
     );
-function testFunc(e){
-  console.log(e)
-}
-        
+    
 function createEvent(e){
     console.log('trying to create event')
     e.preventDefault();
@@ -170,7 +237,7 @@ function createEvent(e){
               'Content-Type' : 'application/json'
           },
           body : JSON.stringify({name : eventName, description : eventDescription,
-          time : eventTime, endtime : eventEndTime, categoriesid : "6,7", placeId : place})
+          time : eventTime, endtime : eventEndTime, categoriesid : selectedCategories , placeId : place})
       }
       console.log(event)
     fetch('http://localhost:8080/api/auth/event/organization/'+parentOrg+'/save', event)

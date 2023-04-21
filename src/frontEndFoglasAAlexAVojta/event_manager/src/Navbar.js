@@ -15,6 +15,9 @@ export default function Navbar() {
                 <li>
                     <FLink to="/events"> My Events </FLink>
                 </li>
+                <li>
+                    <FLink to="/search"> Search </FLink>
+                </li>
             </ul>
 
         </nav>
