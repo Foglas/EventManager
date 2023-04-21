@@ -57,6 +57,7 @@ public class EventService {
        LocalDateTime time = LocalDateTime.parse(body.get("time"));
        LocalDateTime endTime = null;
 
+
        if (body.get("endtime") != null) {
         endTime = LocalDateTime.parse(body.get("endtime"));
        }
@@ -72,7 +73,12 @@ public class EventService {
         if (!place.isPresent()) {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Address not found");
         }
+
         String categoriesid = body.get("categoriesid");
+        if (categoriesid == null){
+            return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "categories is null");
+        }
+
         String[] categoryid = categoriesid.split(",");
         Set<Category> categories = new HashSet<>();
         for (String stringCateid : categoryid ){

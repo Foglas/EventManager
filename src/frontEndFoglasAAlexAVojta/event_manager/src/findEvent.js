@@ -2,12 +2,13 @@ import React,{useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
 import { Paper, Button} from '@mui/material';
-
+import { eventWrapper } from '@testing-library/user-event/dist/utils';
+import userEvent from '@testing-library/user-event';
+import { stringify } from 'json5';
 
 function FindEvent(){
 
-    const paperStyle={padding:'50px 20px',width:400,margin:'20px auto'}
-    const paperStyle2={padding:'20px 10px', margin:'20px auto', width:200 }
+    const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');
     const [destrict, setDestrict] = useState('');
@@ -16,10 +17,9 @@ function FindEvent(){
     const [selectedCategory, setSelectedCategory] = useState(['']);
     const [checked, setChecked] = useState([]);
     const [events, setEvents] = useState([]);
-    //const [currentEventId, setCurrentEventId] = useState('');
+    const [currentEventId, setCurrentEventId] = useState('');
 
     const handleInput = (event) => {
-        event.preventDefault();
         var array = [...checked];
     if (event.target.checked) {
         console.log("checked " + event.target.checked);
@@ -127,7 +127,29 @@ e.preventDefault();
  })
 
 }
-     
+
+function handleDeleteEvent(e, id){
+e.preventDefault();
+const  header = {
+    method: "DELETE",
+    headers : {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type' : 'application/json'
+    },
+  }
+console.log('id ' + id);
+
+fetch('http://localhost:8080/api/auth/event/'+id+'/delete', header)
+.then((response)=>{
+if(response.status === 200){
+return response.json();
+}else{
+throw response;
+}})
+.then((data) => {
+console.log('data ' + data);
+})
+}     
       const checkedCategoriesString = checked.length ? checked.reduce((total, category) => {return total + ','+ category;}) : '';
 
     useEffect(() => {
@@ -157,23 +179,17 @@ e.preventDefault();
         <Paper  elevation={3} style={paperStyle}>
         <h1>Najdi event</h1>
         <form>
-         <TextField style={{margin:"10px auto"}} variant='outlined' fullWidth label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/>
-          <br/>
-       <TextField style={{margin:"10px auto"}} variant='outlined' fullWidth label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/>
-       <br/>
-        <TextField style={{margin:"10px auto"}} variant='outlined' fullWidth label = "city" value={city} onChange={(e) => setCity(e.target.value)}/>
-        <br/>
+        <label>Region   <TextField variant='outlined' label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/></label>
+          
+        <label>Destrict     <TextField variant='outlined' label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/> </label>
+          <label>City   <TextField variant='outlined' label = "city" value={city} onChange={(e) => setCity(e.target.value)}/></label>
           <label>Time <input style={{margin:"10px auto"}} type="datetime-local" onChange={e=>setTime(e.target.value)}/></label> 
-        <br/>
-          { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label> )}
-          <br/>
-          <Button variant="contained" onClick={HandleSearch}>find</Button>
+          { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label>)}
+          <button variant="contained" onClick={HandleSearch}>find</button>
         </form>
         <h1>Akce</h1>    
         <ul>
-            { events.map((event) => <Paper style={paperStyle2}><li>{event.name} <div><form onSubmit={(e) => handleAttend(e,event.id)}>
-               
-                <Button type='submit' variant='contained'>Attend</Button></form></div></li></Paper>)
+            { events.map((event) => <li>{event.name} <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form><form on onSubmit={(e) => handleDeleteEvent(e,event.id)}><Button type='submit' variant='contained'>DELETE</Button></form></div></li>)
            }
         </ul>
 
