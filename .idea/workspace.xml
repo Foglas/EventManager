@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="LOGIN AND REGISTRATION">
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="Events - places zatim nejede">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/RegistrationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/RegistrationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Events.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Events.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="IDK" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -134,6 +131,15 @@
       <workItem from="1681496446604" duration="128000" />
       <workItem from="1681502966366" duration="1695000" />
       <workItem from="1681588836574" duration="1201000" />
+      <workItem from="1681894469142" duration="2412000" />
+      <workItem from="1681908082566" duration="618000" />
+      <workItem from="1681928399056" duration="4412000" />
+      <workItem from="1681970218884" duration="863000" />
+      <workItem from="1681974324716" duration="2856000" />
+      <workItem from="1681983518371" duration="1055000" />
+      <workItem from="1681984597896" duration="234000" />
+      <workItem from="1682001395029" duration="988000" />
+      <workItem from="1682002722643" duration="1237000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -184,7 +190,42 @@
       <option name="project" value="LOCAL" />
       <updated>1681486288850</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="commit">
+      <created>1681848689849</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681848689849</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Events">
+      <created>1681978348368</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1681978348368</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Events">
+      <created>1681978360754</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1681978360754</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Events">
+      <created>1681980165287</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1681980165287</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Events - places zatim nejede">
+      <created>1682002762225</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682002762225</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +242,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="123" />
+                        <option value="IDK_2_places" />
                       </list>
                     </value>
                   </entry>
@@ -217,7 +258,10 @@
     <MESSAGE value="init alex" />
     <MESSAGE value="getcategoryfromevent" />
     <MESSAGE value="LOGIN AND REGISTRATION" />
-    <option name="LAST_COMMIT_MESSAGE" value="LOGIN AND REGISTRATION" />
+    <MESSAGE value="commit" />
+    <MESSAGE value="Events" />
+    <MESSAGE value="Events - places zatim nejede" />
+    <option name="LAST_COMMIT_MESSAGE" value="Events - places zatim nejede" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
