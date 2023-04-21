@@ -20,7 +20,6 @@ function FindEvent(){
     const [currentEventId, setCurrentEventId] = useState('');
 
     const handleInput = (event) => {
-        event.preventDefault();
         var array = [...checked];
     if (event.target.checked) {
         console.log("checked " + event.target.checked);
@@ -128,7 +127,29 @@ e.preventDefault();
  })
 
 }
-     
+
+function handleDeleteEvent(e, id){
+e.preventDefault();
+const  header = {
+    method: "DELETE",
+    headers : {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type' : 'application/json'
+    },
+  }
+console.log('id ' + id);
+
+fetch('http://localhost:8080/api/auth/event/'+id+'/delete', header)
+.then((response)=>{
+if(response.status === 200){
+return response.json();
+}else{
+throw response;
+}})
+.then((data) => {
+console.log('data ' + data);
+})
+}     
       const checkedCategoriesString = checked.length ? checked.reduce((total, category) => {return total + ','+ category;}) : '';
 
     useEffect(() => {
@@ -168,7 +189,7 @@ e.preventDefault();
         </form>
         <h1>Akce</h1>    
         <ul>
-            { events.map((event) => <li>{event.city} <div><form onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form></div></li>)
+            { events.map((event) => <li>{event.name} <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form><form on onSubmit={(e) => handleDeleteEvent(e,event.id)}><Button type='submit' variant='contained'>DELETE</Button></form></div></li>)
            }
         </ul>
 
