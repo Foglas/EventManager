@@ -18,6 +18,9 @@ export default function Navbar() {
                 <li>
                     <FLink to="/search"> Search </FLink>
                 </li>
+                <li>
+                    <FLink to="/manage">Manager</FLink>
+                </li>
             </ul>
 
         </nav>
