@@ -27,9 +27,7 @@
     transition: 0.5s;
 }
 body{margin : 0;
-display: flex;
-flex-direction: column;
-min-width: 100vh;
+
 ;}
 
 .Footer {
@@ -45,3 +43,18 @@ min-width: 100vh;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: small;
 }
+
+.div1{
+    margin-left: 0px;
+    display:flex;
+    flex-direction: row;
+    
+ 
+    
+}
+.h2att{
+    text-align: center;
+}
+
+.x{padding: 10px;
+margin: 10px;}

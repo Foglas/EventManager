@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="Events - places zatim nejede">
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="dodelat checkbox pro vytvoreni eventu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Events.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Events.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Navbar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +140,9 @@
       <workItem from="1681983518371" duration="1055000" />
       <workItem from="1681984597896" duration="234000" />
       <workItem from="1682001395029" duration="988000" />
-      <workItem from="1682002722643" duration="1237000" />
+      <workItem from="1682002722643" duration="8728000" />
+      <workItem from="1682053690338" duration="612000" />
+      <workItem from="1682066739664" duration="1824000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -225,7 +228,28 @@
       <option name="project" value="LOCAL" />
       <updated>1682002762225</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Events - vše ready az na kategorie">
+      <created>1682004698344</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682004698344</updated>
+    </task>
+    <task id="LOCAL-00014" summary="rozpracovane attended events">
+      <created>1682025464522</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1682025464522</updated>
+    </task>
+    <task id="LOCAL-00015" summary="attended events funguje">
+      <created>1682054302516</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1682054302516</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +266,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="IDK_2_places" />
+                        <option value="origin/searchingCategory" />
                       </list>
                     </value>
                   </entry>
@@ -261,7 +285,11 @@
     <MESSAGE value="commit" />
     <MESSAGE value="Events" />
     <MESSAGE value="Events - places zatim nejede" />
-    <option name="LAST_COMMIT_MESSAGE" value="Events - places zatim nejede" />
+    <MESSAGE value="Events - vše ready az na kategorie" />
+    <MESSAGE value="rozpracovane attended events" />
+    <MESSAGE value="attended events funguje" />
+    <MESSAGE value="dodelat checkbox pro vytvoreni eventu" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodelat checkbox pro vytvoreni eventu" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

@@ -179,10 +179,10 @@ console.log('data ' + data);
         <Paper  elevation={3} style={paperStyle}>
         <h1>Najdi event</h1>
         <form>
-        <label>Region   <TextField variant='outlined' label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/></label>
+        <TextField style={{margin:"10px auto"}} variant='outlined'fullWidth label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/>
           
-        <label>Destrict     <TextField variant='outlined' label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/> </label>
-          <label>City   <TextField variant='outlined' label = "city" value={city} onChange={(e) => setCity(e.target.value)}/></label>
+          <TextField  style={{margin:"10px auto"}} variant='outlined'fullWidth label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/> 
+           <TextField style={{margin:"10px auto"}} variant='outlined'fullWidth label = "city" value={city} onChange={(e) => setCity(e.target.value)}/>
           <label>Time <input style={{margin:"10px auto"}} type="datetime-local" onChange={e=>setTime(e.target.value)}/></label> 
           { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label>)}
           <button variant="contained" onClick={HandleSearch}>find</button>

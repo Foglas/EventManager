@@ -4,10 +4,13 @@ import { Container} from '@mui/system';
 import { Paper, Button} from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import FindEvent from './findEvent';
+import "./style.css"
 
 
 function Events() {
-        const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
+        const paperStyle={padding:'50px 20px',width:400,margin:'20px auto'}
+        const paperStyle2={padding:' 20px',width:200,margin:'20px auto'}
         const [success, setSuccess] = useState('');
         const [events, setEvents] = useState([]);
         const [user, setUser] = useState('');
@@ -17,54 +20,83 @@ function Events() {
         const [eventEndTime, setEventEndTime] = useState(new Date());
         const [place, setPlace] = useState('');
         const [places, setPlaces] = useState([]);
+        const [attendedEvents, setAttendedEvents] = useState([]);
         const [eventUl, setEventUl] = useState('');
         const [parentOrg, setParentOrg] = useState('');
         const [orgs, setOrgs] = useState([]);
         const [clickedCount, setClickedCount] = useState(0);
 
+//chatgpt
 
-        useEffect(() => {
-          const userFromRequest = {
-            method: "GET",
-            headers : {
-              'Authorization': 'Bearer ' + localStorage.getItem('token'),
-              'Content-Type' : 'application/json'
-            }
-          }
-        
-          fetch('http://localhost:8080/api/auth/currentUser', userFromRequest)
-            .then((response) => response.json())
-            .then((user) => {
-              console.log('user3 ' + user.id);
-              setUser(user);
-              return user;
-            })
-            .then((user) => {
-              return fetch('http://localhost:8080/api/user/'+user.id+'/organization')
-                .then((response) => response.json())
-                .then((data) => setOrgs(data))
-            })
-            .then(() => {
-              return fetch('http://localhost:8080/api/places')
-                .then((response) => response.json())
-                .then((data) => setPlaces(data))
-            })
-            .catch((error) => {
-              console.log('Error fetching data: ', error);
-            });
-        }, [clickedCount]);
+const [selectedCategories, setSelectedCategories] = useState("");
+
+const handleCheckboxChange = (e) => {
+  const category = e.target.value;
+  if (e.target.checked) {
+    setSelectedCategories((prevSelectedCategories) =>
+      prevSelectedCategories ? `${prevSelectedCategories},${category}` : category
+    );
+  } else {
+    setSelectedCategories((prevSelectedCategories) =>
+      prevSelectedCategories
+        .split(",")
+        .filter((c) => c !== category)
+        .join(",")
+    );
+  }
+};
+//chatgpt
+
+      useEffect(() => {
+  const userFromRequest = {
+    method: "GET",
+    headers : {
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type' : 'application/json'
+    }
+  }
+
+  fetch('http://localhost:8080/api/auth/currentUser', userFromRequest)
+    .then((response) => response.json())
+    .then((user) => {
+      console.log('user3 ' + user.id);
+      setUser(user);
+      return user;
+    })
+    .then((user) => {
+      return fetch('http://localhost:8080/api/user/'+user.id+'/organization')
+        .then((response) => response.json())
+        .then((data) => setOrgs(data))
+        .then(() => user);
+    })
+    .then((user) => {
+      return fetch('http://localhost:8080/api/places')
+        .then((response) => response.json())
+        .then((data) => setPlaces(data))
+        .then(() => user);
+    })
+    .then((user) => {
+      return fetch('http://localhost:8080/api/events/'+user.id+'/getAttendedEvents')
+        .then((response) => response.json())
+        .then((data) => setAttendedEvents(data));
+    })
+    .catch((error) => {
+      console.log('Error fetching data: ', error);
+    });
+}, [clickedCount]);
 
        
 
     return(
-        <Container>
-              
 
-
-
-  <Container>
-     <Paper  elevation={3} style={paperStyle}>
-        <h1> Events </h1>
+           <Container >
+              <div class='div1'> 
+            
+             
+           
+              <div class="x"> 
+     <Paper  elevation={3} style={paperStyle }>
+        <h1> Create Event</h1>
         <form noValidate autoComplete="off"> 
             <TextField style={{margin:"10px auto"}}  fullWidth variant='outlined' label = "event name" value={eventName} onChange={(e) => setEventName(e.target.value)}> Event name </TextField>
             <br></br>
@@ -80,7 +112,7 @@ function Events() {
       noValidate
       autoComplete="off"
     >
-      <div>
+      
        
         <TextField
           id="outlined-multiline-static"
@@ -90,52 +122,111 @@ function Events() {
           rows={4}
           onChange={e=>setDescription(e.target.value)}
         />
-      </div>
+     
      
     </Box>
             <label>Select parent organization</label>
           
-  <select
-    id="select-parentOrg"
-    value={parentOrg}
-    onChange={e=>{setParentOrg(e.target.value);console.log(parentOrg)}} >
-          {orgs.map((orgs) => (
-              <option value={orgs.id}>{orgs.name}</option>
-            ))}
-            </select>
+            <select
+  id="select-parentOrg"
+  value={parentOrg}
+  onChange={(e) => {
+    const selectedParentOrg = e.target.value;
+    setParentOrg(selectedParentOrg);
+    console.log(selectedParentOrg);
+  }}
+>
+  <option value="" disabled>Select parent organization</option>
+  {orgs.map((org) => (
+    <option key={org.id} value={org.id}>{org.name}</option>
+  ))}
+</select>
             <br/> <br/>
             <label>Select Place for event</label>
           
-          <select
-            id="select-place"
-            onChange={e=>{setPlace(e.target.value);console.log(place)}} >
-                  {places.map((places) => (
-                      <option value={places.id}>{places.city}</option>
-                    ))}
-                    </select>
+            <select
+  id="select-place"
+  value={place}
+  onChange={(e) => {
+    setPlace(e.target.value);
+    console.log(e.target.value);
+  }}
+>
+  <option value="" disabled>Select place for event</option>
+  {places.map((place) => (
+    <option key={place.id} value={place.id}>
+      {place.city}
+    </option>
+  ))}
+</select>
                     <br/> <br/>
+                    
+
+                    <label>
+
+
+
+
+
+        <input
+          type="checkbox"
+          value="6"
+          checked={selectedCategories.includes("6")}
+          onChange={handleCheckboxChange}
+        />
+        Zavod
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="7"
+          checked={selectedCategories.includes("7")}
+          onChange={handleCheckboxChange}
+        />
+        Workshop
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="8"
+          checked={selectedCategories.includes("8")}
+          onChange={handleCheckboxChange}
+        />
+        Koncert
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="9"
+          checked={selectedCategories.includes("9")}
+          onChange={handleCheckboxChange}
+        />
+       Koncert
+      </label>
+      
+
             <Button variant="contained" onClick={createEvent}> Create Event</Button>
             
         </form>
-        <h3>{success}</h3>
+        
         </Paper>
-        
-            <Paper elevation={3} style={paperStyle}>
-            <h2> Attended events :</h2>
+        </div>
+        <div class="x"> <Paper elevation={3} style={paperStyle}>
+            <h2 class="h2att"> Attended events :</h2>
             <ul>
-                {eventUl}
-            </ul>
-            </Paper>
-       
-
-   
-    </Container>
-
-   
-    </Container>
-    );
-
+            { attendedEvents.map((attendedEvents) => <Paper style={paperStyle2}><li><h2>{attendedEvents.name}</h2> <br/>
+                                                                                    {attendedEvents.description}</li></Paper>)
+           }
+          </ul>
+        </Paper></div>
         
+           
+      
+    </div>
+    </Container>
+   
+    );
+    
 function createEvent(e){
     console.log('trying to create event')
     e.preventDefault();
@@ -146,7 +237,7 @@ function createEvent(e){
               'Content-Type' : 'application/json'
           },
           body : JSON.stringify({name : eventName, description : eventDescription,
-          time : eventTime, endtime : eventEndTime, categoriesid : "6,7", placeId : place})
+          time : eventTime, endtime : eventEndTime, categoriesid : selectedCategories , placeId : place})
       }
       console.log(event)
     fetch('http://localhost:8080/api/auth/event/organization/'+parentOrg+'/save', event)

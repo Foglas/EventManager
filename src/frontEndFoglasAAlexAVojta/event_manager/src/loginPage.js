@@ -2,7 +2,8 @@ import { Button, Paper } from "@mui/material";
 import LoginBar from "./loginBar";
 import RegistrationBar from "./RegistrationBar";
 import { useState } from "react";
-
+import Organization from "./Organization";
+import FindEvent from "./findEvent";
 
  function LoginPage(){
     const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
@@ -10,7 +11,7 @@ import { useState } from "react";
     const [buttonName, setButtonName] = useState('Registration');
 
     const HandleRegistration= () =>{
-        if(registration === true){
+        if(registration == true){
             setButtonName('Registration');
             setRegistration(false);
         } else {
@@ -30,10 +31,10 @@ import { useState } from "react";
      
      )
  }
-    <Button  style={{margin:"10px auto"}} variant="contained" onClick={HandleRegistration}>{buttonName}</Button>  
+    <Button variant="contained" onClick={HandleRegistration}>{buttonName}</Button>  
    
     </Paper>
-   
+  
     </div>
     )
 }
