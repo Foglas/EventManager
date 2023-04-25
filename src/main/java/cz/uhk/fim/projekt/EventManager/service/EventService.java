@@ -56,12 +56,28 @@ public class EventService {
        String name = body.get("name");
        LocalDateTime time = LocalDateTime.parse(body.get("time"));
        LocalDateTime endTime = null;
-
+       Place place = null;
+       String coordinates = null;
 
        if (body.get("endtime") != null) {
         endTime = LocalDateTime.parse(body.get("endtime"));
        }
-       long placeId = Long.parseLong(body.get("placeId"));
+
+       if(body.get("placeId") == null && body.get("coordinates") == null) {
+         return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "placeId and coordinates are null");
+       }
+
+       if (body.get("placeId")!=null) {
+           long placeId = Long.parseLong(body.get("placeId"));
+           Optional<Place> place1 = placeRepo.findById(placeId);
+           if (!place1.isPresent()) {
+               return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Address not found");
+           }
+           place = place1.get();
+       } else {
+         coordinates = body.get("coordinates");
+       }
+
 
         Optional<Organization> organization = organizationRepo.findById(organizationId);
 
@@ -69,10 +85,6 @@ public class EventService {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Organization not found");
         }
 
-        Optional<Place> place = placeRepo.findById(placeId);
-        if (!place.isPresent()) {
-            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Address not found");
-        }
 
         String categoriesid = body.get("categoriesid");
         if (categoriesid == null){
@@ -103,7 +115,7 @@ public class EventService {
                 return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
             }
 
-            Event event = new Event(description, name, time, place.get(), organization.get(), endTime);
+            Event event = new Event(description, name, time, place, organization.get(), endTime, coordinates);
             event.setCategories(categories);
             eventRepo.save(event);
 

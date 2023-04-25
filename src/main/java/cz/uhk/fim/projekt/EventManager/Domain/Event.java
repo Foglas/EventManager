@@ -37,7 +37,7 @@ public class Event {
     private LocalDateTime endDateAndTime;
 
     @Column(name = "coordinates")
-    private short[] coordinates;
+    private String coordinates;
 
     @ManyToOne
     @JoinColumn(name = "fk_addressid")
@@ -61,15 +61,16 @@ public class Event {
     private Set<Category> categories = new HashSet<>();
 
 
-    public Event(String description, String name, LocalDateTime dateAndTime, Place place, Organization organization, LocalDateTime endDateAndTime) {
+    public Event(String description, String name, LocalDateTime dateAndTime, Place place, Organization organization, LocalDateTime endDateAndTime,String coordinates) {
         this.description = description;
         this.name = name;
         this.dateAndTime = dateAndTime;
         this.organization = organization;
         this.place = place;
         this.endDateAndTime = endDateAndTime;
+        this.coordinates = coordinates;
     }
-    public Event(long pk_eventid,String description, String name, LocalDateTime dateAndTime, Place place, Organization organization, LocalDateTime endDateAndTime, short[] coordinates) {
+    public Event(long pk_eventid,String description, String name, LocalDateTime dateAndTime, Place place, Organization organization, LocalDateTime endDateAndTime, String coordinates) {
         this.id = pk_eventid;
         this.description = description;
         this.name = name;
@@ -91,11 +92,11 @@ public class Event {
         this.categories = categories;
     }
 
-    public short[] getCoordinates() {
+    public String getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(short[] coordinates) {
+    public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
     }
 

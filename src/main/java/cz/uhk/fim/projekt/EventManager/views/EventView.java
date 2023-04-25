@@ -30,7 +30,7 @@ public class EventView {
     private LocalDateTime endDateAndTime;
 
     @Column(name = "coordinates")
-    private short[] coordinates;
+    private String coordinates;
 
     @Column(name = "city")
     private String city;
@@ -76,63 +76,39 @@ public class EventView {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public LocalDateTime getDateAndTime() {
         return dateAndTime;
     }
 
-    public void setDateAndTime(LocalDateTime dateAndTime) {
-        this.dateAndTime = dateAndTime;
-    }
 
     public LocalDateTime getEndDateAndTime() {
         return endDateAndTime;
     }
 
-    public void setEndDateAndTime(LocalDateTime endDateAndTime) {
-        this.endDateAndTime = endDateAndTime;
-    }
 
-    public short[] getCoordinates() {
+    public String getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(short[] coordinates) {
-        this.coordinates = coordinates;
-    }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public String getStreet() {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
 
     public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
-}
+   }

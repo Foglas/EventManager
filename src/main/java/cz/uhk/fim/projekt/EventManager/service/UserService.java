@@ -47,6 +47,8 @@ public class UserService implements UserServiceInf {
 
     private TokenBlackListRepo tokenBlackListRepo;
 
+    String telReg = "\\d\\d\\d[ ]\\d\\d\\d[ ]\\d\\d\\d$";
+    String telReg2 = "\\d\\d\\d\\d\\d\\d\\d\\d\\d$";
     @Autowired
     public UserService(
             JwtUtil jwtUtil,
@@ -114,14 +116,23 @@ public class UserService implements UserServiceInf {
                     "Name and surname cannot be the same"
             );
         }
-
-        // Check if phone number is at least 8 characters
+            String phone = user.getUserDetails().getPhone();
+           if (!(phone.matches(telReg) || phone.matches(telReg2))) {
+               return ResponseHelper.errorMessage(
+                       "Wrong number format",
+                       "Phone number has wrong format"
+               );
+           }
+     /*
+           // Check if phone number is at least 8 characters
         if (user.getUserDetails().getPhone().length() < 8) {
             return ResponseHelper.errorMessage(
                     "phone_number_lenght",
                     "Phone number must be at least 8 characters"
             );
         }
+
+      */
 
         // Check if user with same email exists
         User dbUser = userRepo.findUserByEmailIgnoreCase(user.getEmail());
@@ -141,7 +152,7 @@ public class UserService implements UserServiceInf {
             userDetailsRepo.save(user.getUserDetails());
 
             Set<Role> roles = new HashSet<>();
-            Optional<Role> role = roleRepo.findByType(Roles.ADMIN.name());
+            Optional<Role> role = roleRepo.findByType(Roles.USER.name());
 
             if (role.isPresent()) {
                 roles.add(role.get());
