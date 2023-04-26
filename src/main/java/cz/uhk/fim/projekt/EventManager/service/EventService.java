@@ -54,19 +54,27 @@ public class EventService {
     public ResponseEntity<?> save(HttpServletRequest request, Map<String, String> body, long organizationId) {
        String description = body.get("description");
        String name = body.get("name");
-       LocalDateTime time = LocalDateTime.parse(body.get("time"));
-       LocalDateTime endTime = null;
+
        Place place = null;
        String coordinates = null;
 
-       if (body.get("endtime") != null) {
-        endTime = LocalDateTime.parse(body.get("endtime"));
+       if (body.get("endtime") == null){
+           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "endtime is null");
        }
+
+       if (body.get("time") == null){
+           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is null");
+       }
+
+        LocalDateTime time = LocalDateTime.parse(body.get("time"));
+        LocalDateTime endTime = LocalDateTime.parse(body.get("endtime"));
 
        if(body.get("placeId") == null && body.get("coordinates") == null) {
          return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "placeId and coordinates are null");
        }
-
+       if(body.get("placeId") == ""){
+           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"argument dont selected");
+       }
        if (body.get("placeId")!=null) {
            long placeId = Long.parseLong(body.get("placeId"));
            Optional<Place> place1 = placeRepo.findById(placeId);
@@ -112,6 +120,10 @@ public class EventService {
                 return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "name is invalid");
             }
             if (time == null) {
+                return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
+            }
+
+            if (endTime == null){
                 return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is invalid");
             }
 

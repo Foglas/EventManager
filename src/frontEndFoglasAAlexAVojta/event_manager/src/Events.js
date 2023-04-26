@@ -16,8 +16,8 @@ function Events() {
         const [user, setUser] = useState('');
         const [eventName, setEventName] = useState('');
         const [eventDescription, setDescription] = useState('');
-        const [eventTime, setEventTime] = useState(new Date());
-        const [eventEndTime, setEventEndTime] = useState(new Date());
+        const [eventTime, setEventTime] = useState('');
+        const [eventEndTime, setEventEndTime] = useState('');
         const [place, setPlace] = useState('');
         const [places, setPlaces] = useState([]);
         const [attendedEvents, setAttendedEvents] = useState([]);
@@ -25,9 +25,14 @@ function Events() {
         const [parentOrg, setParentOrg] = useState('');
         const [orgs, setOrgs] = useState([]);
         const [clickedCount, setClickedCount] = useState(0);
+        const [categories, setCategories] = useState([]);
+        const [checked, setChecked] = useState([]);
+
+        
+        const checkedCategoriesString = checked.length ? checked.reduce((total, category) => {return total + ','+ category;}) : '';
 
 //chatgpt
-
+/*
 const [selectedCategories, setSelectedCategories] = useState("");
 
 const handleCheckboxChange = (e) => {
@@ -44,6 +49,18 @@ const handleCheckboxChange = (e) => {
         .join(",")
     );
   }
+};
+*/
+
+const handleInput = (event) => {
+  var array = [...checked];
+if (event.target.checked) {
+  console.log("checked " + event.target.checked);
+array = [...checked, event.target.value];
+} else {
+array.splice(checked.indexOf(event.target.value), 1);
+}
+setChecked(array);
 };
 //chatgpt
 
@@ -79,21 +96,73 @@ const handleCheckboxChange = (e) => {
       return fetch('http://localhost:8080/api/events/'+user.id+'/getAttendedEvents')
         .then((response) => response.json())
         .then((data) => setAttendedEvents(data));
-    })
+    }).then(()=>{
+      const eventHeader = {
+        method: "GET",
+        headers : {
+            'Authorization': '',
+            'Content-Type' : 'application/json'
+        }
+    }
+    
+     fetch('http://localhost:8080/api/category', eventHeader)
+    .then((response) => {
+        if(response.status == 200){
+        console.log('categories  ok');
+        } 
+       return response.json()})
+    .then((category) => {
+        setCategories(category);
+      })
     .catch((error) => {
       console.log('Error fetching data: ', error);
     });
-}, [clickedCount]);
+})}, [clickedCount]);
 
-       
+/*
+    <label>
+ <input
+          type="checkbox"
+          value="6"
+          checked={selectedCategories.includes("6")}
+          onChange={handleCheckboxChange}
+        />
+        Zavod
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="7"
+          checked={selectedCategories.includes("7")}
+          onChange={handleCheckboxChange}
+        />
+        Workshop
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="8"
+          checked={selectedCategories.includes("8")}
+          onChange={handleCheckboxChange}
+        />
+        Koncert
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          value="9"
+          checked={selectedCategories.includes("9")}
+          onChange={handleCheckboxChange}
+        />
+       Koncert
+      </label>
+*/       
+
 
     return(
 
            <Container >
               <div class='div1'> 
-            
-             
-           
               <div class="x"> 
      <Paper  elevation={3} style={paperStyle }>
         <h1> Create Event</h1>
@@ -152,6 +221,7 @@ const handleCheckboxChange = (e) => {
     console.log(e.target.value);
   }}
 >
+
   <option value="" disabled>Select place for event</option>
   {places.map((place) => (
     <option key={place.id} value={place.id}>
@@ -162,47 +232,14 @@ const handleCheckboxChange = (e) => {
                     <br/> <br/>
                     
 
-                    <label>
+                    { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> handleInput(e)} /></label>)}
+        
+
+        
 
 
 
-
-
-        <input
-          type="checkbox"
-          value="6"
-          checked={selectedCategories.includes("6")}
-          onChange={handleCheckboxChange}
-        />
-        Zavod
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          value="7"
-          checked={selectedCategories.includes("7")}
-          onChange={handleCheckboxChange}
-        />
-        Workshop
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          value="8"
-          checked={selectedCategories.includes("8")}
-          onChange={handleCheckboxChange}
-        />
-        Koncert
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          value="9"
-          checked={selectedCategories.includes("9")}
-          onChange={handleCheckboxChange}
-        />
-       Koncert
-      </label>
+       
       
 
             <Button variant="contained" onClick={createEvent}> Create Event</Button>
@@ -228,17 +265,31 @@ const handleCheckboxChange = (e) => {
     );
     
 function createEvent(e){
-    console.log('trying to create event')
+    console.log('trying to create event ' + eventTime)
     e.preventDefault();
-    const  event = {
-          method: "POST",
-          headers : {
-              'Authorization': 'Bearer ' + localStorage.getItem('token'),
-              'Content-Type' : 'application/json'
-          },
-          body : JSON.stringify({name : eventName, description : eventDescription,
-          time : eventTime, endtime : eventEndTime, categoriesid : selectedCategories , placeId : place})
-      }
+    var  event = null;
+    if(eventEndTime == ''){
+      event = {
+        method: "POST",
+        headers : {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({name : eventName, description : eventDescription,
+        time : eventTime, categoriesid : checkedCategoriesString , placeId : place})
+    }
+    } else {
+       event = {
+        method: "POST",
+        headers : {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({name : eventName, description : eventDescription,
+        time : eventTime, endtime : eventEndTime, categoriesid : checkedCategoriesString , placeId : place})
+    }
+    }
+   
       console.log(event)
     fetch('http://localhost:8080/api/auth/event/organization/'+parentOrg+'/save', event)
     .then((response)=>{
@@ -248,7 +299,6 @@ function createEvent(e){
   };
    })
 }
-
 }
 
 export default Events;

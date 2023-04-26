@@ -27,7 +27,8 @@ export default function LoginBar() {
                 console.log('LOG IN SUCCESSFULL')
                 return response.json();
               } else{
-                setError(response.json().message);
+                var response1 = response.json(); 
+                setError(response1.message);
                 throw response
               }  
             }).then((response) => {
