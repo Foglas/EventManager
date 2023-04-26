@@ -9,6 +9,7 @@ import { stringify } from 'json5';
 function FindEvent(){
 
     const paperStyle={padding:'50px 20px',width:600,margin:'20px auto'}
+    const paperStyle2={padding:'50px 20px',width:500,margin:'20px auto'}
     const [city, setCity] = useState('');
     const [region, setRegion] = useState('');
     const [destrict, setDestrict] = useState('');
@@ -126,30 +127,7 @@ e.preventDefault();
     console.log('data ' + data);
  })
 
-}
-
-function handleDeleteEvent(e, id){
-e.preventDefault();
-const  header = {
-    method: "DELETE",
-    headers : {
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type' : 'application/json'
-    },
-  }
-console.log('id ' + id);
-
-fetch('http://localhost:8080/api/auth/event/'+id+'/delete', header)
-.then((response)=>{
-if(response.status === 200){
-return response.json();
-}else{
-throw response;
-}})
-.then((data) => {
-console.log('data ' + data);
-})
-}     
+}   
       const checkedCategoriesString = checked.length ? checked.reduce((total, category) => {return total + ','+ category;}) : '';
 
     useEffect(() => {
@@ -189,8 +167,8 @@ console.log('data ' + data);
         </form>
         <h1>Akce</h1>    
         <ul>
-            { events.map((event) => <li>{event.name} <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form><form on onSubmit={(e) => handleDeleteEvent(e,event.id)}><Button type='submit' variant='contained'>DELETE</Button></form></div></li>)
-           }
+            { events.map((event) => <li> <Paper style={paperStyle2}> <h1>{event.name}</h1> <h2>{event.description}</h2> <h2>time: {event.dateAndTime}</h2> <h2>End time: {event.endDateAndTime}</h2> <h2>City: {event.city}</h2> <h2>Region: {event.region}</h2> <h2>destrict: {event.destrict}</h2>  <h2>street: {event.street}</h2>  <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form></div> </Paper></li>)
+           } 
         </ul>
 
        </Paper>

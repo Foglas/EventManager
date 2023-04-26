@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
 import { Button}  from '@mui/material';
+import { pickersArrowSwitcherClasses } from '@mui/x-date-pickers/internals';
 
 
 export default function LoginBar() {
@@ -11,9 +12,10 @@ export default function LoginBar() {
     const [token, setToken] = useState('');
     const [error, setError] = useState('');
 
-    const handleClick=(e)=>{
-        e.preventDefault()
-        fetch("http://localhost:8080/api/user/login",{
+     const handleClick =(e)=>{
+        e.preventDefault();
+
+       fetch("http://localhost:8080/api/user/login",{
             method:"POST",
             headers:{
               'Authorization': '',
@@ -22,25 +24,27 @@ export default function LoginBar() {
                     email : email,
                     password : password
                 })
-            }).then((response)=>{
+            }).then(async(response)=>{
               if (response.status === 200){
                 console.log('LOG IN SUCCESSFULL')
-                return response.json();
+                return await response.json();
               } else{
-                var response1 = response.json(); 
-                setError(response1.message);
-                throw response
+                throw await response.json();
               }  
             }).then((response) => {
               setToken(response.message);
+              setError("");
+            }).catch((err)=>{
+                setError(err.message);
+                console.log("error " + err.message)
             })
                 console.log(email, password)
             }
-
             if(token !== ''){
               localStorage.setItem('token', token);
             }
             console.log('token ' + token);
+            
 
   return (
     <Container>
@@ -58,4 +62,4 @@ export default function LoginBar() {
     </form>
     </Container>
   );
-}
+    }

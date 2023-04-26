@@ -12,6 +12,8 @@ export default function RegistrationBar() {
     const [phone, setPhone]=React.useState('')
     const [password, setPassword]= useState('')
     const [dateofbirth, setDateofbirth]= useState(new Date())
+    const [error, setError] = useState('');
+
     const handleClick=(e)=>{
         e.preventDefault();
         
@@ -35,12 +37,17 @@ export default function RegistrationBar() {
               })
           };
           console.log(user.body);
-        fetch('http://localhost:8080/api/user/register',user).then((response)=>{
+        fetch('http://localhost:8080/api/user/register',user)
+        .then(async (response)=>{
               if (response.status === 200){
-                response.json();
                 console.log('REGISTERED')
-              }
-                else throw response})
+                return await response.json();
+              } else{
+                throw await response.json()}
+              }).catch((err) => {
+                setError( err.message);
+                console.log('error' + err.message);
+              })
     }
 
 
@@ -78,7 +85,7 @@ export default function RegistrationBar() {
       <TextField style={{margin:"10px auto"}} id="outlined-basic" label="Password" variant="outlined" fullWidth 
      value={password}
      onChange={(e)=>setPassword(e.target.value)} />
-    
+      <h3>{error}</h3>
      <Button variant="contained" onClick={handleClick}> Submit </Button>
     </form>
     </Container>
