@@ -189,7 +189,7 @@ console.log('data ' + data);
         </form>
         <h1>Akce</h1>    
         <ul>
-            { events.map((event) => <li>{event.name} <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form><form on onSubmit={(e) => handleDeleteEvent(e,event.id)}><Button type='submit' variant='contained'>DELETE</Button></form></div></li>)
+            { events.map((event) => <li>{event.name} <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form></div></li>)
            }
         </ul>
 
