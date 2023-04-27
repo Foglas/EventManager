@@ -14,12 +14,31 @@ function LoginPage() {
     const logout = (e) => {
         e.preventDefault();
         console.log("logout")
-        localStorage.setItem('token', "");
         localStorage.setItem('login', false);
         window.dispatchEvent(new Event('storage'));
         setLogin(false);
         console.log(login)
         window.location.reload();
+        const user = {
+            method: "POST",
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type': 'application/json'
+            }
+          }
+
+        fetch('http://localhost:8080/api/auth/user/logout', user)
+        .then((response) => {
+          if (response.status == 200) {
+                console.log("logout success");
+                return;
+                }
+                throw response;
+        }).catch((response)=>{
+            console.log(response);
+        })
+        localStorage.setItem('token', "");
+       
     }
 /*
     useState(()=>{
@@ -141,7 +160,8 @@ function LoginPage() {
 
         </div>
     )
-}
+
+    }
 
 
 

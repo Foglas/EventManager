@@ -11,8 +11,8 @@ export default function RegistrationBar() {
     const [surname, setSurname]= useState('')
     const [phone, setPhone]=React.useState('')
     const [password, setPassword]= useState('')
-    const [dateofbirth, setDateofbirth]= useState(new Date())
-    const [error, setError] = useState('');
+    const [dateofbirth, setDateofbirth]= useState("")
+    const [message, setMessage] = useState('');
 
     const handleClick=(e)=>{
         e.preventDefault();
@@ -44,8 +44,12 @@ export default function RegistrationBar() {
                 return await response.json();
               } else{
                 throw await response.json()}
-              }).catch((err) => {
-                setError( err.message);
+              }).then((response)=>{
+                setMessage(response.message);
+              })
+              .catch((err) => {
+                if(err.message == "Failed to fetch");
+                setMessage( err.message);
                 console.log('error' + err.message);
               })
     }
@@ -82,10 +86,10 @@ export default function RegistrationBar() {
     
       <input style={{margin:"10px auto"}} type="date" onChange={e=>{setDateofbirth(e.target.value); console.log(e.target.value)}}/>
 
-      <TextField style={{margin:"10px auto"}} id="outlined-basic" label="Password" variant="outlined" fullWidth 
+      <TextField type="password" style={{margin:"10px auto"}} id="outlined-basic" label="Password" variant="outlined" fullWidth 
      value={password}
      onChange={(e)=>setPassword(e.target.value)} />
-      <h3>{error}</h3>
+      <h3>{message}</h3>
      <Button variant="contained" onClick={handleClick}> Submit </Button>
     </form>
     </Container>

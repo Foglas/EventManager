@@ -58,22 +58,31 @@ public class EventService {
        Place place = null;
        String coordinates = null;
 
-       if (body.get("endtime") == null){
-           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "endtime is null");
+       if (name == ""){
+           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "name not fill");
        }
 
-       if (body.get("time") == null){
-           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "time is null");
+       if (description == ""){
+           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"description not fill");
        }
+
+       if (body.get("time") == ""){
+           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "time is not selected");
+       }
+
+        if (body.get("endtime") == ""){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "endtime is not selected");
+        }
 
         LocalDateTime time = LocalDateTime.parse(body.get("time"));
         LocalDateTime endTime = LocalDateTime.parse(body.get("endtime"));
 
-       if(body.get("placeId") == null && body.get("coordinates") == null) {
+       if((body.get("placeId") == null && body.get("coordinates") == null) || (body.get("placeId") == null && body.get("coordinates") =="")) {
          return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "placeId and coordinates are null");
        }
+
        if(body.get("placeId") == ""){
-           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"argument dont selected");
+           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"place dont selected");
        }
        if (body.get("placeId")!=null) {
            long placeId = Long.parseLong(body.get("placeId"));
@@ -82,10 +91,11 @@ public class EventService {
                return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Address not found");
            }
            place = place1.get();
-       } else {
-         coordinates = body.get("coordinates");
        }
 
+       if (body.get("coordinates") != null){
+         coordinates = body.get("coordinates");
+       }
 
         Optional<Organization> organization = organizationRepo.findById(organizationId);
 
@@ -95,6 +105,10 @@ public class EventService {
 
 
         String categoriesid = body.get("categoriesid");
+        if (categoriesid ==""){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "category or categories not selected");
+        }
+
         if (categoriesid == null){
             return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "categories is null");
         }

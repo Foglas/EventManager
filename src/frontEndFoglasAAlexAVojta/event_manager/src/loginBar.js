@@ -13,7 +13,7 @@ export default function LoginBar() {
   //  var token = 'sda';
   
      const handleClick =(e)=>{
-        e.preventDefault();
+      e.preventDefault();
 
        fetch("http://localhost:8080/api/user/login",{
             method:"POST",
@@ -26,12 +26,10 @@ export default function LoginBar() {
                 })
             }).then(async(response)=>{
               if (response.status === 200){
-                window.location.reload();
                 console.log('LOG IN SUCCESSFULL')
                 return await response.json();
                 
               } else{
-                window.location.reload();
                 throw await response.json();
                 
               }  

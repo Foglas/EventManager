@@ -27,7 +27,7 @@ function Events() {
   const [clickedCount, setClickedCount] = useState(0);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
-
+  const [message, setMessage] = useState('');
 
   const checkedCategoriesString = checked.length ? checked.reduce((total, category) => { return total + ',' + category; }) : '';
 
@@ -235,7 +235,7 @@ function Events() {
 
 
               {categories.map((category) => <label>{category.name} <input type="checkbox" value={category.id} onChange={(e) => handleInput(e)} /></label>)}
-
+              <h3>{message}</h3>
               <Button variant="contained" onClick={createEvent}> Create Event</Button>
             </form>
           </Paper>
@@ -260,21 +260,9 @@ function Events() {
   function createEvent(e) {
     console.log('trying to create event ' + eventTime)
     e.preventDefault();
-    var event = null;
-    if (eventEndTime == '') {
-      event = {
-        method: "POST",
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token'),
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: eventName, description: eventDescription,
-          time: eventTime, categoriesid: checkedCategoriesString, placeId: place
-        })
-      }
-    } else {
-      event = {
+  
+   
+    var event = {
         method: "POST",
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -285,15 +273,25 @@ function Events() {
           time: eventTime, endtime: eventEndTime, categoriesid: checkedCategoriesString, placeId: place
         })
       }
-    }
+    
 
     console.log(event)
     fetch('http://localhost:8080/api/auth/event/organization/' + parentOrg + '/save', event)
-      .then((response) => {
+      .then(async (response) => {
         if (response.status === 200) {
           console.log('event created')
           setClickedCount(clickedCount + 1);
+          return await response.json();
         };
+        throw await response.json();
+      }).then((response) =>{
+        setMessage(response.message);
+      }).catch((err) => {
+        if(message == "Failed to fetch"){
+          setMessage("organization not selected");
+          return;
+        }
+        setMessage(err.message);
       })
   }
 }

@@ -104,35 +104,45 @@ public class UserService implements UserServiceInf {
             );
         }
 
-        // Check if name and surname are the same
-        if (
-                user
-                        .getUserDetails()
-                        .getName()
-                        .equalsIgnoreCase(user.getUserDetails().getSurname())
-        ) {
-            return ResponseHelper.errorMessage(
-                    "name_surname_same",
-                    "Name and surname cannot be the same"
-            );
+        if (user.getEmail() == ""){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "email is not fill");
         }
-            String phone = user.getUserDetails().getPhone();
+
+        if(user.getUsername() == ""){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"username is not fill");
+        }
+        if(user.getPassword() == ""){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"password is not fill");
+        }
+
+
+
+        // Check if name and surname are the same
+        if (user.getUserDetails().getName() != "" || user.getUserDetails().getSurname() != "") {
+            if (user.getUserDetails().getName().equalsIgnoreCase(user.getUserDetails().getSurname())) {
+                return ResponseHelper.errorMessage(
+                        "name_surname_same",
+                        "Name and surname cannot be the same"
+                );
+            }
+        }
+        if (user.getUserDetails().getName() == ""){
+            user.getUserDetails().setName(null);
+        }
+
+        if (user.getUserDetails().getSurname() == ""){
+            user.getUserDetails().setSurname(null);
+        }
+
+
+        String phone = user.getUserDetails().getPhone();
            if (!(phone.matches(telReg) || phone.matches(telReg2))) {
                return ResponseHelper.errorMessage(
                        "Wrong number format",
                        "Phone number has wrong format"
                );
            }
-     /*
-           // Check if phone number is at least 8 characters
-        if (user.getUserDetails().getPhone().length() < 8) {
-            return ResponseHelper.errorMessage(
-                    "phone_number_lenght",
-                    "Phone number must be at least 8 characters"
-            );
-        }
 
-      */
 
         // Check if user with same email exists
         User dbUser = userRepo.findUserByEmailIgnoreCase(user.getEmail());
@@ -167,10 +177,9 @@ public class UserService implements UserServiceInf {
             // Return a success message
             return ResponseHelper.successMessage("User registered succesfully");
         } catch (Exception exception) {
-            // Return an error message if an exception occurred while saving the user's details to the database
             return ResponseHelper.errorMessage(
-                    "database_save_failed",
-                    "Saving to database failed"
+                    Error.INVALID_ARGUMENTS.name(),
+                    "date of birth not fill"
             );
         }
     }
