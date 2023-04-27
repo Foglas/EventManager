@@ -19,6 +19,12 @@ import java.util.List;
 @Configuration
 public class RepositoriesConfig {
 
+    /**
+     * Zajišťuje přidání všdch nových rolí a oprávnění do db
+     * @param roleRepo Repository rolí
+     * @param permissionRepo Repository oprávnění
+     * @return
+     */
     @Bean
     CommandLineRunner commandLineRunner(RoleRepo roleRepo, PermissionRepo permissionRepo){
         List<Role> listRole = new ArrayList<>();

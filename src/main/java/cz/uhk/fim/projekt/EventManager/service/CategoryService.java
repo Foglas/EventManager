@@ -33,12 +33,6 @@ public class CategoryService {
         List<Category> categoryList = categoryRepo.findAll();
         return categoryList;
     }
-    public List <Category>getCategoryFromID(long id){
-        List<Category> categoryList = categoryRepo.findAllById(Collections.singleton(id));
-        return categoryList;
-    }
-
-
 
     /**
      * Ukládá categorii do databáze a kontroluje proměnné
