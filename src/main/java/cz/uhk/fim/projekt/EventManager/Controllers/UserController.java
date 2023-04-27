@@ -2,6 +2,7 @@ package cz.uhk.fim.projekt.EventManager.Controllers;
 
 import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
+import cz.uhk.fim.projekt.EventManager.service.PhotoService;
 import cz.uhk.fim.projekt.EventManager.service.UserService;
 import cz.uhk.fim.projekt.EventManager.views.UserView;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,10 +18,12 @@ import java.util.Map;
 public class UserController {
 
   private UserService userService;
+  private PhotoService photoService;
 
   @Autowired
-  public UserController(UserService userService) {
+  public UserController(UserService userService, PhotoService photoService) {
     this.userService = userService;
+    this.photoService = photoService;
   }
 
   @GetMapping("auth/user/{id}")
@@ -72,5 +75,15 @@ public class UserController {
   @PostMapping("/auth/user/logout")
   public ResponseEntity<?> logout(HttpServletRequest httpServletRequest){
     return userService.logout(httpServletRequest);
+  }
+
+  @PostMapping("/auth/user/photo/save")
+  public ResponseEntity<?> uploadPhoto(@RequestBody Map<String, String> body, HttpServletRequest request){
+      return photoService.uploadPhoto(body,request);
+  }
+
+  @GetMapping("/user/photo")
+  public ResponseEntity<?> getPhoto(HttpServletRequest request){
+    return photoService.getPhoto(request);
   }
 }
