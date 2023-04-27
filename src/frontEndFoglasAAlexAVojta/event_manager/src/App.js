@@ -25,7 +25,6 @@ export default function App(){
                         <Route path="/events" element={<Events/>}/>
                         <Route path="/search" element={<FindEvent/>}/>
                         <Route path="/manage" element= {<Manager/>}/>
-                  
                     </Routes>
                 </div>
     

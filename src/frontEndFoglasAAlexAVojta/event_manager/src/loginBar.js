@@ -3,15 +3,15 @@ import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
 import { Button}  from '@mui/material';
-import { pickersArrowSwitcherClasses } from '@mui/x-date-pickers/internals';
 
 
 export default function LoginBar() {
     const [email, setEmail]=React.useState('')
     const [password, setPassword]= useState('')
-    const [token, setToken] = useState('');
+   // const [token, setToken] = useState('');
     const [error, setError] = useState('');
-
+  //  var token = 'sda';
+  
      const handleClick =(e)=>{
         e.preventDefault();
 
@@ -32,7 +32,10 @@ export default function LoginBar() {
                 throw await response.json();
               }  
             }).then((response) => {
-              setToken(response.message);
+              localStorage.setItem('login', true);
+              window.dispatchEvent(new Event('storage'));
+             localStorage.setItem('token', response.message);
+             // console.log("token " + token)
               setError("");
             }).catch((err)=>{
                 setError(err.message);
@@ -40,10 +43,8 @@ export default function LoginBar() {
             })
                 console.log(email, password)
             }
-            if(token !== ''){
-              localStorage.setItem('token', token);
-            }
-            console.log('token ' + token);
+          
+           
             
 
   return (

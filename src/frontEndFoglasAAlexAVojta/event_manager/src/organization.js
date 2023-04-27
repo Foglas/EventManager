@@ -70,14 +70,14 @@ setOrganizationUl(organizationUl);
     return(
         <Container>
      <Paper  elevation={3} style={paperStyle}>
-        <h1> Organizace </h1>
+        <h1> Organization </h1>
         <form noValidate autoComplete="off"> 
             
             <TextField style={{margin:"10px auto"}} variant='outlined' label = "organization name" value={organizationName} fullWidth onChange={(e) => setOrganizationName(e.target.value)}> organizationName</TextField>
             <Button variant="contained" onClick={createOrganization}>Create organization</Button>
         </form>
         
-        <h2>Organizace uživatele: </h2>
+        <h2>Users organization: </h2>
             <ul>
                 {organizationUl}
             </ul>

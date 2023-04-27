@@ -155,7 +155,7 @@ e.preventDefault();
     return(
         <Container>
         <Paper  elevation={3} style={paperStyle}>
-        <h1>Najdi event</h1>
+        <h1>Find event</h1>
         <form>
         <TextField style={{margin:"10px auto"}} variant='outlined'fullWidth label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/>
           
@@ -165,7 +165,7 @@ e.preventDefault();
           { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label>)}
           <button variant="contained" onClick={HandleSearch}>find</button>
         </form>
-        <h1>Akce</h1>    
+        <h1>Events</h1>    
         <ul>
             { events.map((event) => <li> <Paper style={paperStyle2}> <h1>{event.name}</h1> <h2>{event.description}</h2> <h2>time: {event.dateAndTime}</h2> <h2>End time: {event.endDateAndTime}</h2> <h2>City: {event.city}</h2> <h2>Region: {event.region}</h2> <h2>destrict: {event.destrict}</h2>  <h2>street: {event.street}</h2>  <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form></div> </Paper></li>)
            } 
