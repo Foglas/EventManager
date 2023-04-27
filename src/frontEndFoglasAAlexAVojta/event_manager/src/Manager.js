@@ -12,6 +12,31 @@ export default function Manager() {
     const [orgs, setOrgs] = useState([]); 
     const [clickedCount, setClickedCount] = useState(0);
 
+    function handleDeleteEvent(e, id){
+      e.preventDefault();
+      setClickedCount(clickedCount+1);
+      
+      const  header = {
+          method: "DELETE",
+          headers : {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type' : 'application/json'
+          },
+        }
+      console.log('id ' + id);
+      
+      fetch('http://localhost:8080/api/auth/event/'+id+'/delete', header)
+      .then((response)=>{
+      if(response.status === 200){
+      return response.json();
+      }else{
+      throw response;
+      }})
+      .then((data) => {
+      console.log('data ' + data);
+      })
+      } 
+
     useEffect(() => {
         const userFromRequest = {
           method: "GET",
@@ -83,25 +108,4 @@ export default function Manager() {
     </div>
     )
 }
-function handleDeleteEvent(e, id){
-e.preventDefault();
-const  header = {
-    method: "DELETE",
-    headers : {
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type' : 'application/json'
-    },
-  }
-console.log('id ' + id);
 
-fetch('http://localhost:8080/api/auth/event/'+id+'/delete', header)
-.then((response)=>{
-if(response.status === 200){
-return response.json();
-}else{
-throw response;
-}})
-.then((data) => {
-console.log('data ' + data);
-})
-} 

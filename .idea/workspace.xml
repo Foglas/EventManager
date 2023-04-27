@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="vse pushnute by melo fungovat">
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="manager eventu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/findEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/findEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="IDK" />
+        <entry key="$PROJECT_DIR$" value="IDK_2_places" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -148,7 +151,8 @@
       <workItem from="1682285075167" duration="610000" />
       <workItem from="1682492779852" duration="250000" />
       <workItem from="1682522265959" duration="980000" />
-      <workItem from="1682532077387" duration="4175000" />
+      <workItem from="1682532077387" duration="4334000" />
+      <workItem from="1682577024484" duration="2303000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -262,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682143344740</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="manager eventu">
+      <created>1682539895561</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1682539895562</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,7 +314,8 @@
     <MESSAGE value="attended events funguje" />
     <MESSAGE value="dodelat checkbox pro vytvoreni eventu" />
     <MESSAGE value="vse pushnute by melo fungovat" />
-    <option name="LAST_COMMIT_MESSAGE" value="vse pushnute by melo fungovat" />
+    <MESSAGE value="manager eventu" />
+    <option name="LAST_COMMIT_MESSAGE" value="manager eventu" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

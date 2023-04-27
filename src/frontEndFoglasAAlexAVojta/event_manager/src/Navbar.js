@@ -31,6 +31,7 @@ export default function Navbar() {
         console.log("navbar " +login)
         if (login == false) {
             console.log("navbar3 "+ login);
+            
             setView(() => {
                 return (<ul>
                     <li>
