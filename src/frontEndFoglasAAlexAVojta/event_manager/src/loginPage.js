@@ -19,6 +19,7 @@ function LoginPage() {
         window.dispatchEvent(new Event('storage'));
         setLogin(false);
         console.log(login)
+        window.location.reload();
     }
 /*
     useState(()=>{

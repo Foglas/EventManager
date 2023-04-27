@@ -26,10 +26,14 @@ export default function LoginBar() {
                 })
             }).then(async(response)=>{
               if (response.status === 200){
+                window.location.reload();
                 console.log('LOG IN SUCCESSFULL')
                 return await response.json();
+                
               } else{
+                window.location.reload();
                 throw await response.json();
+                
               }  
             }).then((response) => {
               localStorage.setItem('login', true);
