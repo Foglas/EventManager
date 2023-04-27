@@ -287,7 +287,7 @@ function Events() {
       }).then((response) =>{
         setMessage(response.message);
       }).catch((err) => {
-        if(message == "Failed to fetch"){
+        if(err.message == "Failed to fetch"){
           setMessage("organization not selected");
           return;
         }

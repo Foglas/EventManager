@@ -10,10 +10,12 @@ import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 import cz.uhk.fim.projekt.EventManager.views.EventView;
 import cz.uhk.fim.projekt.EventManager.views.UserView;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.catalina.valves.ErrorReportValve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponse;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -76,6 +78,10 @@ public class EventService {
 
         LocalDateTime time = LocalDateTime.parse(body.get("time"));
         LocalDateTime endTime = LocalDateTime.parse(body.get("endtime"));
+
+        if (time.isAfter(endTime)){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "end time is before time");
+        }
 
        if((body.get("placeId") == null && body.get("coordinates") == null) || (body.get("placeId") == null && body.get("coordinates") =="")) {
          return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "placeId and coordinates are null");
