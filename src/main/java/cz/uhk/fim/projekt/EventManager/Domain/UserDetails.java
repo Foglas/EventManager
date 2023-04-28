@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+/**
+ * Třída reprezentuje tabulku UserDetails v databázi.
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "userdetails")
 public class UserDetails {

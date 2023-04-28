@@ -7,12 +7,13 @@ import Events from "./Events"
 import "./style.css"
 import FindEvent from "./findEvent"
 import Manager from "./Manager"
-//import Manager from "./Manager"
-//<Route path="/manage" element={<Manager/>}/>
+
+/*
+Hlavní funkce aplikace, zobrazuje navigační panel na vrcholu stránky (Navbar),
+ dále obsah aktuálně zvolené stránky a zápatí (Footer)
+*/
 
 export default function App(){
-
-
 
     return (
         <>

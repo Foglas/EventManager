@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * Třída poskytuje metody pro práci s místy (adresami)
+ */
 @Service
 public class PlaceService {
 
@@ -19,7 +21,11 @@ public class PlaceService {
   public PlaceService(PlaceRepo placeRepo) {
     this.placeRepo = placeRepo;
   }
-
+  /**
+   * Metoda slouží k přidání nového místa do tabulky Address
+   * @param place Objekt obsahující informace o adrese
+   * @return vrací hlášku o úspěšném uložení místa, nebo chybovou hlášku, pokud dojde k chybě
+   */
   public ResponseEntity<?> save(Place place) {
 
     if (place.getCity() == null){
@@ -41,7 +47,10 @@ public class PlaceService {
     placeRepo.save(place);
    return    ResponseHelper.successMessage("place added");
   }
-
+  /**
+   * metoda vrátí seznam všech míst
+   * @return seznam objektu Place
+   */
     public ResponseEntity<?> getAllPlaces() {
     List<Place> places = placeRepo.findAll();
     return ResponseEntity.ok(places);

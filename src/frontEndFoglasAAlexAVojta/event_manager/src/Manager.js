@@ -2,15 +2,23 @@ import React,{useEffect, useState} from 'react';
 
 import { Paper, Button} from '@mui/material';
 import "./style.css"
+/*
+    Funkce Manager slouží k zobrazení stránky pro správu eventů - je k dispozici pouze smazání eventů.
+    Obsahuje 2 segmenty "Parent Organization" a "Managable Events". V sekci parent organization se zvolí
+    organizace a druhý segment zobrazí eventy pod danou organizací s tlačítkem delete, který slouží pro smazání eventu.
+*/
 
 export default function Manager() {
     const paperStyle={padding:'50px 20px',width:400,margin:'20px auto'}
-    const paperStyle2={padding:' 20px',width:200,margin:'20px auto'}
     const [user, setUser] = useState('');
     const [parentOrg, setParentOrg] = useState('');
     const [events, setEvents] = useState([]);
     const [orgs, setOrgs] = useState([]); 
     const [clickedCount, setClickedCount] = useState(0);
+
+    /*
+      Funkce handleDeleteEvent pošle na Spring Boot DELETE request pro event, jehož ID přijde jako parametr funkce.
+    */
 
     function handleDeleteEvent(e, id){
       e.preventDefault();
@@ -36,7 +44,9 @@ export default function Manager() {
       console.log('data ' + data);
       })
       } 
-
+    /*
+        Hook useEffect slouží k načtení aktuálního uživatele, jeho organizací a eventů aktuálně zvolené organizace.
+    */
     useEffect(() => {
         const userFromRequest = {
           method: "GET",
@@ -71,7 +81,9 @@ export default function Manager() {
             console.log('Error fetching data: ', error);
           });
       }, [clickedCount]);
-
+      /*
+          Return vrátí 2 segmenty - Parent Organization a Managable events, které se namapují podle aktuální parent organization
+      */
 
     return (
         <div >

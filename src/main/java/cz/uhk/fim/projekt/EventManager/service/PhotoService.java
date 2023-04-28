@@ -17,7 +17,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+/**
+ * Třída poskytuje metody pro práci s fotkou - tabulka Photo
+ */
 @Service
 public class PhotoService {
 
@@ -31,10 +33,15 @@ public class PhotoService {
         this.jwtUtil = jwtUtil;
         this.userRepo = userRepo;
     }
+    /**
+     * Metoda vrátí fotku podle requestu
+     * @param request request, zjišťuje se z něho token
+     * @return vrací objekt Photo, nebo chybovou hlášku pokud dojde k chybě
+     */
+    public ResponseEntity<?> getPhoto(HttpServletRequest request){
+        User user = jwtUtil.getUserFromRequest(request,userRepo);
 
-    public ResponseEntity<?> getPhoto(long id){
-
-        Optional<Long> photoid = photoRepo.findByUserId(id);
+        Optional<Long> photoid = photoRepo.findByUserId(user.getId());
         Optional<Photo> photo;
 
         if (photoid.isPresent()){
@@ -44,7 +51,12 @@ public class PhotoService {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "photo not found");
         }
     }
-
+    /**
+     * Metoda slouží k nahrání fotky uživatele
+     * @param request request, zjišťuje se z něho token
+     * @param body Objekt obsahující fotku
+     * @return vrací hlášku o úspěchu, nebo chybovou hlášku pokud dojde k chybě
+     */
     public ResponseEntity<?> uploadPhoto(Map<String, String> body, HttpServletRequest request){
         String photo = body.get("photo");
         if (photo == null){
@@ -70,7 +82,7 @@ public class PhotoService {
 
         if (photoId.isPresent()){
             Optional<Photo> photo1 = photoRepo.findById(photoId.get());
-            Photo photo2 = new Photo(photo1.get().getId(),photoByte,suffix,uploadedAt, user);
+            Photo photo2 = new Photo(photo1.get().getId(),photoByte,suffix, user);
             photoRepo.save(photo2);
         } else {
             Photo photo2 = new Photo(photoByte, suffix,uploadedAt,user);

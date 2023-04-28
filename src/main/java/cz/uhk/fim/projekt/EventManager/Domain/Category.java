@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Třída reprezentuje tabulku Category v databázi. Obsahuje i propojovací tabulku mezi eventem a category
+ * Třída reprezentuje tabulku Category v databázi. Obsahuje i propojovací tabulku mezi Event a Category.
  * Pro generaci id je využita sekvence z databáze.
  */
 @Entity

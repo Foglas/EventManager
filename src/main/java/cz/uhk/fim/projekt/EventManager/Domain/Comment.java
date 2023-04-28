@@ -3,7 +3,10 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-
+/**
+ * Třída reprezentuje tabulku Comment v databázi.
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "comment")
 public class Comment {

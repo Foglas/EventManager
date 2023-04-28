@@ -9,6 +9,9 @@ import org.hibernate.annotations.Immutable;
 
 import java.time.LocalDateTime;
 import java.util.List;
+/**
+ * Pohled EventView zobrazuje rozšířené informace o Eventu z tabulek Event a Address
+ */
 
 @Entity(name = "event_information")
 @Immutable

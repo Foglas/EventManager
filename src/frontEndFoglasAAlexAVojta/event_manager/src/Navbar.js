@@ -1,10 +1,10 @@
 import "./style.css"
 import { Link, useMatch, useResolvedPath } from "react-router-dom"
 import { useEffect, useState} from "react";
+/*
+Funkce Navbar je navigační panel na vrchní straně stránky. Má 2 možnosti zobrazení, záleží jestli je uživatel přihlášen.
 
-
-
-
+*/
 
 export default function Navbar() {
     const [login, setLogin] = useState('');
@@ -26,7 +26,9 @@ export default function Navbar() {
     }, []);
 
     useEffect(()=>{console.log('change in navbar ' + login);},[login]);
-
+        /*
+            Hook useEffect zde kontroluje, zda je uživatel přihlášený nebo není a na základě toho určí, které položky zahrnout do navigačního panelu.
+        */
     useEffect(() => {
         console.log("navbar " +login)
         if (login == false) {
@@ -71,7 +73,9 @@ export default function Navbar() {
     }, [login]);
 
 
-
+    /*
+    Return zobrazí název aplikace a view, který obsahuje položky panelu
+    */
     return (
         <nav className="nav">
             <Link to="/" className="title"> EventManager</Link>
@@ -80,7 +84,9 @@ export default function Navbar() {
         </nav>
     )
 }
-
+    /*
+            Funkce FLink nastaví custom link, je dělaná podle vzoru
+    */
 function FLink({ to, children, ...props }) {
     const resolvePath = useResolvedPath(to)
     const isActive = useMatch({ path: resolvePath.pathname, end: true })

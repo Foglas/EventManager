@@ -1,17 +1,12 @@
 package cz.uhk.fim.projekt.EventManager.views;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import cz.uhk.fim.projekt.EventManager.Domain.Organization;
-import cz.uhk.fim.projekt.EventManager.Domain.Role;
-import cz.uhk.fim.projekt.EventManager.Domain.UserDetails;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Immutable;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
+/**
+ * Pohled UserView zobrazuje rozšířené informace o uživateli z tabulek Users a UserDetails
+ */
 
 @Entity(name = "user_information")
 @Immutable

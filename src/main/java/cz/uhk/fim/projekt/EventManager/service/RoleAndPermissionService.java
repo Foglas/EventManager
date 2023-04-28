@@ -6,7 +6,9 @@ import cz.uhk.fim.projekt.EventManager.dao.RoleRepo;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Třída poskytující metody pro práci s rolemi
+ */
 @Service
 public class RoleAndPermissionService {
 
@@ -21,7 +23,10 @@ public class RoleAndPermissionService {
     this.roleRepo = roleRepo;
     this.permissionRepo = permissionRepo;
   }
-
+  /**
+   * metoda uloží novou roli
+   * @param role objekt role k uložení
+   */
   public void saveRole(Role role) {
     role.setUsers(new HashSet<>());
     roleRepo.save(role);

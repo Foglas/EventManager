@@ -2,7 +2,10 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 
 
 import jakarta.persistence.*;
-
+/**
+ * Třída reprezentuje tabulku Address v databázi.
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "address")
 public class Place {

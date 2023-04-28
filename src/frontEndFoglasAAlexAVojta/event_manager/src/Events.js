@@ -4,15 +4,15 @@ import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import FindEvent from './findEvent';
 import "./style.css"
 
+/*
+  Stránka Events obsahuje 2 podokna, jedno pro tvorbu eventu, druhé jako přehled přihlášených eventů
+*/
 
 function Events() {
   const paperStyle = { padding: '50px 20px', width: 550, margin: '20px auto' }
    const paperStyle2={padding:' 20px',width:350,margin:'20px auto'}
-  const [success, setSuccess] = useState('');
-  const [events, setEvents] = useState([]);
   const [user, setUser] = useState('');
   const [eventName, setEventName] = useState('');
   const [eventDescription, setDescription] = useState('');
@@ -21,37 +21,17 @@ function Events() {
   const [place, setPlace] = useState('');
   const [places, setPlaces] = useState([]);
   const [attendedEvents, setAttendedEvents] = useState([]);
-  const [eventUl, setEventUl] = useState('');
   const [parentOrg, setParentOrg] = useState('');
   const [orgs, setOrgs] = useState([]);
   const [clickedCount, setClickedCount] = useState(0);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [message, setMessage] = useState('');
-
   const checkedCategoriesString = checked.length ? checked.reduce((total, category) => { return total + ',' + category; }) : '';
-
-  //chatgpt
-  /*
-  const [selectedCategories, setSelectedCategories] = useState("");
   
-  const handleCheckboxChange = (e) => {
-    const category = e.target.value;
-    if (e.target.checked) {
-      setSelectedCategories((prevSelectedCategories) =>
-        prevSelectedCategories ? `${prevSelectedCategories},${category}` : category
-      );
-    } else {
-      setSelectedCategories((prevSelectedCategories) =>
-        prevSelectedCategories
-          .split(",")
-          .filter((c) => c !== category)
-          .join(",")
-      );
-    }
-  };
+  /*
+    handleInput je pomocná pseudofunkce ke checkboxům v tvorbě eventu
   */
-
   const handleInput = (event) => {
     var array = [...checked];
     if (event.target.checked) {
@@ -62,7 +42,12 @@ function Events() {
     }
     setChecked(array);
   };
-  //chatgpt
+
+  /*
+    následující hook useState se zavolá při pokusu o vytvoření event a při načtení okna.
+    Dojde v něm ke komunikaci se Spring Bootem - načtení aktuálního uživatele, jeho organizací,
+    všech dostupných míst pro eventy, zúčastněných eventů a kategorií
+  */
 
   useEffect(() => {
     const userFromRequest = {
@@ -120,46 +105,9 @@ function Events() {
           });
       })
   }, [clickedCount]);
-
   /*
-      <label>
-   <input
-            type="checkbox"
-            value="6"
-            checked={selectedCategories.includes("6")}
-            onChange={handleCheckboxChange}
-          />
-          Zavod
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="7"
-            checked={selectedCategories.includes("7")}
-            onChange={handleCheckboxChange}
-          />
-          Workshop
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="8"
-            checked={selectedCategories.includes("8")}
-            onChange={handleCheckboxChange}
-          />
-          Koncert
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="9"
-            checked={selectedCategories.includes("9")}
-            onChange={handleCheckboxChange}
-          />
-         Koncert
-        </label>
+  return funkce vrací samotné komponenty: formulář pro tvorbu eventu a výpis zúčastněnýh eventů 
   */
-
 
   return (
 
@@ -184,7 +132,6 @@ function Events() {
                 autoComplete="off"
               >
 
-
                 <TextField
                   id="outlined-multiline-static"
                   label="Description"
@@ -193,7 +140,6 @@ function Events() {
                   rows={4}
                   onChange={e => setDescription(e.target.value)}
                 />
-
 
               </Box>
               <label>Select parent organization</label>
@@ -223,7 +169,6 @@ function Events() {
                   console.log(e.target.value);
                 }}
               >
-
                 <option value="" disabled>Select place for event</option>
                 {places.map((place) => (
                   <option key={place.id} value={place.id}>
@@ -232,7 +177,6 @@ function Events() {
                 ))}
               </select>
               <br /> <br />
-
 
               {categories.map((category) => <label>{category.name} <input type="checkbox" value={category.id} onChange={(e) => handleInput(e)} /></label>)}
               <h3>{message}</h3>
@@ -248,14 +192,14 @@ function Events() {
               {attendedEvents.dateAndTime}</li></Paper>)
             }
           </ul>
-        </Paper></div>
-
-
-
-
+        </Paper>
+        </div>
       </div>
     </Container>
   );
+  /*
+      Funkce createEvent slouží pro pokus o vytvoření eventu
+  */
 
   function createEvent(e) {
     console.log('trying to create event ' + eventTime)

@@ -1,19 +1,22 @@
-
 import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
 import { Button}  from '@mui/material';
-
+/*
+    Funkce LoginBar je přihlašovací formulář, který je volán z LoginPage
+*/
 
 export default function LoginBar() {
     const [email, setEmail]=React.useState('')
     const [password, setPassword]= useState('')
-   // const [token, setToken] = useState('');
     const [error, setError] = useState('');
-  //  var token = 'sda';
+
+    /*
+        handleClick spustí pokus o login zasláním požadavku na Spring Boot, údaje se načtou z formuláře
+    */
   
      const handleClick =(e)=>{
-      e.preventDefault();
+        e.preventDefault();
 
        fetch("http://localhost:8080/api/user/login",{
             method:"POST",
@@ -26,10 +29,12 @@ export default function LoginBar() {
                 })
             }).then(async(response)=>{
               if (response.status === 200){
+                window.location.reload();
                 console.log('LOG IN SUCCESSFULL')
                 return await response.json();
                 
               } else{
+                window.location.reload();
                 throw await response.json();
                 
               }  
@@ -37,18 +42,17 @@ export default function LoginBar() {
               localStorage.setItem('login', true);
               window.dispatchEvent(new Event('storage'));
              localStorage.setItem('token', response.message);
-             // console.log("token " + token)
               setError("");
             }).catch((err)=>{
                 setError(err.message);
                 console.log("error " + err.message)
             })
                 console.log(email, password)
-            }
+      }
+      /*
+          Return vrátí přihlašovací formulář
+      */
           
-           
-            
-
   return (
     <Container>
             <h1 style={{color:"blue"}}><u>Login</u></h1>
@@ -65,4 +69,4 @@ export default function LoginBar() {
     </form>
     </Container>
   );
-    }
+  }

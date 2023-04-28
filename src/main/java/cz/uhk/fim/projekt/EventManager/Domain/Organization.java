@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * Třída reprezentuje tabulku Organization v databázi. Obsahuje i propojovací tabulku mezi Organization a Users.
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "organization")
 public class Organization {
