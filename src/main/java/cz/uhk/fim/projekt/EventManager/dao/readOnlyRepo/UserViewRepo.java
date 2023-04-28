@@ -10,6 +10,9 @@ import java.util.Optional;
  */
 
 public interface UserViewRepo extends ReadOnlyRepo<UserView, Long> {
-
+    /**
+     * Metoda vyhledá všechny pohledy UserView podle ID
+     * @param id ID uživatele
+     */
     Optional<List<UserView>> findAllById(Iterable<Long> id);
 }

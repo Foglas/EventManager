@@ -19,7 +19,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
-
+/**
+ * Třída poskytuje metody pro práci s událostmi
+ */
 @Service
 public class EventService {
 
@@ -50,7 +52,13 @@ public class EventService {
         this.categoryRepo = categoryRepo;
         this.userViewRepo = userViewRepo;
     }
-
+    /**
+     * Metoda uloží event do databáze a přiřadí mu příslušnou organizaci
+     * @param body Objekt obsahující informace o události
+     * @param request request, zjišťuje se z něho token
+     * @param organizationId ID organizace, pod kterou událost bude
+     * @return vrátí hlášku o úspěšném uložení, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> save(HttpServletRequest request, Map<String, String> body, long organizationId) {
        String description = body.get("description");
        String name = body.get("name");
@@ -154,8 +162,14 @@ public class EventService {
 
         return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to save event in this organization");
     }
+    /**
+     * Metoda přihlásí uživatele na událost
+     * @param body Objekt obsahující informace o ticketu
+     * @param request request, zjišťuje se z něho token
+     * @param id ID události, na kterou se uživatel přihlašuje
+     * @return vrátí hlášku o úspěšném přihlášení, případně chybovou hlášku, pokud dojde k chybě
+     */
 
-    //TODO dodelat aby user nemohl mit dve prihlaseni
     public ResponseEntity<?> attend(Map<String, String> body, long id, HttpServletRequest request) {
         User user = jwtUtil.getUserFromRequest(request, userRepo);
         Optional<Event> event = eventRepo.findById(id);
@@ -182,9 +196,12 @@ public class EventService {
         return ResponseHelper.successMessage("attended to event");
     }
 
-
-
-
+    /**
+     * Metoda smaže event z databáze
+     * @param id ID události, která se má smazat
+     * @param request request, zjišťuje se z něho token
+     * @return vrátí hlášku o úspěšném smazání, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> delete(long id, HttpServletRequest request) {
         Optional<Event> event = eventRepo.findById(id);
 
@@ -204,7 +221,10 @@ public class EventService {
 
         return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user dont have access to delete event");
     }
-
+    /**
+     * Metoda vrátí podrobné informace o všech událostech
+     * @return seznam pohledů EventView
+     */
     public List<EventView> getEvents() {
         List<EventView> eventViews = eventViewRepo.findAll();
         for (EventView eventView: eventViews) {
@@ -212,7 +232,11 @@ public class EventService {
         }
     return eventViews;
     }
-
+    /**
+     * Metoda vyhledá událost podle jejího ID
+     * @param id ID hledané události
+     * @return vrátí objekt události, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<Event> getEventById(long id) {
         Optional<Event> event = eventRepo.findById(id);
         if (!event.isPresent()){
@@ -221,7 +245,12 @@ public class EventService {
         return ResponseEntity.ok(event.get());
     }
 
-
+    /**
+     * Metoda zruší účast uživatele na události
+     * @param id ID události, ze které se má uživatel odhlásit
+     * @param request request, zjišťuje se z něho token
+     * @return vrátí hlášku o úspěšném odhlášení, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> cancelAttend(long id, HttpServletRequest request) {
         User user = jwtUtil.getUserFromRequest(request, userRepo);
 
@@ -235,19 +264,17 @@ public class EventService {
     }
 
     /**
-     * Metoda tvori custom query pro vyhledavani v databazi
+     * Metoda tvoří custom query pro vyhledávání v databázi
      * @param region kraj
      * @param destrict okres
-     * @param time cas zacatku
-     * @param city mesto konani
-     * @return list EventView, ktere odpovida vyhledavacim parametrum
+     * @param time čas začátku
+     * @param city město konání
+     * @return vrací seznam pohledů EventView, které odpovídají vyhledávacím parametrům
      */
     public ResponseEntity<?> findEventByParameters(Optional<String> region, Optional<String> destrict, Optional<LocalDateTime> time, Optional<String> city, Optional<String> categories) {
         String query = "SELECT * FROM event_information WHERE";
         int count = 0;
-
         boolean queryState = false;
-
 
         if (region.isPresent()){
             if (count==0){
@@ -345,6 +372,11 @@ public class EventService {
 
         return ResponseEntity.ok(eventView);
     }
+    /**
+     * Metoda spočítá počet lidí, kteří jsou přihlášení na danou událost
+     * @param id ID Eventu, pro který hledáme počet účastníků
+     * @return vrátí počet lidí na události, nebo chybovou hlášku, pokud dojde k chybě
+     */
 
     public ResponseEntity<Long> getNumberOfPeopleOnEvent(long id) {
         if (eventRepo.existsById(id)) {
@@ -352,7 +384,11 @@ public class EventService {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
+    /**
+     * Metoda vrátí seznam kategorií, které má daná událost
+     * @param id ID události, pro kterou hledáme kategorie
+     * @return vrátí seznam objektů Category, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> getEventCategory(long id) {
         Optional<Event> event = eventRepo.findById(id);
         if (!event.isPresent()){
@@ -363,7 +399,11 @@ public class EventService {
         categories.addAll(categorySet);
         return ResponseEntity.ok(categories);
     }
-
+    /**
+     * Metoda vyhledá události, které mají alespoň určitý počet přihlášených uživatelů
+     * @param number Minimální počet uživatelů
+     * @return vrátí názvy událostí, které mají alespoň určitý počet přihlášených uživatelů, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> getEventByAttendence(String number) {
         if (number == null){
             return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "number is null");
@@ -372,7 +412,11 @@ public class EventService {
         List< String> eventsname = eventRepo.getEventNameByAttendence(intNumber);
         return ResponseEntity.ok(eventsname);
     }
-
+    /**
+     * Metoda vyhledá všechny uživatele přihlášené na událost
+     * @param id ID události
+     * @return vrátí seznam přihlášených uživatelů, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> getUsersAttendedOnEvent(long id) {
         Optional<List<Long>> userid = ticketRepo.findUsersIdByEventId(id);
 
@@ -384,7 +428,11 @@ public class EventService {
 
         return ResponseEntity.ok(users);
     }
-
+    /**
+     * Metoda vyhledá všechny události uživatele, na které je přihlášen
+     *  @param id ID uživatele
+     * @return vrátí seznam událostí, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> getEventViewsFromUser(long id){
         Optional<List<Long>> eventid = ticketRepo.findEventsIdByUserId(id);
 
@@ -399,10 +447,7 @@ public class EventService {
                   e.setCategoryList(categoryRepo.findAllById(iterableList));
             }
         }
-
-
         return ResponseEntity.ok(events);
     }
-
 
 }
