@@ -19,6 +19,7 @@ public class CustomQueryEvent implements CustonEventRepo {
     /**
      * Metoda vrátí seznam eventů, které odpovídají vloženým parametrům
      * @param query seznam parametrů
+     * @return vrací seznam pohledů EventView
      */
     public List<EventView> findEventByParameters(String query){
         List<EventView> events = (List<EventView>) entityManager.createNativeQuery(query, EventView.class).getResultList();

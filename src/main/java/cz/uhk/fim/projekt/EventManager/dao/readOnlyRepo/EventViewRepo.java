@@ -12,7 +12,10 @@ import java.util.Optional;
 public interface EventViewRepo extends ReadOnlyRepo<EventView, Long>{
 
     Optional<EventView> findById(long id);
-
+    /**
+     * Metoda vyhledá všechny pohledy EventView podle ID
+     * @param id ID Eventu
+     */
     Optional <List<EventView>> findAllById(Iterable <Long> id);
 
 
