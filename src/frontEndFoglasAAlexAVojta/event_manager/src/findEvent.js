@@ -2,9 +2,13 @@ import React,{useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
 import { Paper, Button} from '@mui/material';
-import { eventWrapper } from '@testing-library/user-event/dist/utils';
-import userEvent from '@testing-library/user-event';
-import { stringify } from 'json5';
+
+/*
+    Funkce FindEvent slouží k vyhledávání eventů: nejprve se zformuluje proměnná
+    query na základě požadavků vyhledávání - k tomu slouží vnořená funkce handleSearch.
+    Následně se odešle jako GET na Spring Boot, který vrátí odpovídající eventy
+*/
+
 
 function FindEvent(){
 
@@ -18,8 +22,10 @@ function FindEvent(){
     const [selectedCategory, setSelectedCategory] = useState(['']);
     const [checked, setChecked] = useState([]);
     const [events, setEvents] = useState([]);
-    const [currentEventId, setCurrentEventId] = useState('');
 
+    /*
+    handleInput je pomocná pseudofunkce ke checkboxům v tvorbě eventu
+    */
     const handleInput = (event) => {
         var array = [...checked];
     if (event.target.checked) {
@@ -29,7 +35,7 @@ function FindEvent(){
       array.splice(checked.indexOf(event.target.value), 1);
     }
     setChecked(array);
-      };
+    };
 
       function HandleSearch(e){
         e.preventDefault();
@@ -151,6 +157,10 @@ e.preventDefault();
 
     useEffect(() => console.log("array " + selectedCategory), [selectedCategory]);
     console.log(checked);
+    /*
+        return vrátí vyhledávací formulář s tlačítkem FIND, které spustí vyhledání.
+        Po spuštění vyhledání se vypíše seznam odpovídajících eventů.
+    */
 
     return(
         <Container>
@@ -158,16 +168,25 @@ e.preventDefault();
         <h1>Find event</h1>
         <form>
         <TextField style={{margin:"10px auto"}} variant='outlined'fullWidth label = "region" value={region} onChange={(e) => setRegion(e.target.value)}/>
-          
-          <TextField  style={{margin:"10px auto"}} variant='outlined'fullWidth label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/> 
-           <TextField style={{margin:"10px auto"}} variant='outlined'fullWidth label = "city" value={city} onChange={(e) => setCity(e.target.value)}/>
-          <label>Time <input style={{margin:"10px auto"}} type="datetime-local" onChange={e=>setTime(e.target.value)}/></label> 
-          { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label>)}
-          <button variant="contained" onClick={HandleSearch}>find</button>
+        <TextField  style={{margin:"10px auto"}} variant='outlined'fullWidth label = "destrict" value={destrict} onChange={(e) => setDestrict(e.target.value)}/> 
+        <TextField style={{margin:"10px auto"}} variant='outlined'fullWidth label = "city" value={city} onChange={(e) => setCity(e.target.value)}/>
+        <label>Time <input style={{margin:"10px auto"}} type="datetime-local" onChange={e=>setTime(e.target.value)}/></label> 
+        { categories.map((category) => <label>{category.name} <input type="checkbox"  value={category.id} onChange={(e)=> {handleInput(e)}} /></label>)}
+        <Button variant="contained" onClick={HandleSearch}>find</Button>
         </form>
         <h1>Events</h1>    
         <ul>
-            { events.map((event) => <li> <Paper style={paperStyle2}> <h1>{event.name}</h1> <h2>{event.description}</h2> <h2>time: {event.dateAndTime}</h2> <h2>End time: {event.endDateAndTime}</h2> <h2>City: {event.city}</h2> <h2>Region: {event.region}</h2> <h2>destrict: {event.destrict}</h2>  <h2>street: {event.street}</h2>  <div><form on onSubmit={(e) => handleAttend(e,event.id)}><Button type='submit' variant='contained'>Attend</Button></form></div> </Paper></li>)
+            { events.map((event) => <li> <Paper style={paperStyle2}>
+                 <h1>{event.name}</h1> <h2>{event.description}</h2>
+                  <h2>time: {event.dateAndTime}</h2>
+                   <h2>End time: {event.endDateAndTime}</h2>
+                    <h2>City: {event.city}</h2>
+                     <h2>Region: {event.region}</h2>
+                      <h2>destrict: {event.destrict}</h2>
+                       <h2>street: {event.street}</h2> 
+                        <div><form on onSubmit={(e) => handleAttend(e,event.id)}>
+                         <Button type='submit' variant='contained'>Attend</Button></form>
+                          </div> </Paper></li>)
            } 
         </ul>
 

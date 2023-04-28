@@ -2,7 +2,9 @@ import { Button, Paper } from "@mui/material";
 import LoginBar from "./loginBar";
 import RegistrationBar from "./RegistrationBar";
 import { useEffect, useState} from "react";
-
+/*
+    Funkce LoginPage je stránka, která spravuje login a registraci. Dál se stará o stav přihlášení - nepřihlášenému uživateli zobrazí odlišný omezený obsah.
+*/
 
 function LoginPage() {
     const paperStyle = { padding: '50px 20px', width: 600, margin: '20px auto' }
@@ -10,6 +12,10 @@ function LoginPage() {
     const [buttonName, setButtonName] = useState('Registration');
     const [login, setLogin] = useState('');
     const [view, setView] = useState('');
+    /*
+    logout je soubor příkazů použitý při stisknutí LOGOUT tlačítka.
+    Odhlásí aktuálně přihlášeného uživatele a upraví obsah zobrazený na stránce - zmizí přístup k určitým položkám navigačního panelu.
+    */
    
     const logout = (e) => {
         e.preventDefault();
@@ -38,31 +44,10 @@ function LoginPage() {
             console.log(response);
         })
         localStorage.setItem('token', "");
-       
     }
-/*
-    useState(()=>{
-        setView(() => {
-            if (registration == true) {
-                   return(
-                   <div>
-                        <RegistrationBar />
-                        <Button variant="contained" onClick={HandleRegistration}>{buttonName}</Button>
-                    </div>
-                    )
-                
-            } else {
-                return(
-                    <div>
-                        <LoginBar />
-                        <Button variant="contained" onClick={HandleRegistration}>{buttonName}</Button>
-                    </div>
-         ) }
-        
-        });
-    },[]);
-    
-*/
+    /*
+        Tento hook useEffect nastavuje hodnotu login
+    */
 
     useEffect(() => {
         if(localStorage.getItem('token') != ""){
@@ -80,6 +65,10 @@ function LoginPage() {
 
     console.log("loginDefault " + login);
 
+    /*
+        handleRegistration slouží k přepínání mezi loginem a registrací
+    */
+
     const HandleRegistration = () => {
         if (registration == true) {
             console.log("regis")
@@ -91,8 +80,10 @@ function LoginPage() {
             setButtonName('Login');
         }
     }
-
-  
+    /*
+            Tento useEffect hook slouží k zobrazení buď registračního nebo přihlašovacího formuláře.
+            HandleRegistration nastaví, co tento hook zobrazí
+    */
 
     useEffect(() => {
     
@@ -128,43 +119,19 @@ function LoginPage() {
             });
         }
     }, [login,registration]);
-
-
-
-    /*
-     {
-                        login === false ? (
-                            registration === true ? (
-                                <RegistrationBar />
-                            ) : (
-                                <div>
-                                    <LoginBar />
-                                    <Button variant="contained" onClick={HandleRegistration}>{buttonName}</Button>
-                                </div>
-                            )
-                        ) : (
-                            <div>
-                                <h1>You are in</h1>
-                                <Button variant="contained" onClick={(e) => logout(e)}>Logout</Button>
-                            </div>
-                        )
-                    }
-    */
-
+        /*
+            Return zobrazí na stránce aktuálně zvolený formulář
+        */
     return (
         <div>
             <Paper elevation={3} style={paperStyle}>
                 {view}
-
             </Paper>
 
         </div>
     )
+    
 
-    }
-
-
-
-
+}
 
 export default LoginPage;

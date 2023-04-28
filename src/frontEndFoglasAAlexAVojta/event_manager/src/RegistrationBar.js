@@ -2,7 +2,9 @@ import React,{useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Container} from '@mui/system';
 import { Button} from '@mui/material';
-
+/*
+    Funkce RegistrationBar je registrační formulář, který je volán z LoginPage
+*/
 
 export default function RegistrationBar() {
     const [email, setEmail]=React.useState('')
@@ -13,6 +15,11 @@ export default function RegistrationBar() {
     const [password, setPassword]= useState('')
     const [dateofbirth, setDateofbirth]= useState("")
     const [message, setMessage] = useState('');
+
+    
+    /*
+        handleClick spustí pokus o registraci zasláním požadavku na Spring Boot, údaje se načtou z formuláře
+    */
 
     const handleClick=(e)=>{
         e.preventDefault();
@@ -53,7 +60,10 @@ export default function RegistrationBar() {
                 console.log('error' + err.message);
               })
     }
-
+      /*
+          Return vrátí registrační formulář
+      */
+          
 
   return (
     <Container>
