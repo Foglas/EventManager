@@ -28,6 +28,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
+/**
+ * Třída implementuje metody interfacu UserRepo a poskytuje další metody pro práci s uživatelem
+ */
 
 @Service
 public class UserService implements UserServiceInf {
@@ -66,15 +69,24 @@ public class UserService implements UserServiceInf {
         this.roleRepo = roleRepo;
         this.tokenBlackListRepo = blackListRepo;
     }
-
+    /**
+     * Metoda vrátí uživatele podle ID
+     * @param id ID uživatele
+     */
     public Optional<User> findUserByID(Long id) {
         return userRepo.findById(id);
     }
-
+    /**
+     * Metoda vrátí uživatele podle uživatelského jména
+     * @param username uživatelské jméno
+     */
     public User findUserByUserName(String username) {
         return userRepo.findByUsername(username);
     }
-
+    /**
+     * Metoda vrátí uživatele podle emailu
+     * @param email email uživatele
+     */
     public User findUserByEmail(String email) {
         return userRepo.findUserByEmailIgnoreCase(email);
     }
@@ -83,17 +95,18 @@ public class UserService implements UserServiceInf {
         User user = userRepo.findById(49);
         Set<Role> roles = user.getRoles();
     }
-
+    /**
+     * Metoda vrátí seznam všech uživatetů
+     */
     public List<User> findAll() {
         return userRepo.findAll();
     }
 
     /**
-     * Registers a new user and saving their details to the database
+     * Metoda zaregistruje nového uživatele a uloží jeho informace do databáze
      *
-     * @param user the User object containing the user's details to be saved
-     * @return a ResponseEntity containing a success message if the user was saved successfully,
-     * or an error message if any validation or database errors occurred
+     * @param user objekt uživatele obsahující všechny informace uživatele
+     * @return ResponseEntity obsahující zprávu o úspěchu nebo chybě, podle toho zda se registrace podařila
      */
     public ResponseEntity<?> save(User user) {
         // Check if passwords match
@@ -185,12 +198,10 @@ public class UserService implements UserServiceInf {
     }
 
     /**
-     * Authenticates a user by checking their email and password against the database.
-     *
-     * @param email    the user's email address
-     * @param password the user's password
-     * @return a ResponseEntity containing a JWT token if authentication was successful,
-     * or an error message if authentication failed
+     * Autentizace uživatele kontrolou jeho emailu a hesla.
+     * @param email email uživatele
+     * @param password heslo uživatele
+     * @return ResponseEntity obsahující JWT token pokud je autentizace úspěšná. Když autentizace neprojde, vrátí chybovou hlášku.
      */
     public ResponseEntity<?> authenticateUser(String email, String password) {
         try {
@@ -225,11 +236,10 @@ public class UserService implements UserServiceInf {
     }
 
     /**
-     * Retrieves user details by ID.
+     * Vrací uživatele podle příslušného ID.
      *
-     * @param id the ID of the user to retrieve
-     * @return a ResponseEntity containing the user details if retrieval was successful,
-     * or an error message if retrieval failed
+     * @param id ID uživatele
+     * @return ResponseEntity obsahující újdaje uživatele, pokud je úspěšná, chybovou hlášku pokud uživatel s daným ID neexistuje.
      */
     public ResponseEntity<?> getUser(long id) {
         try {
@@ -260,11 +270,10 @@ public class UserService implements UserServiceInf {
     }
 
     /**
-     * Retrieves user details from the current session using the provided authentication token.
+     * Vráti informace o uživateli z aktuílní relace, získané pomocí tokenu.
      *
-     * @param header the authorization header containing the authentication token
-     * @return a ResponseEntity containing the user details if retrieval was successful,
-     * or an error message if retrieval failed
+     * @param header autorizační hlavička obsahující autorizační token
+     * @return ResponseEntity obsahující údaje o uživateli, pokud je autorizace úspěšná, chybovou hlášku pokud je neúspěšná
      */
     public ResponseEntity<?> getUserFromCurrentSession(String header) {
         if (header == null || !header.startsWith("Bearer ")) {
@@ -299,12 +308,18 @@ public class UserService implements UserServiceInf {
 
         return ResponseEntity.ok(userDetails);
     }
-
+    /**
+     * Metoda vrátí seznam pohledů UserView
+     */
     public List<UserView> getUsersInfo() {
         return userViewRepo.findAll();
     }
 
-
+    /**
+     * Metoda vrátí roli uživatele
+     * @param user uživatel
+     * @return role uživatele - enumerace
+     */
     @Transactional
     public List<Role> getUsersRole(User user) {
         Set<Role> roles = user.getRoles();
@@ -313,7 +328,12 @@ public class UserService implements UserServiceInf {
         return usersRoles;
     }
 
-
+    /**
+     * Metoda smaže veškeré údaje o uživateli - poznámka: metoda smaže údaje z tabulky Users, trigger funkce databáze se postará o tabulku UserDetails
+     * @param id ID uživatele
+     * @param request Server request
+     * @return vrací hlášku o úpěšném smazání, pokud k němu dojde. Jinak vrací chybovou hlášku
+     */
     public ResponseEntity<?> deleteUser(long id, HttpServletRequest request) {
        User user = userRepo.findById(id);
         User userFromToken = jwtUtil.getUserFromRequest(request, userRepo);
@@ -327,7 +347,12 @@ public class UserService implements UserServiceInf {
        }
     }
 
-
+    /**
+     * Metoda aktualizuje údaje o uživateli
+     * @param user objekt uživatele obsahující nové údaje uživatele
+     * @param httpServletRequest Server request
+     * @return vrací nový autorizační token uživatele, pokud se podaří aktualizace údajů, jinak vrací chybovou hlášku
+     */
     public ResponseEntity<?> updateUser(Map<String, String> user, HttpServletRequest httpServletRequest){
         User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest,userRepo);
 
@@ -348,7 +373,12 @@ public class UserService implements UserServiceInf {
 
         return ResponseHelper.successMessage(jwtUtil.generateToken(email));
     }
-
+    /**
+     * Metoda nastaví uživateli nové heslo
+     * @param body objekt obsahující staré a nové heslo
+     * @param httpServletRequest Server request
+     * @return vrací hlášku o úspěchu, pokud se heslo podařilo změnit, jinak vrací chybovou hlášku
+     */
     public ResponseEntity<?> updatePassword(Map<String, String> body, HttpServletRequest httpServletRequest){
        User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest,userRepo);
 
@@ -381,7 +411,11 @@ public class UserService implements UserServiceInf {
        userRepo.updatePassword(userFromToken.getId(), userFromToken.getPassword(), passwordEncoder.encode(password));
         return ResponseHelper.successMessage("password changed");
     }
-
+    /**
+     * Metoda odhlásí uživatele a přidá jeho autentizační token do blackListu
+     * @param request Server request
+     * @return vrací hlášku o provedení logoutu
+     */
     public ResponseEntity<?> logout(HttpServletRequest request){
          String header = request.getHeader("Authorization");
          String token = header.replace("Bearer ", "");
@@ -390,7 +424,11 @@ public class UserService implements UserServiceInf {
          tokenBlackListRepo.save(tokenBlackList);
          return ResponseHelper.successMessage("logout");
     }
-
+    /**
+     * Metoda zkontroluje, zda je token na blackListu
+     * @param token String hodnota tokenu
+     * @return boolean hodnota, podle toho, zda je token na blackListu nebo není
+     */
     public boolean existsTokenInBlackList(String token){
         if (tokenBlackListRepo.existsInBlackListByToken(token).isPresent()){
             return true;
