@@ -12,7 +12,10 @@ import org.hibernate.annotations.LazyCollectionOption;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * Třída reprezentuje tabulku Event v databázi. Obsahuje i propojovací tabulku mezi Event a Category.
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "event")
 public class Event {

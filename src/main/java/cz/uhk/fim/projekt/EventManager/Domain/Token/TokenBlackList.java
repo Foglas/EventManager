@@ -2,7 +2,9 @@ package cz.uhk.fim.projekt.EventManager.Domain.Token;
 
 
 import jakarta.persistence.*;
-
+/**
+ * Třída reprezentuje tabulku tokenBlackList v databázi.
+ */
 @Entity
 @Table(name = "tokenblacklist")
 public class TokenBlackList {

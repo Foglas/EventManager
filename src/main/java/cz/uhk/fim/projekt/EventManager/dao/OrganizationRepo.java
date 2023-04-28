@@ -13,13 +13,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Interface poskytuje metody pro práci s tabulkou organization
+ */
 @Repository
 public interface OrganizationRepo extends JpaRepository<Organization, Long> {
+    /**
+     * metoda vrátí boolean hodnotu, zda je uživatel v organizaci
+     * @param organizationId ID organizace
+     * @param userId ID uživatele
+     */
     @Query("SELECT isuserinorg(?1, ?2)")
     boolean isUserInOrganization(long userId, long organizationId);
-
-    // new Event(pk_userid, description, name, time, endtime, coordinates, fk_addressid, fk_organizationid) FROM
+    /**
+     * metoda vrátí seznam eventů, které patří do organizace
+     * @param id ID organizace
+     */
 
     @Query(value = "SELECT eventsinorg(?1)", nativeQuery = true)
     List<Long> EventsInOrg(long id);

@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * Třída reprezentuje tabulku Users v databázi. Obsahuje i propojovací tabulku mezi Users a UserRole.
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "users")
 public class User {

@@ -7,7 +7,10 @@ import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * Třída reprezentuje tabulku Permission v databázi.
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "permission")
 public class Permission {
