@@ -7,7 +7,6 @@ import cz.uhk.fim.projekt.EventManager.dao.EventRepo;
 import cz.uhk.fim.projekt.EventManager.dao.OrganizationRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
-import cz.uhk.fim.projekt.EventManager.service.serviceinf.OrganizationSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Třída poskytuje metody pro obsluhu requestů týkajících se organizací
  */
 @Service
-public class OrganizationService implements OrganizationSerInf {
+public class OrganizationService {
 
     private OrganizationRepo organizationRepo;
     private UserRepo userRepo;
@@ -46,10 +45,7 @@ public class OrganizationService implements OrganizationSerInf {
      * @param request request, zjišťuje se z něho token
      * @param organization Objekt obsahující informace o organizaci
      */
-    public void saveOrganization(
-            Organization organization,
-            HttpServletRequest request
-    ) {
+    public void saveOrganization(Organization organization, HttpServletRequest request) {
         String token = request.getHeader("Authorization").replace("Bearer ", "");
         String email = jwtUtil.getEmailFromToken(token);
         User user = userRepo.findUserByEmailIgnoreCase(email);
@@ -79,7 +75,7 @@ public class OrganizationService implements OrganizationSerInf {
     /**
      * Metoda přidá uživatele do organizace
      * @param id ID organizace, do které přidáváme
-     * @param body Objekt obsahující ID uživatele, kterého chceme přidat do organizace
+     * @param body Mapa obsahující ID uživatele, kterého chceme přidat do organizace
      * @return vrací hlášku o úspěšném přidání, nebo chybovou hlášku, pokud dojde k chybě
      */
     public ResponseEntity<?> addUserToOrganization(Map<String, String> body, long id) {

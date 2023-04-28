@@ -1,6 +1,5 @@
 package cz.uhk.fim.projekt.EventManager.service;
 
-import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.Domain.Role;
 import cz.uhk.fim.projekt.EventManager.Domain.Token.TokenBlackList;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
@@ -10,7 +9,6 @@ import cz.uhk.fim.projekt.EventManager.dao.UserDetailsRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.enums.Roles;
-import cz.uhk.fim.projekt.EventManager.service.serviceinf.UserServiceInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 
@@ -19,29 +17,23 @@ import java.util.*;
 
 import cz.uhk.fim.projekt.EventManager.views.UserView;
 import cz.uhk.fim.projekt.EventManager.dao.readOnlyRepo.UserViewRepo;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
+
 /**
- * Třída implementuje metody interfacu UserRepo a poskytuje další metody pro práci s uživatelem
+ * Třída poskytující metody pro obsluhu požadavků týkajících se uživatele
  */
 
 @Service
-public class UserService implements UserServiceInf {
+public class UserService {
 
     private UserRepo userRepo;
     private UserDetailsRepo userDetailsRepo;
-
-
     private RoleRepo roleRepo;
-
-
     private BCryptPasswordEncoder passwordEncoder;
 
     private JwtUtil jwtUtil;
@@ -52,15 +44,9 @@ public class UserService implements UserServiceInf {
 
     String telReg = "\\d\\d\\d[ ]\\d\\d\\d[ ]\\d\\d\\d$";
     String telReg2 = "\\d\\d\\d\\d\\d\\d\\d\\d\\d$";
+
     @Autowired
-    public UserService(
-            JwtUtil jwtUtil,
-            UserRepo userRepo,
-            UserDetailsRepo userDetailsRepo,
-            UserViewRepo userViewRepo,
-            RoleRepo roleRepo,
-            TokenBlackListRepo blackListRepo
-    ) {
+    public UserService(JwtUtil jwtUtil, UserRepo userRepo, UserDetailsRepo userDetailsRepo, UserViewRepo userViewRepo, RoleRepo roleRepo, TokenBlackListRepo blackListRepo) {
         this.jwtUtil = jwtUtil;
         this.userRepo = userRepo;
         this.userDetailsRepo = userDetailsRepo;
@@ -69,42 +55,34 @@ public class UserService implements UserServiceInf {
         this.roleRepo = roleRepo;
         this.tokenBlackListRepo = blackListRepo;
     }
-    /**
-     * Metoda vrátí uživatele podle ID
-     * @param id ID uživatele
-     */
-    public Optional<User> findUserByID(Long id) {
-        return userRepo.findById(id);
-    }
+
     /**
      * Metoda vrátí uživatele podle uživatelského jména
+     *
      * @param username uživatelské jméno
      */
     public User findUserByUserName(String username) {
         return userRepo.findByUsername(username);
     }
+
     /**
      * Metoda vrátí uživatele podle emailu
+     *
      * @param email email uživatele
      */
     public User findUserByEmail(String email) {
         return userRepo.findUserByEmailIgnoreCase(email);
     }
 
-    public void findUserRoleByEmail(String email){
+    public void findUserRoleByEmail(String email) {
         User user = userRepo.findById(49);
         Set<Role> roles = user.getRoles();
     }
-    /**
-     * Metoda vrátí seznam všech uživatetů
-     */
-    public List<User> findAll() {
-        return userRepo.findAll();
-    }
+
 
     /**
      * Metoda zaregistruje nového uživatele a uloží jeho informace do databáze
-     *
+     * Kontroluje zda vstupní údaje jsou validní
      * @param user objekt uživatele obsahující všechny informace uživatele
      * @return ResponseEntity obsahující zprávu o úspěchu nebo chybě, podle toho zda se registrace podařila
      */
@@ -117,17 +95,16 @@ public class UserService implements UserServiceInf {
             );
         }
 
-        if (user.getEmail() == ""){
+        if (user.getEmail() == "") {
             return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "email is not fill");
         }
 
-        if(user.getUsername() == ""){
-            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"username is not fill");
+        if (user.getUsername() == "") {
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "username is not fill");
         }
-        if(user.getPassword() == ""){
-            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(),"password is not fill");
+        if (user.getPassword() == "") {
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "password is not fill");
         }
-
 
 
         // Check if name and surname are the same
@@ -139,22 +116,22 @@ public class UserService implements UserServiceInf {
                 );
             }
         }
-        if (user.getUserDetails().getName() == ""){
+        if (user.getUserDetails().getName() == "") {
             user.getUserDetails().setName(null);
         }
 
-        if (user.getUserDetails().getSurname() == ""){
+        if (user.getUserDetails().getSurname() == "") {
             user.getUserDetails().setSurname(null);
         }
 
 
         String phone = user.getUserDetails().getPhone();
-           if (!(phone.matches(telReg) || phone.matches(telReg2))) {
-               return ResponseHelper.errorMessage(
-                       "Wrong number format",
-                       "Phone number has wrong format"
-               );
-           }
+        if (!(phone.matches(telReg) || phone.matches(telReg2))) {
+            return ResponseHelper.errorMessage(
+                    "Wrong number format",
+                    "Phone number has wrong format"
+            );
+        }
 
 
         // Check if user with same email exists
@@ -199,7 +176,8 @@ public class UserService implements UserServiceInf {
 
     /**
      * Autentizace uživatele kontrolou jeho emailu a hesla.
-     * @param email email uživatele
+     * Kontroluje vstupní údaje zda jsou validní
+     * @param email    email uživatele
      * @param password heslo uživatele
      * @return ResponseEntity obsahující JWT token pokud je autentizace úspěšná. Když autentizace neprojde, vrátí chybovou hlášku.
      */
@@ -236,10 +214,11 @@ public class UserService implements UserServiceInf {
     }
 
     /**
-     * Vrací uživatele podle příslušného ID.
+     * Vrací uživatele podle příslušného ID. Kontroluje, zda id existuje.
      *
      * @param id ID uživatele
-     * @return ResponseEntity obsahující újdaje uživatele, pokud je úspěšná, chybovou hlášku pokud uživatel s daným ID neexistuje.
+     * @return ResponseEntity obsahující újdaje uživatele, pokud je úspěšná,
+     * chybovou hlášku pokud uživatel s daným ID neexistuje.
      */
     public ResponseEntity<?> getUser(long id) {
         try {
@@ -270,9 +249,10 @@ public class UserService implements UserServiceInf {
     }
 
     /**
-     * Vráti informace o uživateli z aktuílní relace, získané pomocí tokenu.
+     * Vráti informace o uživateli z aktuílní relace, získané pomocí tokenu. Kontroluje
+     * validnost údajů.
      *
-     * @param header autorizační hlavička obsahující autorizační token
+     * @param header hlavička obsahující autorizační token
      * @return ResponseEntity obsahující údaje o uživateli, pokud je autorizace úspěšná, chybovou hlášku pokud je neúspěšná
      */
     public ResponseEntity<?> getUserFromCurrentSession(String header) {
@@ -308,6 +288,7 @@ public class UserService implements UserServiceInf {
 
         return ResponseEntity.ok(userDetails);
     }
+
     /**
      * Metoda vrátí seznam pohledů UserView
      */
@@ -317,6 +298,7 @@ public class UserService implements UserServiceInf {
 
     /**
      * Metoda vrátí roli uživatele
+     *
      * @param user uživatel
      * @return role uživatele - enumerace
      */
@@ -329,32 +311,35 @@ public class UserService implements UserServiceInf {
     }
 
     /**
-     * Metoda smaže veškeré údaje o uživateli - poznámka: metoda smaže údaje z tabulky Users, trigger funkce databáze se postará o tabulku UserDetails
-     * @param id ID uživatele
+     * Metoda smaže veškeré údaje o uživateli - poznámka: metoda smaže údaje z tabulky Users,
+     * trigger funkce databáze se postará o tabulku UserDetails
+     *
+     * @param id      ID uživatele
      * @param request Server request
      * @return vrací hlášku o úpěšném smazání, pokud k němu dojde. Jinak vrací chybovou hlášku
      */
     public ResponseEntity<?> deleteUser(long id, HttpServletRequest request) {
-       User user = userRepo.findById(id);
+        User user = userRepo.findById(id);
         User userFromToken = jwtUtil.getUserFromRequest(request, userRepo);
-       if (user == null){
-        return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
-        } else if (user.getId() != userFromToken.getId()){
-           return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "you dont have access to delete user");
-       } else {
-           userRepo.delete(user);
-           return ResponseHelper.successMessage("user deleted");
-       }
+        if (user == null) {
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
+        } else if (user.getId() != userFromToken.getId()) {
+            return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "you dont have access to delete user");
+        } else {
+            userRepo.delete(user);
+            return ResponseHelper.successMessage("user deleted");
+        }
     }
 
     /**
      * Metoda aktualizuje údaje o uživateli
-     * @param user objekt uživatele obsahující nové údaje uživatele
+     *
+     * @param user               objekt uživatele obsahující nové údaje uživatele
      * @param httpServletRequest Server request
      * @return vrací nový autorizační token uživatele, pokud se podaří aktualizace údajů, jinak vrací chybovou hlášku
      */
-    public ResponseEntity<?> updateUser(Map<String, String> user, HttpServletRequest httpServletRequest){
-        User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest,userRepo);
+    public ResponseEntity<?> updateUser(Map<String, String> user, HttpServletRequest httpServletRequest) {
+        User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest, userRepo);
 
         String username = user.get("username");
         String email = user.get("email");
@@ -364,73 +349,79 @@ public class UserService implements UserServiceInf {
         String name = user.get("name");
         LocalDate localDateOfBirth = LocalDate.parse(dateOfBirth);
 
-        if (user==null){
+        if (user == null) {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
         }
 
 
-        userRepo.updateUser(userFromToken.getUserDetails().getId(),email,username,localDateOfBirth,name ,phone,surname);
+        userRepo.updateUser(userFromToken.getUserDetails().getId(), email, username, localDateOfBirth, name, phone, surname);
 
         return ResponseHelper.successMessage(jwtUtil.generateToken(email));
     }
+
     /**
      * Metoda nastaví uživateli nové heslo
-     * @param body objekt obsahující staré a nové heslo
+     *
+     * @param body               objekt obsahující staré a nové heslo
      * @param httpServletRequest Server request
      * @return vrací hlášku o úspěchu, pokud se heslo podařilo změnit, jinak vrací chybovou hlášku
      */
-    public ResponseEntity<?> updatePassword(Map<String, String> body, HttpServletRequest httpServletRequest){
-       User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest,userRepo);
+    public ResponseEntity<?> updatePassword(Map<String, String> body, HttpServletRequest httpServletRequest) {
+        User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest, userRepo);
 
         String oldPassword = body.get("oldPassword");
-        if (oldPassword == null){
+        if (oldPassword == null) {
             return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null old password");
         }
 
-        if (!passwordEncoder.matches(oldPassword, userFromToken.getPassword())){
+        if (!passwordEncoder.matches(oldPassword, userFromToken.getPassword())) {
             return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "old password is incorrect");
         }
 
-       String password = body.get("password");
-       if (password == null){
-           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null password");
-       }
+        String password = body.get("password");
+        if (password == null) {
+            return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null password");
+        }
         String password2 = body.get("password2");
-       if (password2 == null){
-           return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null second password");
-       }
+        if (password2 == null) {
+            return ResponseHelper.errorMessage(Error.NULL_ARGUMENT.name(), "null second password");
+        }
 
-       if (password.equals(userFromToken.getPassword())){
-           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "new and old password are same");
-       }
+        if (password.equals(userFromToken.getPassword())) {
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "new and old password are same");
+        }
 
-       if (!password.equals(password2)){
-           return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "passwords is not same");
-       }
+        if (!password.equals(password2)) {
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "passwords is not same");
+        }
 
-       userRepo.updatePassword(userFromToken.getId(), userFromToken.getPassword(), passwordEncoder.encode(password));
+        userRepo.updatePassword(userFromToken.getId(), userFromToken.getPassword(), passwordEncoder.encode(password));
         return ResponseHelper.successMessage("password changed");
     }
+
     /**
      * Metoda odhlásí uživatele a přidá jeho autentizační token do blackListu
+     *
      * @param request Server request
      * @return vrací hlášku o provedení logoutu
      */
-    public ResponseEntity<?> logout(HttpServletRequest request){
-         String header = request.getHeader("Authorization");
-         String token = header.replace("Bearer ", "");
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        String token = header.replace("Bearer ", "");
 
-         TokenBlackList tokenBlackList = new TokenBlackList(token);
-         tokenBlackListRepo.save(tokenBlackList);
-         return ResponseHelper.successMessage("logout");
+        TokenBlackList tokenBlackList = new TokenBlackList(token);
+        tokenBlackListRepo.save(tokenBlackList);
+        return ResponseHelper.successMessage("logout");
     }
+
     /**
      * Metoda zkontroluje, zda je token na blackListu
+     *
      * @param token String hodnota tokenu
      * @return boolean hodnota, podle toho, zda je token na blackListu nebo není
      */
-    public boolean existsTokenInBlackList(String token){
-        if (tokenBlackListRepo.existsInBlackListByToken(token).isPresent()){
+    public boolean existsTokenInBlackList(String token) {
+        if (tokenBlackListRepo.existsInBlackListByToken(token).isPresent()) {
             return true;
         } else {
             return false;

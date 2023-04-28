@@ -7,7 +7,7 @@ import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
- * Třída poskytující metody pro práci s rolemi
+ * Třída poskytující metody pro obsluhu požadavků týkající se rolí a privilegií
  */
 @Service
 public class RoleAndPermissionService {

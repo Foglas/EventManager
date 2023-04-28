@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 /**
- * Třída reprezentuje tabulku UserRole v databázi. Obsahuje i propojovací tabulku mezi UserRole a Permission.
+ * Třída reprezentuje tabulku UserRole v databázi. Obsahuje i propojovací tabulku mezi UserRole a Permission
+ * a userrole a users.
  * Pro generaci id je využita sekvence z databáze.
  */
 @Entity

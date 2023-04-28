@@ -38,7 +38,7 @@ public class CommentService {
     }
 
     /**
-     * Ulozi komentář, v případě špatně zadanách argumentů vrací chybovou hlášku, v případě úspěchu vrátí oznámení o uložení
+     * Uloži komentář, v případě špatně zadanách argumentů vrací chybovou hlášku, v případě úspěchu vrátí oznámení o uložení
      * @param request request, zjišťuje se z něho token
      * @param comment komentář k uložení
      * @param id id eventu, ke kterému komentář patří

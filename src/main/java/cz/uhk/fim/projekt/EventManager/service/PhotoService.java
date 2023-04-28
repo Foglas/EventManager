@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 /**
- * Třída poskytuje metody pro práci s fotkou - tabulka Photo
+ * Třída poskytuje metody pro obsluhu požadavků týkajících se fotky - tabulka Photo
  */
 @Service
 public class PhotoService {
@@ -35,7 +35,7 @@ public class PhotoService {
     }
     /**
      * Metoda vrátí fotku podle requestu
-     * @param id request, zjišťuje se z něho token
+     * @param id id uživatele, jehož fotka má být vytažena
      * @return vrací objekt Photo, nebo chybovou hlášku pokud dojde k chybě
      */
     public ResponseEntity<?> getPhoto(long id){

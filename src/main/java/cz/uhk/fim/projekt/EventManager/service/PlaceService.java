@@ -21,6 +21,7 @@ public class PlaceService {
   public PlaceService(PlaceRepo placeRepo) {
     this.placeRepo = placeRepo;
   }
+
   /**
    * Metoda slouží k přidání nového místa do tabulky Address
    * @param place Objekt obsahující informace o adrese
