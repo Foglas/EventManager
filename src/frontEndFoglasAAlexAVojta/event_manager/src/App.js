@@ -7,8 +7,6 @@ import Events from "./Events"
 import "./style.css"
 import FindEvent from "./findEvent"
 import Manager from "./Manager"
-//import Manager from "./Manager"
-//<Route path="/manage" element={<Manager/>}/>
 
 export default function App(){
 
