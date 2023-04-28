@@ -28,6 +28,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+/**
+ * Filter pro filtrování, který uživatel může nebo provádět určité operace na základě url.
+ */
 @Component
 @Order(1)
 public class AuthorizationFilter extends OncePerRequestFilter {
@@ -43,12 +46,21 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         this.userService = userService;
     }
 
+
+    /**
+     * Metoda filtruje requesty na základě url. Pokud je url ve tvaru api/.. přistup má kdokoli. Pokud
+     * je url ve tvaru api/auth.. přistup mají jen autorizovaní uživatelé. Autorizace se provádí na
+     * základě tokenu. Pokud je url ve tvaru api/auth/admin znamená to, že přístup má jen admin. Pro
+     * každý typ url se poté provádí kontrola opravnění, které uživatel má. V jakémkoli případě, kdy
+     * uživatel nesplní požadavky mu je přístup odepřen.
+     * @param request request, zjišťují se z něho detaily o požadavku na server
+     * @param response response
+     * @param chain filterchain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain chain
-    ) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         boolean isAuthApi = request.getServletPath().startsWith("/api/auth/");
 
         /// no need for jwt token authorization

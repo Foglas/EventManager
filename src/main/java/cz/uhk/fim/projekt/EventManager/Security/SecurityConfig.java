@@ -16,6 +16,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * Konfiguruje nastavení zabezpečení.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -26,6 +29,12 @@ public class SecurityConfig {
     this.authorizationFilter = authorizationFilter;
   }
 
+  /**
+   * konfiguruje zabezpečení aplikace.
+   * @param http
+   * @return
+   * @throws Exception
+   */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http)
     throws Exception {
@@ -50,6 +59,10 @@ public class SecurityConfig {
     return http.build();
   }
 
+  /**
+   * nastavuje cors
+   * @return
+   */
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
@@ -67,6 +80,10 @@ public class SecurityConfig {
     return source;
   }
 
+  /**
+   * Encoder starající se o šifrování hesel.
+   * @return Password encoder
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();

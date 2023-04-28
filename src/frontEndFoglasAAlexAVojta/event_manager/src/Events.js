@@ -78,7 +78,7 @@ function Events() {
           .then(() => user);
       })
       .then((user) => {
-        return fetch('http://localhost:8080/api/events/' + user.id + '/getAttendedEvents')
+        return fetch('http://localhost:8080/api/user/' + user.id + '/getAttendedEvents')
           .then((response) => response.json())
           .then((data) => setAttendedEvents(data));
       }).then(() => {

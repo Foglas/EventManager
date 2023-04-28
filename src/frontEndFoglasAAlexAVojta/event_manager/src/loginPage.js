@@ -19,12 +19,12 @@ function LoginPage() {
    
     const logout = (e) => {
         e.preventDefault();
+        window.location.reload();
         console.log("logout")
         localStorage.setItem('login', false);
         window.dispatchEvent(new Event('storage'));
         setLogin(false);
         console.log(login)
-        window.location.reload();
         const user = {
             method: "POST",
             headers: {

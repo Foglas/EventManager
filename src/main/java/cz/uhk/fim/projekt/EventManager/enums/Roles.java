@@ -1,6 +1,6 @@
 package cz.uhk.fim.projekt.EventManager.enums;
 /**
- * Enumerace rolí, každý uživatel má právě jednu z těchto rolí. Každá role má sadu dostupných Permissions - oprávnění.
+ * Enumerace rolí, uživatel může mít více rolí. Každá role má sadu dostupných Permissions - oprávnění.
  */
 public enum Roles {
     ADMIN, USER, VIEWER

@@ -1,5 +1,6 @@
 package cz.uhk.fim.projekt.EventManager.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -30,6 +31,7 @@ public class Photo {
     private LocalDateTime uploadAt;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "fk_userid")
     private User user;
 
@@ -41,8 +43,9 @@ public class Photo {
         this.id = id;
     }
 
-    public Photo(long id, byte[] data, String suffix,  User user) {
+    public Photo(long id, byte[] data, String suffix, LocalDateTime uploadAt,  User user) {
         this.id = id;
+        this.uploadAt = uploadAt;
         this.data = data;
         this.suffix = suffix;
         this.user = user;
@@ -56,6 +59,38 @@ public class Photo {
         this.data = data;
         this.suffix = suffix;
         this.uploadAt = uploadAt;
+        this.user = user;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public LocalDateTime getUploadAt() {
+        return uploadAt;
+    }
+
+    public void setUploadAt(LocalDateTime uploadAt) {
+        this.uploadAt = uploadAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 }

@@ -19,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
- * Třída poskytuje metody pro práci s organizací
+ * Třída poskytuje metody pro obsluhu requestů týkajících se organizací
  */
 @Service
 public class OrganizationService implements OrganizationSerInf {
@@ -42,7 +42,7 @@ public class OrganizationService implements OrganizationSerInf {
         this.eventRepo = eventRepo;
     }
     /**
-     * Metoda slouží k uložení organizace a přidání zakladatele do organizace
+     * Metoda slouží k uložení organizace a přidání zakladatele do organizace.
      * @param request request, zjišťuje se z něho token
      * @param organization Objekt obsahující informace o organizaci
      */

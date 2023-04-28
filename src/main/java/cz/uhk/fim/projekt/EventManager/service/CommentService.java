@@ -42,7 +42,7 @@ public class CommentService {
      * @param request request, zjišťuje se z něho token
      * @param comment komentář k uložení
      * @param id id eventu, ke kterému komentář patří
-     * @return Hláška o zvládnutí operace
+     * @return Hláška o zvládnutí operace v případě úspěchu, chyba v případě neúspěchu
      */
     public ResponseEntity<?> save(HttpServletRequest request, Comment comment, long id){
 
