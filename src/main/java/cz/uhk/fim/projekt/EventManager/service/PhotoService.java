@@ -17,7 +17,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+/**
+ * Třída poskytuje metody pro práci s fotkou - tabulka Photo
+ */
 @Service
 public class PhotoService {
 
@@ -31,7 +33,11 @@ public class PhotoService {
         this.jwtUtil = jwtUtil;
         this.userRepo = userRepo;
     }
-
+    /**
+     * Metoda vrátí fotku podle requestu
+     * @param request request, zjišťuje se z něho token
+     * @return vrací objekt Photo, nebo chybovou hlášku pokud dojde k chybě
+     */
     public ResponseEntity<?> getPhoto(HttpServletRequest request){
         User user = jwtUtil.getUserFromRequest(request,userRepo);
 
@@ -45,7 +51,12 @@ public class PhotoService {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "photo not found");
         }
     }
-
+    /**
+     * Metoda slouží k nahrání fotky uživatele
+     * @param request request, zjišťuje se z něho token
+     * @param body Objekt obsahující fotku
+     * @return vrací hlášku o úspěchu, nebo chybovou hlášku pokud dojde k chybě
+     */
     public ResponseEntity<?> uploadPhoto(Map<String, String> body, HttpServletRequest request){
         String photo = body.get("photo");
         if (photo == null){

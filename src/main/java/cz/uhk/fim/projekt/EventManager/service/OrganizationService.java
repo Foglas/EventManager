@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Třída poskytuje metody pro práci s organizací
+ */
 @Service
 public class OrganizationService implements OrganizationSerInf {
 
@@ -39,7 +41,11 @@ public class OrganizationService implements OrganizationSerInf {
         this.jwtUtil = jwtUtil;
         this.eventRepo = eventRepo;
     }
-
+    /**
+     * Metoda slouží k uložení organizace a přidání zakladatele do organizace
+     * @param request request, zjišťuje se z něho token
+     * @param organization Objekt obsahující informace o organizaci
+     */
     public void saveOrganization(
             Organization organization,
             HttpServletRequest request
@@ -52,7 +58,11 @@ public class OrganizationService implements OrganizationSerInf {
         organization.setUsers(users);
         organizationRepo.save(organization);
     }
-
+    /**
+     * Metoda vrátí seznam organizací uživatele
+     * @param id ID uživatele, pro kterého hledáme organizace
+     * @return seznam organizací
+     */
     public List<Organization> getUserOrganization(Long id) {
         Optional<User> user = userRepo.findById(id);
         Set<Organization> organization = user.get().getOrganization();
@@ -66,7 +76,12 @@ public class OrganizationService implements OrganizationSerInf {
         }
 
     }
-
+    /**
+     * Metoda přidá uživatele do organizace
+     * @param id ID organizace, do které přidáváme
+     * @param body Objekt obsahující ID uživatele, kterého chceme přidat do organizace
+     * @return vrací hlášku o úspěšném přidání, nebo chybovou hlášku, pokud dojde k chybě
+     */
     public ResponseEntity<?> addUserToOrganization(Map<String, String> body, long id) {
         long userId = Long.parseLong(body.get("id"));
         User user = userRepo.findById(userId);
@@ -87,7 +102,11 @@ public class OrganizationService implements OrganizationSerInf {
 
         return ResponseHelper.successMessage("user added");
     }
-
+    /**
+     * Metoda vrátí seznam všech uživatelů organizace
+     * @param id ID organizace, ze které získáváme uživatele
+     * @return vrací seznam uživatelů
+     */
     public List<User> getUsers(long id) {
         Optional<Organization> organization = organizationRepo.findById(id);
         Set<User> usersSet = organization.get().getUsers();
@@ -95,7 +114,12 @@ public class OrganizationService implements OrganizationSerInf {
         userList.addAll(usersSet);
         return userList;
     }
-
+    /**
+     * Metoda slouží ke smazání organizace
+     * @param id ID organizace, kterou chceme smazat
+     * @param request request, zjišťuje se z něho token
+     * @return vrací hlášku o úspěšném přidání, nebo chybovou hlášku, pokud dojde k chybě
+     */
     @Transactional
     public ResponseEntity<?> deleteOrganization(long id, HttpServletRequest request) {
     User user = jwtUtil.getUserFromRequest(request, userRepo);
@@ -109,11 +133,15 @@ public class OrganizationService implements OrganizationSerInf {
     organizationRepo.delete(organization.get());
     return ResponseHelper.successMessage("Organization deleted");
     }
-
+    /**
+     * Metoda slouží k vyhledání událostí dané organizace
+     * @param id ID organizace, jejiž události hledáme
+     * @return vrací seznam událostí, nebo chybovou hlášku, pokud dojde k chybě
+     */
     @Transactional
     public ResponseEntity<?> findEventByOrg(long id) {
         if (!organizationRepo.existsById(id)){
-            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "organizaition not found");
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "organization not found");
         }
         List<Long> eventsId = organizationRepo.EventsInOrg(id);
         List<Event> events = eventRepo.findAllById(eventsId);
