@@ -2,9 +2,7 @@ package cz.uhk.fim.projekt.EventManager.service;
 
 import cz.uhk.fim.projekt.EventManager.Domain.Event;
 import cz.uhk.fim.projekt.EventManager.Domain.Organization;
-import cz.uhk.fim.projekt.EventManager.Domain.Place;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
-import cz.uhk.fim.projekt.EventManager.dao.CommentRepo;
 import cz.uhk.fim.projekt.EventManager.dao.EventRepo;
 import cz.uhk.fim.projekt.EventManager.dao.OrganizationRepo;
 import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
@@ -12,14 +10,10 @@ import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.service.serviceinf.OrganizationSerInf;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
 import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
-import cz.uhk.fim.projekt.EventManager.views.EventView;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.*;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -59,7 +53,7 @@ public class OrganizationService implements OrganizationSerInf {
         organizationRepo.save(organization);
     }
 
-    public List<Organization> getOrganization(Long id) {
+    public List<Organization> getUserOrganization(Long id) {
         Optional<User> user = userRepo.findById(id);
         Set<Organization> organization = user.get().getOrganization();
         List<Organization> organizations = new ArrayList<>();

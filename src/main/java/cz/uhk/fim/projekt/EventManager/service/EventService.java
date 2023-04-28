@@ -10,12 +10,10 @@ import cz.uhk.fim.projekt.EventManager.util.ResponseHelper;
 import cz.uhk.fim.projekt.EventManager.views.EventView;
 import cz.uhk.fim.projekt.EventManager.views.UserView;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.catalina.valves.ErrorReportValve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.ErrorResponse;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -375,11 +373,11 @@ public class EventService {
         return ResponseEntity.ok(eventsname);
     }
 
-    public ResponseEntity<?> getUserAttendedOnEvent(long id) {
+    public ResponseEntity<?> getUsersAttendedOnEvent(long id) {
         Optional<List<Long>> userid = ticketRepo.findUsersIdByEventId(id);
 
         if (!userid.isPresent()){
-            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "ticket not found");
+            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "tickets not found");
         }
 
         Optional<List<UserView>> users = userViewRepo.findAllById(userid.get());

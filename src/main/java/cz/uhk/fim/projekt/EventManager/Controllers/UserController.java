@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *  Třída obsahující metody na příjímaní požadavků na url týkajících se akcí ohledně usera.
+ */
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -26,11 +29,23 @@ public class UserController {
     this.photoService = photoService;
   }
 
+  /**
+   * Přijme dotaz na url /api/auth/user/{id}. Slouží pro získání usera z databáze.
+   * Vyžaduje autorizaci. Id je id usera.
+   * @return http status a message, pokud je request neúspěšný nebo http status a user,
+   * pokud je úspěšný
+   */
   @GetMapping("auth/user/{id}")
   public ResponseEntity<?> getUser(@PathVariable long id) {
     return userService.getUser(id);
   }
 
+  /**
+   * Přijme dotaz na url /api/auth/currentUser. Slouží pro získání usera z databáze.
+   * Vyžaduje autorizaci. Id je id usera.
+   * @return http status a message, pokud je request neúspěšný nebo http status a user,
+   * pokud je úspěšný
+   */
   @GetMapping("auth/currentUser")
   public ResponseEntity<?> getUserFromSession(HttpServletRequest request) {
     String header = request.getHeader("Authorization");

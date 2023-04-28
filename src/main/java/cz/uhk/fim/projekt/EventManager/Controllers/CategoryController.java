@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Třída přijímá požadavky na práci s kategoriemi
+ *  Třída obsahující metody na příjímaní požadavků na url týkajících se akcí ohledně kategorií.
  */
 @RestController
 @RequestMapping(value = "/api")

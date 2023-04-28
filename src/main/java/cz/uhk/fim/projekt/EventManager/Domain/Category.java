@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Třída reprezentuje tabulku Category v databázi. Obsahuje i propojovací tabulku mezi eventem a category
+ * Pro generaci id je využita sekvence z databáze.
+ */
 @Entity
 @Table(name = "category")
 public class Category {

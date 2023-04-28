@@ -8,11 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interface poskytuje metody pro práci s tabulkou category
+ */
 @Repository
 public interface CategoryRepo extends JpaRepository<Category, Long> {
-
-
-    @Query(value = "SELECT pk_category FROM eventcategory WHERE eventcategory.fk_eventid = ?1", nativeQuery = true)
-    Optional <List<Long>> getcategoriesfromevent(long eventid);
 
 }
