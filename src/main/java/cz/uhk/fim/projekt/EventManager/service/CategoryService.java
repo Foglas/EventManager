@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Třídá starající se o obsluhu requestů týkajících se kategorií
+ * Třídá obsahující metody starající se o obsluhu requestů týkajících se kategorií
  */
 @Service
 public class CategoryService {
@@ -37,7 +37,7 @@ public class CategoryService {
     /**
      * Ukládá categorii do databáze a kontroluje proměnné
      * @param category kategorie k uložení
-     * @return vrací uspěšnost
+     * @return vrací uspěšnost - message
      */
     public ResponseEntity<?> saveCategory(Category category){
         if(category.getDescription() == null){
@@ -53,7 +53,7 @@ public class CategoryService {
     /**
      * Vymaže kategorii v databází a kontroluje proměnné
      * @param id id categorie
-     * @return vrací úspěšnost
+     * @return vrací úspěšnost - message
      */
     public ResponseEntity<?> deleteCategory(long id){
         if (!categoryRepo.existsById(id)){
