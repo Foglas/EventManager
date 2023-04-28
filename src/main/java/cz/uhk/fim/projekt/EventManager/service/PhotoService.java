@@ -71,7 +71,7 @@ public class PhotoService {
 
         if (photoId.isPresent()){
             Optional<Photo> photo1 = photoRepo.findById(photoId.get());
-            Photo photo2 = new Photo(photo1.get().getId(),photoByte,suffix,uploadedAt, user);
+            Photo photo2 = new Photo(photo1.get().getId(),photoByte,suffix, user);
             photoRepo.save(photo2);
         } else {
             Photo photo2 = new Photo(photoByte, suffix,uploadedAt,user);

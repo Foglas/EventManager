@@ -16,17 +16,12 @@ public class Photo {
     @Column(name = "pk_photoid")
     private long id;
 
-    @Column(name = "modified")
-    private LocalDateTime modified;
-
     @Column(name = "data")
-    private Byte[] data;
+    private byte[] data;
 
     @Column(name = "suffix")
     private String suffix;
 
-    @Column(name = "type")
-    private String type;
 
     @Column(name = "uploadat")
     private LocalDateTime uploadAt;
@@ -35,5 +30,29 @@ public class Photo {
     @JoinColumn(name = "fk_userid")
     private User user;
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Photo(long id, byte[] data, String suffix,  User user) {
+        this.id = id;
+        this.data = data;
+        this.suffix = suffix;
+        this.user = user;
+    }
+
+    public Photo() {
+
+    }
+
+    public Photo(byte[] data, String suffix, LocalDateTime uploadAt, User user) {
+        this.data = data;
+        this.suffix = suffix;
+        this.uploadAt = uploadAt;
+        this.user = user;
+    }
 }
