@@ -41,19 +41,22 @@ public class UserController {
   }
 
   /**
-   * Přijme dotaz na url /api/auth/currentUser. Slouží pro získání usera z databáze.
-   * Vyžaduje autorizaci. Id je id usera.
+   * Přijme dotaz na url /api/auth/currentUser. Slouží pro získání přihlášeného usera z databáze.
+   * Vyžaduje autorizaci
    * @return http status a message, pokud je request neúspěšný nebo http status a user,
    * pokud je úspěšný
    */
   @GetMapping("auth/currentUser")
   public ResponseEntity<?> getUserFromSession(HttpServletRequest request) {
     String header = request.getHeader("Authorization");
-
     return userService.getUserFromCurrentSession(header);
   }
 
-
+  /**
+   * Přijme dotaz na url /api/user/login. Slouží pro přihlášení uživatele. Informace potřebné
+   * k přihlášení jsou obsažené v body.
+   * @return http status a message, pokud je request úspěšný, message obsahuje token
+   */
   @PostMapping(path = "user/login" , consumes = {"application/json"})
   public ResponseEntity<?> authenticateUser(@RequestBody User requestBody) {
     return userService.authenticateUser(
@@ -62,43 +65,85 @@ public class UserController {
     );
   }
 
+  /**
+   * Přijme dotaz na url /api/auth/admin/usersInfo. Slouží pro získání všech userview.
+   * Vyžaduje autorizaci a roli admina
+   * @return http status a list všech userview
+   */
   @GetMapping("/auth/admin/usersInfo")
   public List<UserView> getUsersInfo(){
     return userService.getUsersInfo();
   }
 
+  /**
+   * Přijme dotaz na url /user/register. Slouží pro registraci usera. Informace potřebné k registraci
+   * jsou obsažené v body requestu.
+   * @return http status a message
+   */
   @PostMapping(path = "user/register"  , consumes = {"application/json"})
   public ResponseEntity<?> registerUser(@RequestBody User requestBody) {
     return userService.save(requestBody);
   }
 
+  /**
+   * Přijme dotaz na url /auth/user/{id}/delete. Id je id usera. Vyžaduje autorizaci.
+   * Slouží pro zrušení účtu uživatele. User ke smazání se získá z tokenu, který se nachází v header
+   * @return http status a message
+   */
   @DeleteMapping("/auth/user/{id}/delete")
   public ResponseEntity<?> deleteUser(@PathVariable("id") long id, HttpServletRequest request){
   return   userService.deleteUser(id, request);
   }
 
+  /**
+   * Přijme dotaz na url /auth/user/update. Vyžaduje autorizaci. Slouží pro update účtu uživatele.
+   * Informace k updatu se nachází v body requestu
+   * @return http status a message
+   */
   @PostMapping("/auth/user/update")
   public ResponseEntity<?> updateUser(@RequestBody Map<String, String> body, HttpServletRequest httpServletRequest){
    return userService.updateUser(body, httpServletRequest);
   }
 
+  /**
+   * Přijme dotaz na url /auth/user/resetPassword. Vyžaduje autorizaci. Slouží pro reset hesla účtu uživatele.
+   * Informace k resetu se nachází v body requestu. User se vybere podle tokenu v headeru.
+   * @return http status a message
+   */
   @PostMapping("/auth/user/resetPassword")
   public ResponseEntity<?> updatePassword(@RequestBody Map<String, String> body, HttpServletRequest httpServletRequest){
     return userService.updatePassword(body, httpServletRequest);
   }
 
+  /**
+   * Přijme dotaz na url /auth/user/logout. Vyžaduje autorizaci. Slouží pro odhlášení uživatele.
+   * User se vybere podle tokenu v headeru.
+   * @return http status a message
+   */
   @PostMapping("/auth/user/logout")
   public ResponseEntity<?> logout(HttpServletRequest httpServletRequest){
     return userService.logout(httpServletRequest);
   }
 
+  /**
+   * Přijme dotaz na url /auth/user/photo/save. Vyžaduje autorizaci. Slouží pro uložení profilové
+   * fotky uživatele. Informace potřebné k uložení jsou v body requestu. User se vybere podle tokenu
+   * v headeru.
+   * @return http status a message
+   */
   @PostMapping("/auth/user/photo/save")
   public ResponseEntity<?> uploadPhoto(@RequestBody Map<String, String> body, HttpServletRequest request){
       return photoService.uploadPhoto(body,request);
   }
 
-  @GetMapping("/user/photo")
-  public ResponseEntity<?> getPhoto(HttpServletRequest request){
-    return photoService.getPhoto(request);
+  /**
+   * Přijme dotaz na url /user/photo. Slouží k získání uložení profilové
+   * fotky uživatele. Informace potřebné k uložení jsou v body requestu. User se vybere podle tokenu
+   * v headeru.
+   * @return http status a message
+   */
+  @GetMapping("/user/{id}/photo")
+  public ResponseEntity<?> getPhoto(@PathVariable("id") long id){
+    return photoService.getPhoto(id);
   }
 }

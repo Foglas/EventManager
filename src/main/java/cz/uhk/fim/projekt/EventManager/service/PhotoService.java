@@ -32,10 +32,9 @@ public class PhotoService {
         this.userRepo = userRepo;
     }
 
-    public ResponseEntity<?> getPhoto(HttpServletRequest request){
-        User user = jwtUtil.getUserFromRequest(request,userRepo);
+    public ResponseEntity<?> getPhoto(long id){
 
-        Optional<Long> photoid = photoRepo.findByUserId(user.getId());
+        Optional<Long> photoid = photoRepo.findByUserId(id);
         Optional<Photo> photo;
 
         if (photoid.isPresent()){
