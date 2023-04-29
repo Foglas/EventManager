@@ -78,9 +78,12 @@ public class OrganizationService {
      * @param body Mapa obsahující ID uživatele, kterého chceme přidat do organizace
      * @return vrací hlášku o úspěšném přidání, nebo chybovou hlášku, pokud dojde k chybě
      */
-    public ResponseEntity<?> addUserToOrganization(Map<String, String> body, long id) {
+    public ResponseEntity<?> addUserToOrganization(Map<String, String> body, long id, HttpServletRequest request) {
         long userId = Long.parseLong(body.get("id"));
         User user = userRepo.findById(userId);
+        User requestUser = jwtUtil.getUserFromRequest(request,userRepo);
+
+
         if (user == null){
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
         }
@@ -89,6 +92,9 @@ public class OrganizationService {
             return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "organization not found");
         }
 
+        if (!organizationRepo.isUserInOrganization(requestUser.getId(), organization.get().getId())){
+            return ResponseHelper.errorMessage(Error.NO_ACCESS.name(), "user has not access to this organization");
+        }
         Set<User> users = organization.get().getUsers();
         users.add(user);
 
@@ -98,6 +104,7 @@ public class OrganizationService {
 
         return ResponseHelper.successMessage("user added");
     }
+
     /**
      * Metoda vrátí seznam všech uživatelů organizace
      * @param id ID organizace, ze které získáváme uživatele

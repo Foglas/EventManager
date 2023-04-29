@@ -64,8 +64,8 @@ public class OrganizationController {
      * @return http status a message
      */
     @PostMapping("/auth/organization/{id}/addUser")
-    public ResponseEntity<?> addUserToOrganization(@RequestBody Map<String, String> body, @PathVariable("id") long id){
-       return organizationService.addUserToOrganization(body, id);
+    public ResponseEntity<?> addUserToOrganization(@RequestBody Map<String, String> body, @PathVariable("id") long id, HttpServletRequest request){
+       return organizationService.addUserToOrganization(body, id, request);
     }
 
     /**
