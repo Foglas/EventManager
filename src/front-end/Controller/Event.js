@@ -90,6 +90,7 @@ function findEventHandle(e){
     getEventByFilterQuery();
 }
 
+/*
 function getEventByFilterQuery(query){
 console.log(query);
 
@@ -102,16 +103,17 @@ fetch("http://localhost:8080/api/events/search?"+query)
     setEvents(data);
 })
 .catch((error) => console.log("There is problem", error));
-
-
 }
+*/
 
 function getFilterValuesFromForm(e){
     e.preventDefault();
     console.log("getFormValues")
     let formValues = new FormData(searchBar);
     let query = madeEventQuery(formValues);
-    getEventByFilterQuery(query);
+    const events = getEventByFilterQuery(query);
+    console.log("Events " + events);
+    removeAllEvents();
 }
 
 function madeEventQuery(formValues){
@@ -136,7 +138,7 @@ function madeEventQuery(formValues){
 
 
 
-
+/*
 function getPlace(){
     fetch("http://localhost:8080/api/places")
     .then((response) => response.json())
@@ -153,7 +155,9 @@ function getPlace(){
     .catch((error) => console.log("There is problem", error));
     
 }
+*/
 
+/*
 function getCategory(){
     fetch("http://localhost:8080/api/category")
     .then((response) => response.json())
@@ -170,22 +174,33 @@ function getCategory(){
     })
     .catch((error) => console.log("There is problem", error));
 }
-
+*/
 
 
 function fillSearchBarHtml(){
 console.log(localStorage.getItem("category"));
 
-const newCityElement = document.createElement("select")
-newCityElement.setAttribute("name","city");
-const newRegionElement = document.createElement("select")
-newRegionElement.setAttribute("name","region");
-const newDestrictElement = document.createElement("select")
-newDestrictElement.setAttribute("name","destrict");
+const selectCity = document.createElement("select")
+selectCity.setAttribute("name","city");
+const selectRegion = document.createElement("select")
+selectRegion.setAttribute("name","region");
+const selectDestrict = document.createElement("select")
+selectDestrict.setAttribute("name","destrict");
 
-let innerRegionHTML = "<option value= disabled selected>Okres</option>";
-let innerCityHTML = "<option value= disabled selected>Město</option>";
-let innerDestrictHTML = "<option value= disabled selected>Kraj</option>";
+const disabledRegionOption = document.createElement("option");
+disabledRegionOption.setAttribute("value","disabled");
+disabledRegionOption.textContent = "Okres";
+selectRegion.appendChild(disabledRegionOption);
+
+const disabledCityOption = document.createElement("option");
+disabledCityOption.setAttribute("value","disabled");
+disabledCityOption.textContent = "Město";
+selectCity.appendChild(disabledCityOption);
+
+const disabledDestrictOption = document.createElement("option");
+disabledDestrictOption.setAttribute("value","disabled");
+disabledDestrictOption.textContent = "Kraj";
+selectDestrict.appendChild(disabledDestrictOption);
 
 for(let i = 0; i<localStorage.getItem("PlaceCount"); i++){
   
@@ -193,30 +208,43 @@ for(let i = 0; i<localStorage.getItem("PlaceCount"); i++){
     onePlace = JSON.parse(onePlace);
     console.log(onePlace);
 
-innerCityHTML +=  "<option value=" + "\"" + onePlace.city + "\"" + ">"+onePlace.city+"</option>"
-innerRegionHTML +=   "<option value=" + "\"" + onePlace.region + "\"" + ">"+onePlace.region+"</option>"
-innerDestrictHTML +=   "<option value=" + "\"" + onePlace.destrict + "\"" + ">"+onePlace.destrict+"</option>"
+    const regionOption = document.createElement("option");
+    regionOption.setAttribute("value", onePlace.region);
+    regionOption.textContent = onePlace.region;
+    selectRegion.appendChild(regionOption);
+
+    const cityOption = document.createElement("option");
+    cityOption.setAttribute("value", onePlace.city);
+    cityOption.textContent = onePlace.city;
+    selectCity.appendChild(cityOption);
+
+    const destrictOption = document.createElement("option");
+    destrictOption.setAttribute("value", onePlace.destrict);
+    destrictOption.textContent = onePlace.destrict;
+    selectDestrict.appendChild(destrictOption);
 }
 
-const newElementTime =  document.createElement("div");
-newElementTime.classList.add("time_div");
-newElementTime.innerHTML = "<br> <label>Čas začátku: <input name=time type=datetime-local></Label>";
 
-console.log(innerCityHTML);
-console.log(innerRegionHTML);
-console.log(innerDestrictHTML);
+searchBar.appendChild(selectDestrict);
+searchBar.appendChild(selectRegion);
+searchBar.appendChild(selectCity);
 
-newCityElement.innerHTML = innerCityHTML;
-newRegionElement.innerHTML = innerRegionHTML;
-newDestrictElement.innerHTML = innerDestrictHTML;
+const timeBar =  document.createElement("div");
+timeBar.classList.add("time_bar");
 
-searchBar.appendChild(newDestrictElement);
-searchBar.appendChild(newRegionElement);
-searchBar.appendChild(newCityElement);
-searchBar.appendChild(newElementTime);
+const timeLabel = document.createElement("label");
+timeLabel.textContent = "Čas začátku: ";
 
-const newCategoryElement = document.createElement("div")
-let innerCategoryHTML = "";
+const inputTime = document.createElement("input");
+inputTime.setAttribute("type","datetime-local");
+inputTime.setAttribute("name", "time");
+timeLabel.appendChild(inputTime);
+timeBar.appendChild(timeLabel);
+
+searchBar.appendChild(timeLabel);
+
+const categoryBar = document.createElement("div")
+
 
 for(let i = 0; i<localStorage.getItem("PlaceCount"); i++){
   
@@ -224,18 +252,26 @@ for(let i = 0; i<localStorage.getItem("PlaceCount"); i++){
     category = JSON.parse(category);
     console.log(category);
 
-innerCategoryHTML +=   "<input value="+category.id+" type=checkbox id="+category.name+" name=categories" +">"+ "<label for=" + category.name +">" + category.name+"</label>";
+    const checkboxCategory = document.createElement("input");
+    checkboxCategory.setAttribute("value", category.id);
+    checkboxCategory.setAttribute("type", "checkbox");
+    checkboxCategory.setAttribute("id", category.name);
+    checkboxCategory.setAttribute("name", "categories");
+
+    const labelCheckBox = document.createElement("label");
+    labelCheckBox.setAttribute("for", category.name);
+    labelCheckBox.textContent = category.name;
+    console.log(category.name);
+    labelCheckBox.appendChild(checkboxCategory);
+
+    categoryBar.appendChild(labelCheckBox);
+
 }
 
-console.log(innerCategoryHTML);
-
-
-newCategoryElement.innerHTML = innerCategoryHTML;
-
-searchBar.appendChild(newCategoryElement);
+searchBar.appendChild(categoryBar);
 }
 
-
+/*
 function getEvent(){
     fetch("http://localhost:8080/api/events")
     .then((response) => response.json())
@@ -247,6 +283,7 @@ function getEvent(){
     .catch((error) => console.log("There is problem", error));
 
 }
+*/
 
 function setEvents(data){
     if(data.length === 0){
@@ -258,6 +295,7 @@ function setEvents(data){
     }   
 }
 
+/*
 function getAttendedEvents(){
     const token = 'Bearer ' + localStorage.getItem('token');
     console.log("click "+token);
@@ -274,6 +312,7 @@ function getAttendedEvents(){
         return null;
     });
 }
+*/
 
 function setAttendedEventsStyle(){
     getAttendedEvents().then((events) => {
@@ -304,24 +343,67 @@ function removeAllEvents(){
 
 function fillDivWithEvents(data){
     data.forEach(element => {
-        const newElement = document.createElement("article");
-        newElement.classList.add("eventDescription");
-        newElement.innerHTML = `  <a class="clickEvent" href="Event.html">
-        <section class="description_heading">
-        <h1>${element.name}</h1>
-        <p class="description">${element.description}</p>
-        <p class="specification">${element.city}</p>
-        <p class="specification"> 532</p>
-        </a>
-      </section>
-        <section class = "timeAndAttend_div">
-          <p class="time">Kdy začíná? ${element.dateAndTime}0</p>
-          <p class="time">Kdy končí? ${element.endDateAndTime}</p>
-          <button data-id=${element.id} class="buttonAttend">Přihlásit se</button>
-        </section>`
+        const article = document.createElement("article");
+        article.classList.add("eventDescription");
+        
+
+        //Desctiption section
+        const clickablePart = document.createElement("a");
+        clickablePart.classList.add("clickEvent");
+        clickablePart.setAttribute("href","Event.html");
+
+        const sectionOfDescriptionAndPlace = document.createElement("section");
+        sectionOfDescriptionAndPlace.classList.add("descriptionAndPlace_section");
+        const eventHeading = document.createElement("h1");
+        eventHeading.textContent = element.name;
+
+        const parOfDescription = document.createElement("p");
+        parOfDescription.classList.add("description");
+        parOfDescription.textContent = element.description;
+
+        const parOfCity = document.createElement("p");
+        parOfCity.classList.add("specification");
+        parOfCity.textContent = element.city;
+        
+        const parOfAttendedPeoples = document.createElement("p");
+        parOfAttendedPeoples.classList.add("specification");
+        parOfAttendedPeoples.textContent = "533";
+        
+
+        //Time and attendent section
+        const sectionOfTimeAndAttendend = document.createElement("section");
+        sectionOfTimeAndAttendend.classList.add("timeAndAttend_section");
+        
+        const parOfStartTime = document.createElement("p");
+        parOfStartTime.classList.add("time");
+        parOfStartTime.textContent = "Čas začátku: " + element.dateAndTime;
+
+        const parOfEndTime = document.createElement("p");
+        parOfEndTime.classList.add("time");
+        parOfEndTime.textContent = "Čas konce: " + element.endDateAndTime;
+
+        const button = document.createElement("button");
+        button.setAttribute("data-id",element.id);
+        button.textContent = "Přihlásit se";
+        button.classList.add("buttonAttend");
+        
+
+        //Complete html
+        sectionOfDescriptionAndPlace.appendChild(eventHeading);
+        sectionOfDescriptionAndPlace.appendChild(parOfDescription);
+        sectionOfDescriptionAndPlace.appendChild(parOfCity);
+        sectionOfDescriptionAndPlace.appendChild(parOfAttendedPeoples);
+        clickablePart.appendChild(sectionOfDescriptionAndPlace);
+
+        sectionOfTimeAndAttendend.appendChild(parOfStartTime);
+        sectionOfTimeAndAttendend.appendChild(parOfEndTime);
+        sectionOfTimeAndAttendend.appendChild(button);
+
+        article.appendChild(clickablePart);
+        article.appendChild(sectionOfTimeAndAttendend);
+
         console.log("elementId" + element.id);
-        console.log(newElement.innerHTML)
-        eventContainer.appendChild(newElement);
+        eventContainer.appendChild(article);
     });
     buttonAttend = document.querySelectorAll(".buttonAttend");
     addEventListnerToAll(buttonAttend);

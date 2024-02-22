@@ -303,7 +303,7 @@ public class EventService {
 
         Timestamp timestamp = null;
         if (time.isPresent()) {
-            timestamp = new Timestamp(time.get().toInstant(ZoneOffset.UTC).toEpochMilli());
+            timestamp = new Timestamp(time.get().toInstant(ZoneOffset.of("+02:00")).toEpochMilli());
             if (count == 0) {
                 query += " " + "'" + timestamp + "'" + " <= event_information.time ";
                 count++;

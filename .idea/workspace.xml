@@ -4,201 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="adduser to org auth">
+    <list default="true" id="4c9efeba-b936-41e8-8088-6154f0f0cce3" name="Changes" comment="init backend2 1.2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Events.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Footer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Manager.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/Navbar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/RegistrationBar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/findEvent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginBar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/loginPage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/organization.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/event_manager/src/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontEndFoglasAAlexAVojta/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/PSQL-Script-2.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/.firebase/hosting.YnVpbGQvd2Vi.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/.firebase/hosting.eWVz.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/.firebaserc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/.metadata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/analysis_options.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/google-services.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/debug/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/kotlin/com/example/dbs_2_front_end/MainActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/drawable-v21/launch_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/drawable/launch_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/values-night/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/app/src/profile/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/android/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/firebase.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Flutter/Debug.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Flutter/Release.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/AppDelegate.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/GoogleService-Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/ios/firebase_app_id_file.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/controller/app_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/controller/dashboard_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/controller/login_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/controller/profile_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/main.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/pages/about_page.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/pages/dashboard_page.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/pages/login_page.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/pages/profile_page.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/service/rest_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/utils/app_typography.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/utils/color_schemes.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/utils/firebase_options.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/utils/menu_item.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/utils/my_http_overrides.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/app_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/mobile_content_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/mobile_navigation_drawer_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/mobile_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/tablet_content_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/tablet_heading_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/tablet_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/web_content_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/web_heading_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/views/web_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/widgets/dropdown_line.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/widgets/input_line.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/lib/widgets/validation_text.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/flutter/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/flutter/generated_plugin_registrant.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/flutter/generated_plugins.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/main.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/my_application.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/linux/my_application.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Flutter/Flutter-Debug.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Flutter/Flutter-Release.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/AppDelegate.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_256.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Base.lproj/MainMenu.xib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Configs/AppInfo.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Configs/Debug.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Configs/Release.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Configs/Warnings.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/DebugProfile.entitlements" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/GoogleService-Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/MainFlutterWindow.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/Runner/Release.entitlements" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/macos/firebase_app_id_file.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/pubspec.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/pubspec.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/test/widget_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/web/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/web/icons/Icon-192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/web/icons/Icon-512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/web/icons/Icon-maskable-192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/web/icons/Icon-maskable-512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/web/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/web/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/flutter/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/flutter/generated_plugin_registrant.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/flutter/generated_plugins.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/Runner.rc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/flutter_window.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/flutter_window.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/resource.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/resources/app_icon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/runner.exe.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/utils.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/utils.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/win32_window.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/windows/runner/win32_window.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front_end/dbs_2_front_end/yes/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/Controllers/EventController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front-end/Events.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/front-end/Events.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front-end/event.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front-end/event.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/uhk/fim/projekt/EventManager/service/EventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/login.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "ToolWindowRun.ShowToolbar": "false",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/kubik/OneDrive/Plocha/FIM/Bakalářka/projekt/MinIoPrototype",
+    "last_opened_file_path": "C:/Users/kubik/OneDrive/Plocha/FIM/TNPW2/Projekt/EventManager",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -364,6 +175,7 @@
       <workItem from="1708445987383" duration="1137000" />
       <workItem from="1708505848483" duration="1502000" />
       <workItem from="1708551030049" duration="21000" />
+      <workItem from="1708597872618" duration="2582000" />
     </task>
     <task id="LOCAL-00001" summary="init alex">
       <created>1680162263116</created>
@@ -547,7 +359,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682784996114</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="init backend 1.2">
+      <created>1708597951933</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1708597951933</updated>
+    </task>
+    <task id="LOCAL-00028" summary="init backend2 1.2">
+      <created>1708598069225</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1708598069225</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,7 +412,9 @@
     <MESSAGE value="komentáře 1.3" />
     <MESSAGE value="komentáře 1.4" />
     <MESSAGE value="adduser to org auth" />
-    <option name="LAST_COMMIT_MESSAGE" value="adduser to org auth" />
+    <MESSAGE value="init backend 1.2" />
+    <MESSAGE value="init backend2 1.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="init backend2 1.2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -80,7 +80,7 @@ width: auto;
 height: 4vh;
 }
 
-.timeAndAttend_div{
+.timeAndAttend_section{
     flex: 2;
     margin-top: 11vh;
 }
@@ -122,12 +122,12 @@ font-size: 35px;
     font-size: 15px;    
 }
 
-.time_div{
+.time_bar{
     height: 11vh;
     margin-left: 2vh;
 }
 
-.time_div input {
+.time_bar input {
     margin-top: 0px;
 }
 
