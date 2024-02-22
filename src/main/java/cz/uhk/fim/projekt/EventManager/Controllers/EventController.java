@@ -175,7 +175,7 @@ public class EventController {
      * @return http status a message, pokud je request neúspěšný nebo http status a přislušné eventview,
      * pokud je úspěšný
      */
-    @GetMapping("/user/{id}/getAttendedEvents")
+    @GetMapping("/auth/user/{id}/getAttendedEvents")
     public ResponseEntity<?> findAllEventViews(@PathVariable("id") long id) {
         return eventService.getEventViewsFromUser(id);
     }
