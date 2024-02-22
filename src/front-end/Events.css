@@ -1,0 +1,136 @@
+#event_nav{
+    background-color: rgb(197, 242, 242);
+    width: 25vh;
+    height: 80vh;
+    float: left;
+}
+
+#event_nav button:first-child{
+    margin-top: 15vh;
+}
+
+main{
+    width: 100%;
+    margin-top: 5vh;
+}
+
+#event_nav button{
+    display: block;
+    background-color:  rgb(197, 242, 242);
+    border: none;
+    width: 25vh;
+    height: 30px;
+}
+
+#event_nav button:hover{
+    background-color: rgb(9, 139, 139);
+}
+
+#content{
+    display: block;
+    width: 70%;
+    height: auto;
+    background-color: rgb(239, 238, 238);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+select, input {
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 5px 5px 5px 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#koncert{
+    size: 3px;
+    color: red;
+}
+
+.eventDescription{
+    display: flex;
+    padding: 10px 40px 20px 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 10px 4px rgb(143, 187, 218);
+    width: 80%;
+    border-left: 5px solid blue;
+}
+
+
+.description{
+display: 1;
+max-width: 80vh;
+width: auto;  
+height: 17vh;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+}
+
+.time{
+margin-left: 10vh;    
+width: auto;  
+height: 4vh;
+}
+
+.timeAndAttend_div{
+    flex: 2;
+    margin-top: 11vh;
+}
+
+.specification{
+    margin-left: 3vh;
+}
+
+.buttonAttend{
+    margin-left: 12vh;
+    margin-top: 12vh;
+    height: 5vh;
+    width: 15vh;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.buttonAttendSuccess{
+    margin-left: 12vh;
+    margin-top: 12vh;
+    height: 5vh;
+    width: 15vh;
+    border-radius: 10px;
+    background-color: rgb(128, 189, 216);
+    border: 2px solid rgb(0, 200, 255);
+}
+
+.clickEvent{
+color: black;
+text-decoration: none;
+}
+
+
+.clickEvent h1{
+font-size: 35px;    
+}
+
+.clickEvent p{
+    font-size: 15px;    
+}
+
+.time_div{
+    height: 11vh;
+    margin-left: 2vh;
+}
+
+.time_div input {
+    margin-top: 0px;
+}
+
+#exception{
+    height: 90vh;
+  }
