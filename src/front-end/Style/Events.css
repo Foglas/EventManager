@@ -5,7 +5,7 @@
     float: left;
 }
 
-#event_nav button:first-child{
+#event_nav a:first-child{
     margin-top: 15vh;
 }
 
@@ -14,7 +14,7 @@ main{
     margin-top: 5vh;
 }
 
-#event_nav button{
+#event_nav a{
     display: block;
     background-color:  rgb(197, 242, 242);
     border: none;
@@ -22,7 +22,7 @@ main{
     height: 30px;
 }
 
-#event_nav button:hover{
+#event_nav a:hover{
     background-color: rgb(9, 139, 139);
 }
 

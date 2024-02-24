@@ -15,9 +15,9 @@
 </nav>
 
 <aside id="event_nav">
-   <button id="findEventNavButton">Najít událost</button>
-   <button id="myEventNavButton">Pořádám</button>
-   <button id="planAttendNavButton">Plán událostí</button>
+   <a href="Events.html" id="findEventNavButton">Najít událost</a>
+   <a href="MyEvents.html" id="myEventNavButton">Pořádám</a>
+   <a href="AttendedEvents.html" id="planAttendNavButton">Plán událostí</a>
 </aside>
     
 <main>
@@ -30,12 +30,16 @@
         <div class="eventContainer">
         
         </div>
-</main>
+      </div>
+      </main>
 
 
+<script src="../Controller/AttendedEvents.js"></script>
+<script src="../Controller/BasicEvents.js"></script>
 <script src="../Model/EventModel.js"></script>
 <script src="../Model/PlaceModel.js"></script>
 <script src="../Model/CategoryModel.js"></script>
-<script src="../Controller/Event.js"></script>
+<script src="../Controller/AllOrFilteredEvents.js"></script>
+
 </body>
 </html>
