@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Style/navbar.css">
+    <link rel="stylesheet" href="../Style/basicStyle.css">
+    <link rel="stylesheet" href="../Style/login.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+              <a href="Events.html">Události</a>
+              <a href="User.html">Uživatel</a>
+        </nav>
+    </header>
+
+<main>
+    <div id="formContainer" class="hidden">
+        <h1 id="loginH">Přihlášení</h1>
+            <form id="registrationForm" >
+                <div class="inputContainer">
+                <label name="username" for="username">UserName</label>
+                <input name="username" id="username" type="text" placeholder="Uživatelské jméno">
+                <label for="email">Email</label>
+                <input name="email" id="email" type="text" placeholder="Email">
+                <label for="pass">Password</label>
+                <input name="pass" id="pass" type="password" placeholder="Heslo">
+                <label for="pass2">Password2</label>
+                <input name="pass2" id="pass2" type="password" placeholder="Opakute heslo">
+            </div>  
+
+            <div class="inputContainer">
+                <label for="name">Name</label>
+                <input name="name" id="name" type="text" placeholder="jméno">
+                <label for="surname">Surname</label>
+                <input name="surname" id="surname" type="text" placeholder="Přimení">
+                <label for="date">Birth</label>
+                <input name="birth" id="date" type="date">
+                <label for="phone">Phone</label>
+                <input name="phone" id="phone" type="phone">
+                <button type="submit" id="registerBtn">Založit účet</button>
+            </div>
+        </form>
+
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input name="email" id="email" type="text" placeholder="Email">
+            <label for="pass">Password</label>
+            <input name="pass" id="pass" type="password" placeholder="Heslo">
+            <button id="loginBtn">Login</button>
+        </form>
+        <button id="switchRegLog">Registrace</button>
+    </div>
+</main>
+
+
+<script src="../Model/UserModel.js"></script>
+<script src="../Controller/Login.js"></script>
+</body>
+</html>

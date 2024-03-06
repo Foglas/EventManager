@@ -1,36 +1,15 @@
-let buttonAttend = null;
+/*Script, který podporuje základní operace s eventy.
+*/
+const eventContainer = document.querySelector(".eventContainer");
 
-function addEventListnerToAll(buttons){
-    console.log("addEvenetListener " +buttons.length);
-   buttons.forEach((button)=>{
-        button.addEventListener("click", attendToEvent);
+window.addEventListener("DOMContentLoaded", initialize);
+
+function initialize(){
+    //uložen token a id usera, než bude vytvořeno přihlašování
+    //localStorage.setItem("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJldmUzM25ALmN6IiwiZXhwIjoxNzEwMjUyOTM5fQ.zTiJsLuxOrUyQPu9Tp9Zx_AcWCVVwC4j0hJIz1siN_O6JTTlq-ft5A4HruS4RagnyXdOartKrpMS1tetSnzHKg");
+    //localStorage.setItem("userId",9);
+     
+    getAttendedEvents().then((events)=>{
+        setEvents(events);
     });
-}
-
-function setSuccessButtonAttendStyle(button){
-    console.log("success style change");
-    button.textContent = "Přihlášeno";
-    button.classList.remove("buttonAttend");
-    button.classList.add("buttonAttendSuccess");
-}
-
-function setAttendedButton(){
-    buttonAttend = document.querySelectorAll(".buttonAttend");
-    addEventListnerToAll(buttonAttend);
-    setAttendedEventsStyle();
-}
-
-function setAttendedEventsStyle(){
-    getAttendedEvents().then((events) => {
-        events.forEach((event) => {
-            buttonAttend.forEach((button)=>{
-                const idEvent = button.dataset.id;
-                console.log("comparison " + idEvent + "  " + event.id);
-                if(idEvent == event.id){
-                    setSuccessButtonAttendStyle(button);
-                }
-            });
-
-        })
-    })
 }

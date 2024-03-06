@@ -1,5 +1,5 @@
     
-function getCategory(){
+function getCategories(){
     fetch("http://localhost:8080/api/category")
     .then((response) => response.json())
     .then((data) => 

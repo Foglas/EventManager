@@ -1,7 +1,9 @@
-//Script, který se stará o konkrétní zpracování eventů na výpisu, hledání apod.
-
+const eventContainer = document.querySelector(".eventContainer");
+const eventNav = document.querySelector("#event_nav");
 const searchBar = document.querySelector("#searchBar");
 const buttonFind = document.querySelector(".submit_findEvent");
+
+
 console.log(eventContainer);
 
 window.addEventListener("DOMContentLoaded", initialize)
@@ -10,28 +12,34 @@ searchBar.addEventListener("submit", getFilterValuesFromForm);
 
 
 function initialize(){
-
+  removeAllEvents();
 //uložen token a id usera, než bude vytvořeno přihlašování
-localStorage.setItem("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJldmUzM25ALmN6IiwiZXhwIjoxNzA5MzE0MDAzfQ.qhAVm3BaJY4isvWTDus6lHHxStLLdcm1t3afotquQvJRxZV03MpDiGL8zVn_4dSjRWcCAxjmtOnbseVFNlGhcg");
-localStorage.setItem("userId",9);
+//localStorage.setItem("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJldmUzM25ALmN6IiwiZXhwIjoxNzEwMjUyOTM5fQ.zTiJsLuxOrUyQPu9Tp9Zx_AcWCVVwC4j0hJIz1siN_O6JTTlq-ft5A4HruS4RagnyXdOartKrpMS1tetSnzHKg");
+//localStorage.setItem("userId",9);
+ 
+  setUserView();
 
-if(localStorage.getItem("category") === null){
-    console.log("category loading");
-    getCategory();
-} else{
-    console.log("category is loaded");
-}
+  if(!isUserLogged()){
+    eventNav.classList.add("hidden");
+  }
 
-if(localStorage.getItem("place") === null){
-    console.log("place loading");
-    getPlace();
-} else{
-    console.log("place is loaded");
-}
-const events = getEvent().then((events)=>{
+  if(localStorage.getItem("category") === null){
+      console.log("category loading");
+      getCategories();
+  } else{
+      console.log("category is loaded");
+  }
+  
+  if(localStorage.getItem("place") === null){
+      console.log("place loading");
+      getPlaces();
+  } else{
+      console.log("place is loaded");
+  }
+const events = getEvents().then((events)=>{
     setEvents(events);
 });
-
+    
 fillSearchBarHtml();
 }
 
@@ -104,7 +112,7 @@ function getFilterValuesFromForm(e){
     console.log("getFormValues")
     let formValues = new FormData(searchBar);
     let query = madeEventQuery(formValues);
-    getEventByFilterQuery(query).then((events) => {
+    getEventsByFilterQuery(query).then((events) => {
         setEvents(events)
     });
     removeAllEvents();
@@ -227,15 +235,18 @@ const timeBar =  document.createElement("div");
 timeBar.classList.add("time_bar");
 
 const timeLabel = document.createElement("label");
+timeLabel.setAttribute("for","time");
 timeLabel.textContent = "Čas začátku: ";
 
 const inputTime = document.createElement("input");
 inputTime.setAttribute("type","datetime-local");
 inputTime.setAttribute("name", "time");
-timeLabel.appendChild(inputTime);
-timeBar.appendChild(timeLabel);
+inputTime.setAttribute("id","time");
 
-searchBar.appendChild(timeLabel);
+timeBar.appendChild(timeLabel);
+timeBar.appendChild(inputTime);
+
+searchBar.appendChild(timeBar);
 
 const categoryBar = document.createElement("div")
 
@@ -337,71 +348,3 @@ function displayZeroEvents(){
 */
 
 
-
-function addEventsToHtml(data, buttonAttend){
-    data.forEach(element => {
-        const article = document.createElement("article");
-        article.classList.add("eventDescription");
-        
-
-        //Desctiption section
-        const clickablePart = document.createElement("a");
-        clickablePart.classList.add("clickEvent");
-        clickablePart.setAttribute("href","Event.html");
-
-        const sectionOfDescriptionAndPlace = document.createElement("section");
-        sectionOfDescriptionAndPlace.classList.add("descriptionAndPlace_section");
-        const eventHeading = document.createElement("h1");
-        eventHeading.textContent = element.name;
-
-        const parOfDescription = document.createElement("p");
-        parOfDescription.classList.add("description");
-        parOfDescription.textContent = element.description;
-
-        const parOfCity = document.createElement("p");
-        parOfCity.classList.add("specification");
-        parOfCity.textContent = element.city;
-        
-        const parOfAttendedPeoples = document.createElement("p");
-        parOfAttendedPeoples.classList.add("specification");
-        parOfAttendedPeoples.textContent = "533";
-        
-
-        //Time and attendent section
-        const sectionOfTimeAndAttendend = document.createElement("section");
-        sectionOfTimeAndAttendend.classList.add("timeAndAttend_section");
-        
-        const parOfStartTime = document.createElement("p");
-        parOfStartTime.classList.add("time");
-        parOfStartTime.textContent = "Čas začátku: " + element.dateAndTime;
-
-        const parOfEndTime = document.createElement("p");
-        parOfEndTime.classList.add("time");
-        parOfEndTime.textContent = "Čas konce: " + element.endDateAndTime;
-
-        const button = document.createElement("button");
-        button.setAttribute("data-id",element.id);
-        button.textContent = "Přihlásit se";
-        button.classList.add("buttonAttend");
-        
-
-        //Complete html
-        sectionOfDescriptionAndPlace.appendChild(eventHeading);
-        sectionOfDescriptionAndPlace.appendChild(parOfDescription);
-        sectionOfDescriptionAndPlace.appendChild(parOfCity);
-        sectionOfDescriptionAndPlace.appendChild(parOfAttendedPeoples);
-        clickablePart.appendChild(sectionOfDescriptionAndPlace);
-
-        sectionOfTimeAndAttendend.appendChild(parOfStartTime);
-        sectionOfTimeAndAttendend.appendChild(parOfEndTime);
-        sectionOfTimeAndAttendend.appendChild(button);
-
-        article.appendChild(clickablePart);
-        article.appendChild(sectionOfTimeAndAttendend);
-
-        console.log("elementId" + element.id);
-        eventContainer.appendChild(article);
-    });
-    setAttendedButton();
-    console.log(buttonAttend);
-}

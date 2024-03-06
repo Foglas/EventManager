@@ -1,4 +1,4 @@
-function getEventByFilterQuery(query){
+function getEventsByFilterQuery(query){
     console.log(query);
     
    return fetch("http://localhost:8080/api/events/search?"+query)
@@ -12,7 +12,7 @@ function getEventByFilterQuery(query){
 }
 
 
-function getEvent(){
+function getEvents(){
    return fetch("http://localhost:8080/api/events")
     .then((response) => response.json())
     .then((data) => 
@@ -21,7 +21,6 @@ function getEvent(){
        return data;
     })
     .catch((error) => console.log("There is problem", error));
-
 }
 
 function getAttendedEvents(){
@@ -33,9 +32,35 @@ function getAttendedEvents(){
           'Content-Type': 'application/json'
         }
       }
+    
     return fetch("http://localhost:8080/api/auth/user/"+localStorage.getItem("userId") +"/getAttendedEvents",headers)
     .then((response) => {
         return response.json()
+    })
+    .catch((error) => {
+        console.log("There is problem", error);
+        return null;
+    });
+}
+
+function cancelAttendToEvent(e){
+    e.preventDefault();
+    const token = 'Bearer ' + localStorage.getItem('token');
+    console.log("click "+token);
+    const headers = {
+        method: "DELETE",
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+      }
+
+    
+    return fetch("http://localhost:8080/api/auth/event/"+ e.target.dataset.id +"/cancelAttend",headers)
+    .then((response) => {
+        console.log("Attend canceled");
+        const button =  e.target;
+        setUnsuccessfulButtonAttendStyle(button)
     })
     .catch((error) => {
         console.log("There is problem", error);
@@ -59,7 +84,7 @@ function attendToEvent(e){
       }
 
     console.log("event id in attendEvent " +e.target.dataset.id);
-    fetch("http://localhost:8080/api/auth/event/"+e.target.dataset.id+"/attend",headers)
+    fetch("http://localhost:8080/api/auth/event/"+ e.target.dataset.id +"/attend",headers)
     .then((response) => response.json())
     .then((data) => 
     {
@@ -68,6 +93,4 @@ function attendToEvent(e){
         console.log(data);
     })
     .catch((error) => console.log("There is problem", error));
-    
-
 }

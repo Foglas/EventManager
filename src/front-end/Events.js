@@ -20,7 +20,6 @@ app.listen(8081, ()=>{
 
 app.get("/events", (req, res) => {
     
-
    getEvent().then((events) => {
         const styles = setAttendedEventsStyle(events, );
         res.render("Events", {events});

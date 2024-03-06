@@ -1,5 +1,5 @@
 
-function getPlace(){
+function getPlaces(){
     fetch("http://localhost:8080/api/places")
     .then((response) => response.json())
     .then((data) => 
