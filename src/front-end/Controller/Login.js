@@ -9,7 +9,7 @@ const loginH = document.querySelector("#loginH");
 
 window.addEventListener("DOMContentLoaded", initialize);
 registerButton.addEventListener("click", handleRegister);
-loginBtn.addEventListener("click", hadnleLogin);
+loginBtn.addEventListener("click", handleLogin);
 switchButton.addEventListener("click", handleSwitchButton);
 let formInUse;
 
@@ -31,7 +31,7 @@ function getValuesFromForm(form){
     return formValues = new FormData(form);
 }
 
-function hadnleLogin(e){
+function handleLogin(e){
     e.preventDefault();
     const values = getValuesFromForm(formInUse);
     loginUser(values);
@@ -65,6 +65,7 @@ function loginUser(values){
     getCurrentUser(token).then((currentUser) => {
         localStorage.setItem("userId", currentUser.id);
         localStorage.setItem("token", token);
+        window.location.assign("Events.html");
     });
 
   });

@@ -11,9 +11,10 @@
 
 <body>
     <nav class="navbar">
-      <a href="Events.html">Události</a>
-      <a href="User.html">Uživatel</a>
-</nav>
+        <a href="Events.html">Události</a>
+        <a class="onlyLogin" href="User.html">Uživatel</a>
+        <a id="login_logout" href="Login.html">Login</a>
+  </nav>
 
 <aside id="event_nav">
    <a href="Events.html" id="findEventNavButton">Najít událost</a>
@@ -30,6 +31,8 @@
 </main>
 
 <script src="../Model/EventModel.js"></script>
+<script src="../Model/UserModel.js"></script>
+<script src="../Service/userService.js"></script>
 <script src="../Service/AttendedEvents.js"></script>
 <script src="../Service/BasicEvents.js"></script>
 <script src="../Controller/AttendedEvents.js"></script>      

@@ -6,15 +6,46 @@
     <title>Document</title>
     <link rel="stylesheet" href="../Style/navbar.css">
     <link rel="stylesheet" href="../Style/Events.css">
-    <link rel="stylesheet" href="../Style/basicStyle.css">
+    <link rel="stylesheet" href="../Style/login.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
-              <a href="Events.html">Události</a>
-              <a href="User.html">Uživatel</a>
-        </nav>
+            <a href="Events.html">Události</a>
+            <a class="onlyLogin" href="User.html">Uživatel</a>
+            <a id="login_logout" href="Login.html">Login</a>
+      </nav>
     </header>
 
+<main>
+    <div id="formContainer" class="hidden">
+        <h1 id="loginH">Údaje uživatele</h1>
+            <form id="registrationForm" >
+                <div class="inputContainer">
+                <label name="username" for="username">UserName</label>
+                <input name="username" id="username" type="text" placeholder="Uživatelské jméno" disabled>
+                <label for="email">Email</label>
+                <input name="email" id="email" type="text" placeholder="Email" disabled>
+                <label for="phone">Phone</label>
+                <input name="phone" id="phone" type="phone" disabled>
+            </div>  
+
+            <div class="inputContainer">
+                <label for="name">Name</label>
+                <input name="name" id="name" type="text" placeholder="jméno" disabled>
+                <label for="surname">Surname</label>
+                <input name="surname" id="surname" type="text" placeholder="Přimení" disabled>
+                <label for="date">Birth</label>
+                <input name="birth" id="date" type="date" disabled>
+                <button id="editBtn">Editovat</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+
+<script src="../Model/UserModel.js"></script>
+<script src="../Service/userService.js"></script>
+<script src="../Controller/User.js"></script>
 </body>
 </html>

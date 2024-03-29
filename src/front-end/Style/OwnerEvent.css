@@ -1,0 +1,37 @@
+.inputContainer{
+display: flex;
+flex-direction: column;
+margin-left: auto;
+margin-right: auto;
+width: 60vw;
+}
+
+.middle{
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#timeDiv{
+display: inline-block;
+justify-content: space-between;
+margin-left: auto;
+margin-right: auto;
+margin-top: 10px;
+margin-bottom: 10px;
+width: auto;
+}
+
+#catDiv{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: auto;
+}
+
+#placeDiv{
+    width: auto;
+}
+
+#timeEnd{
+    margin-left: 70px;
+}

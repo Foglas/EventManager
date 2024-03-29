@@ -1,11 +1,12 @@
 let buttonsAttend = null;
 
 function addEventListnerToAll(buttons){
-    console.log("addEvenetListener " +buttons.length);
+    console.log("addEvenetListener " +buttons);
    buttons.forEach((button)=>{
         button.addEventListener("click", attendToEventHandler);
     });
 }
+
 
 function attendToEventHandler(e){
     const button = e.target;
@@ -71,25 +72,34 @@ function addEventsToHtml(data){
 
         //Desctiption section
         const clickablePart = document.createElement("a");
+        clickablePart.setAttribute("data-id",element.id);
         clickablePart.classList.add("clickEvent");
         clickablePart.setAttribute("href","Event.html");
+        clickablePart.addEventListener("click", handleRedirectToEvent)
+
 
         const sectionOfDescriptionAndPlace = document.createElement("section");
+        sectionOfDescriptionAndPlace.setAttribute("data-id",element.id);
         sectionOfDescriptionAndPlace.classList.add("descriptionAndPlace_section");
+
         const eventHeading = document.createElement("h1");
+        eventHeading.setAttribute("data-id",element.id);
         eventHeading.textContent = element.name;
 
-        const parOfDescription = document.createElement("p");
-        parOfDescription.classList.add("description");
-        parOfDescription.textContent = element.description;
+        const partOfDescription = document.createElement("p");
+        partOfDescription.setAttribute("data-id",element.id);
+        partOfDescription.classList.add("description");
+        partOfDescription.textContent = element.description;
 
-        const parOfCity = document.createElement("p");
-        parOfCity.classList.add("specification");
-        parOfCity.textContent = element.city;
+        const partOfCity = document.createElement("p");
+        partOfCity.setAttribute("data-id",element.id);
+        partOfCity.classList.add("specification");
+        partOfCity.textContent = element.city;
         
-        const parOfAttendedPeoples = document.createElement("p");
-        parOfAttendedPeoples.classList.add("specification");
-        parOfAttendedPeoples.textContent = "533";
+        const partOfAttendedPeoples = document.createElement("p");
+        partOfAttendedPeoples.setAttribute("data-id",element.id);
+        partOfAttendedPeoples.classList.add("specification");
+        partOfAttendedPeoples.textContent = "533";
     
         //Time and attendent section
         const sectionOfTimeAndAttendend = document.createElement("section");
@@ -115,9 +125,9 @@ function addEventsToHtml(data){
 
         //Complete html
         sectionOfDescriptionAndPlace.appendChild(eventHeading);
-        sectionOfDescriptionAndPlace.appendChild(parOfDescription);
-        sectionOfDescriptionAndPlace.appendChild(parOfCity);
-        sectionOfDescriptionAndPlace.appendChild(parOfAttendedPeoples);
+        sectionOfDescriptionAndPlace.appendChild(partOfDescription);
+        sectionOfDescriptionAndPlace.appendChild(partOfCity);
+        sectionOfDescriptionAndPlace.appendChild(partOfAttendedPeoples);
         clickablePart.appendChild(sectionOfDescriptionAndPlace);
 
         sectionOfTimeAndAttendend.appendChild(parOfStartTime);
@@ -134,4 +144,12 @@ function addEventsToHtml(data){
     });
 
     setAttendedButton();
+}
+
+
+function handleRedirectToEvent(e){
+    e.preventDefault();
+    console.log( e.target);
+    localStorage.setItem("currentEvent", e.target.dataset.id);
+    window.location.assign("Event.html");
 }

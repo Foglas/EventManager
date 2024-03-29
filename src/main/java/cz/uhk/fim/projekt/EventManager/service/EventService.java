@@ -112,11 +112,7 @@ public class EventService {
             coordinates = body.get("coordinates");
         }
 
-        Optional<Organization> organization = organizationRepo.findById(organizationId);
 
-        if (!organization.isPresent()) {
-            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Organization not found");
-        }
 
 
         String categoriesid = body.get("categoriesid");
@@ -140,6 +136,17 @@ public class EventService {
         }
 
         User user = jwtUtil.getUserFromRequest(request, userRepo);
+
+        Optional<Organization> organization = Optional.empty();
+        if (organizationId == -1) {
+            organization = organizationRepo.findByName(user.getUsername());
+            organizationId = organization.get().getId();
+        } else{
+            organization = organizationRepo.findById(organizationId);
+            if (!organization.isPresent()) {
+                return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "Organization not found");
+            }
+        }
 
         if (organizationRepo.isUserInOrganization(user.getId(), organizationId)) {
             if (description == null) {

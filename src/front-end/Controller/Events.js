@@ -13,14 +13,16 @@ searchBar.addEventListener("submit", getFilterValuesFromForm);
 
 function initialize(){
   removeAllEvents();
+  
 //uložen token a id usera, než bude vytvořeno přihlašování
 //localStorage.setItem("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJldmUzM25ALmN6IiwiZXhwIjoxNzEwMjUyOTM5fQ.zTiJsLuxOrUyQPu9Tp9Zx_AcWCVVwC4j0hJIz1siN_O6JTTlq-ft5A4HruS4RagnyXdOartKrpMS1tetSnzHKg");
 //localStorage.setItem("userId",9);
  
-  setUserView();
+  setBasicUserView();
 
   if(!isUserLogged()){
     eventNav.classList.add("hidden");
+    
   }
 
   if(localStorage.getItem("category") === null){
@@ -36,7 +38,7 @@ function initialize(){
   } else{
       console.log("place is loaded");
   }
-const events = getEvents().then((events)=>{
+getEvents().then((events)=>{
     setEvents(events);
 });
     
@@ -123,7 +125,7 @@ function madeEventQuery(formValues){
   let categoryNotice = false;
   for (const [key, value] of formValues) {
     if(!categoryNotice){
-        if(key === "category"){
+        if(key === "categories"){
             categoryNotice = true;
             query += key+"="+value;
             
@@ -182,54 +184,7 @@ function getCategory(){
 function fillSearchBarHtml(){
 console.log(localStorage.getItem("category"));
 
-const selectCity = document.createElement("select")
-selectCity.setAttribute("name","city");
-const selectRegion = document.createElement("select")
-selectRegion.setAttribute("name","region");
-const selectDestrict = document.createElement("select")
-selectDestrict.setAttribute("name","destrict");
-
-const disabledRegionOption = document.createElement("option");
-disabledRegionOption.setAttribute("value","disabled");
-disabledRegionOption.textContent = "Okres";
-selectRegion.appendChild(disabledRegionOption);
-
-const disabledCityOption = document.createElement("option");
-disabledCityOption.setAttribute("value","disabled");
-disabledCityOption.textContent = "Město";
-selectCity.appendChild(disabledCityOption);
-
-const disabledDestrictOption = document.createElement("option");
-disabledDestrictOption.setAttribute("value","disabled");
-disabledDestrictOption.textContent = "Kraj";
-selectDestrict.appendChild(disabledDestrictOption);
-
-for(let i = 0; i<localStorage.getItem("PlaceCount"); i++){
-  
-    let onePlace = localStorage.getItem("place"+i);
-    onePlace = JSON.parse(onePlace);
-    console.log(onePlace);
-
-    const regionOption = document.createElement("option");
-    regionOption.setAttribute("value", onePlace.region);
-    regionOption.textContent = onePlace.region;
-    selectRegion.appendChild(regionOption);
-
-    const cityOption = document.createElement("option");
-    cityOption.setAttribute("value", onePlace.city);
-    cityOption.textContent = onePlace.city;
-    selectCity.appendChild(cityOption);
-
-    const destrictOption = document.createElement("option");
-    destrictOption.setAttribute("value", onePlace.destrict);
-    destrictOption.textContent = onePlace.destrict;
-    selectDestrict.appendChild(destrictOption);
-}
-
-
-searchBar.appendChild(selectDestrict);
-searchBar.appendChild(selectRegion);
-searchBar.appendChild(selectCity);
+addPlacesToElement(searchBar);
 
 const timeBar =  document.createElement("div");
 timeBar.classList.add("time_bar");
@@ -250,28 +205,7 @@ searchBar.appendChild(timeBar);
 
 const categoryBar = document.createElement("div")
 
-
-for(let i = 0; i<localStorage.getItem("PlaceCount"); i++){
-  
-    let category = localStorage.getItem("category"+i);
-    category = JSON.parse(category);
-    console.log(category);
-
-    const checkboxCategory = document.createElement("input");
-    checkboxCategory.setAttribute("value", category.id);
-    checkboxCategory.setAttribute("type", "checkbox");
-    checkboxCategory.setAttribute("id", category.name);
-    checkboxCategory.setAttribute("name", "categories");
-
-    const labelCheckBox = document.createElement("label");
-    labelCheckBox.setAttribute("for", category.name);
-    labelCheckBox.textContent = category.name;
-    console.log(category.name);
-    labelCheckBox.appendChild(checkboxCategory);
-
-    categoryBar.appendChild(labelCheckBox);
-
-}
+addCategoriesToElement(categoryBar);
 
 searchBar.appendChild(categoryBar);
 }

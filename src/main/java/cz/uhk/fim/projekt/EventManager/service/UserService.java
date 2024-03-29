@@ -1,12 +1,10 @@
 package cz.uhk.fim.projekt.EventManager.service;
 
+import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.Domain.Role;
 import cz.uhk.fim.projekt.EventManager.Domain.Token.TokenBlackList;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
-import cz.uhk.fim.projekt.EventManager.dao.RoleRepo;
-import cz.uhk.fim.projekt.EventManager.dao.TokenBlackListRepo;
-import cz.uhk.fim.projekt.EventManager.dao.UserDetailsRepo;
-import cz.uhk.fim.projekt.EventManager.dao.UserRepo;
+import cz.uhk.fim.projekt.EventManager.dao.*;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.enums.Roles;
 import cz.uhk.fim.projekt.EventManager.util.JwtUtil;
@@ -33,6 +31,7 @@ public class UserService {
 
     private UserRepo userRepo;
     private UserDetailsRepo userDetailsRepo;
+    private OrganizationRepo organizationRepo;
     private RoleRepo roleRepo;
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -46,7 +45,7 @@ public class UserService {
     String telReg2 = "\\d\\d\\d\\d\\d\\d\\d\\d\\d$";
 
     @Autowired
-    public UserService(JwtUtil jwtUtil, UserRepo userRepo, UserDetailsRepo userDetailsRepo, UserViewRepo userViewRepo, RoleRepo roleRepo, TokenBlackListRepo blackListRepo) {
+    public UserService(JwtUtil jwtUtil, UserRepo userRepo, UserDetailsRepo userDetailsRepo, UserViewRepo userViewRepo, RoleRepo roleRepo, TokenBlackListRepo blackListRepo, OrganizationRepo organizationRepo) {
         this.jwtUtil = jwtUtil;
         this.userRepo = userRepo;
         this.userDetailsRepo = userDetailsRepo;
@@ -54,6 +53,7 @@ public class UserService {
         this.userViewRepo = userViewRepo;
         this.roleRepo = roleRepo;
         this.tokenBlackListRepo = blackListRepo;
+        this.organizationRepo = organizationRepo;
     }
 
     /**
@@ -124,6 +124,13 @@ public class UserService {
             user.getUserDetails().setSurname(null);
         }
 
+        if (user.getUserDetails().getDateOfBirth() == null) {
+            return ResponseHelper.errorMessage(
+                    Error.INVALID_ARGUMENTS.name(),
+                    "date of birth not fill"
+            );
+        }
+
 
         String phone = user.getUserDetails().getPhone();
         if (!(phone.matches(telReg) || phone.matches(telReg2))) {
@@ -164,11 +171,21 @@ public class UserService {
             // Save the user to the Users table
             userRepo.save(user);
 
+            dbUser = userRepo.findUserByEmailIgnoreCase(user.getEmail());
+
+            HashSet<User> organizationUser = new HashSet<>();
+            organizationUser.add(dbUser);
+            Organization org = new Organization(dbUser.getUsername(), organizationUser);
+
+            organizationRepo.save(org);
+
+
             // Return a success message
             return ResponseHelper.successMessage("User registered succesfully");
+
         } catch (Exception exception) {
             return ResponseHelper.errorMessage(
-                    Error.INVALID_ARGUMENTS.name(),
+                    Error.ERROR_RESPONSE_DB.name(),
                     "date of birth not fill"
             );
         }

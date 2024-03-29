@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar">
       <a href="Events.html">Události</a>
-      <a href="User.html">Uživatel</a>
+      <a class="onlyLogin" href="User.html">Uživatel</a>
       <a id="login_logout" href="Login.html">Login</a>
 </nav>
 
@@ -24,6 +24,7 @@
     
 <main>
    <div id="content">
+    <h1>Najděte si událost podle svého gusta</h1>
         <div>
             <form  id="searchBar">
               <button class="submit_findEvent" type="submit">Vyhledej</button>
@@ -43,6 +44,8 @@
 <script src="../Model/UserModel.js"></script>
 <script src="../Service/BasicEvents.js"></script>
 <script src="../Service/userService.js"></script>
+<script src="../Service/CategoryService.js"></script>
+<script src="../Service/PlaceService.js"></script>
 <script src="../Service/AttendedEvents.js"></script>
 <script src="../Controller/Events.js"></script>
 

@@ -1,24 +1,31 @@
 const loginLogoutA = document.querySelector("#login_logout");
+const onlyLoginA = document.querySelector(".onlyLogin");
+const navbar = document.querySelector(".navbar");
 
-function setUserView(){
+function setBasicUserView(){
+    console.log("login")
     if(isUserLogged()){
         loginLogoutA.textContent = "Logout";
         loginLogoutA.setAttribute("href","");
         loginLogoutA.addEventListener("click", handleLogout);
+      
     } else{
         loginLogoutA.textContent = "Login";
         loginLogoutA.setAttribute("href","Login.html");
+        navbar.removeChild(onlyLoginA);
+        
     }
 }
 
 function handleLogout(e){
-   // e.preventDefault();
+    e.preventDefault();
     console.log("login");
     logout().then(()=>{
-        setUserView();
+        console.log("logout")
+        window.location.assign("Events.html");
         localStorage.removeItem("token");
+
     });
-  
 }
 
 function isUserLogged(){

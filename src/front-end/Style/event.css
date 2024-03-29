@@ -1,3 +1,49 @@
 .content{
   text-align: center;  
+  display: flex;
+  justify-content: center;
+}
+
+#baseDescription{
+  width: 60vw;
+}
+
+#baseDescription h1{
+  margin-bottom: 1vw;
+  height: 7vh;
+}
+
+#details{
+  margin-left: 2vw;
+  border: 1px solid;
+  border-radius: 5px;
+  margin-top: 20vh;
+  width: 15vw;
+}
+
+#details h2{
+font-size: 18px;
+margin-bottom: 1vh;
+}
+
+
+#details h3{
+  margin-top: 1vh;
+  font-size: 15px;
+  }
+
+#categories{
+  display: flex;
+  justify-content: center;
+  margin-left: 3vw;
+  margin-right: 3vw;
+  height: 4vh;
+}
+
+#categories h3{
+  margin-left: 1vw;
+  margin-right: 1vw;
+  margin-top: 0;
+  font-size: 15px;
+  height: 3vh;
 }

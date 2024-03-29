@@ -1,0 +1,15 @@
+.error{
+    text-align: center;
+    border: 3px solid red;
+    border-radius: 50px;
+    background-color: rgb(245, 158, 158);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 40vw;
+    height: 8vh;
+}
+
+.error h3{
+   font-size: 15px;
+}

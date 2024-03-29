@@ -133,4 +133,8 @@ font-size: 35px;
 
 #exception{
     height: 90vh;
-  }
+}
+
+h1{
+   text-align: center;
+}
