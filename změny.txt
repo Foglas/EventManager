@@ -1,1 +1,0 @@
-Pod eventem se zobrazí místo zakladatele eventu společnost.
