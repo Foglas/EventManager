@@ -1,5 +1,4 @@
-
-window.addEventListener("DOMContentLoaded", initialize);
+//controller, který se stará o správné vykreslení stránky konkrétního eventu
 
 const startTime = document.querySelector("#startTime");
 const endTime = document.querySelector("#endTime");
@@ -10,18 +9,23 @@ const bin = document.querySelector("#bin");
 const categoriesDiv = document.querySelector("#categories");
 const eventName = document.querySelector("#name");
 const description = document.querySelector("#description");
+
+window.addEventListener("DOMContentLoaded", initialize);
+
+//nastaví uživatelský pohled a poté volá nastavení obsahu stránky konkrétního eventu
 function initialize(){
     setBasicUserView();
     setEventInfo();
 }
 
 
+//podle id v localstorage se získá info z be a poté nastaví obsah stránky na event
 function setEventInfo(){
     const id = localStorage.getItem("currentEvent");
     getEvent(id).then((event) => {
         console.log(event)
-        startTime.textContent = event.dateAndTime;
-        endTime.textContent = event.endDateAndTime;
+        startTime.textContent = parseDate(event.dateAndTime);
+        endTime.textContent = parseDate(event.endDateAndTime);
         destrict.textContent = event.place.destrict;
         city.textContent = event.place.city;
         street.textContent = event.place.street;
@@ -37,7 +41,4 @@ function setEventInfo(){
             categoriesDiv.appendChild(categoryH3);
         });
     });
-
-   
-
 }

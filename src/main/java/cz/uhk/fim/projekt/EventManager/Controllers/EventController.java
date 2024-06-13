@@ -32,6 +32,7 @@ public class EventController {
 
     /**
      * Přijme dotaz na url /api/auth/event/organization/{id}/save a přepošle příslušné parametry na
+     * Přijme dotaz na url /api/auth/event/organization/{id}/save a přepošle příslušné parametry na
      * service vrstvu pro zpracování.Vyžaduje autorizaci. id je id organizace, která pořádá event.
      * Slouží pro ukládání eventu do databáze. Informace o eventu se nachází v body requestu a uživatel
      * který event zakládá se zjistí z headeru.

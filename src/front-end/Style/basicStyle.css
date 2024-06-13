@@ -1,3 +1,148 @@
+header{
+    height: 13%;
+    background-color:  #184F60;
+}
+
+nav{
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 0vh;
+    margin-top: 0px;
+
+}
+
+#navIcon{
+    display: none;
+}
+
+.nav{
+    padding-top: 0.8em;
+    padding-bottom: 0.4em;
+    padding-left: 0.2em;
+    background-color: #184F60;
+}
+
+#mobileOuterNavDiv{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 3em;
+    align-items: end;
+}
+
+.open{
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar a {
+    margin-right: 19px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-decoration: none;
+    font-size: 1.3em;
+    color: #E2E9EB ;
+}
+
+.navbar a:hover{
+    margin-top: 0.3em;
+    color: #A8BDC3;
+}
+
+
+html{
+    height: 100%;
+}
+
+body{
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    min-height: 100%;
+}
+
 .hidden{
     visibility: hidden;
 }
+
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #C5D3D7;
+}
+
+main{
+    width: 70%;
+    min-height: 100%;
+    height: auto;
+    background-color: #E2E9EB;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#content{
+    display: block;
+    width: 70%;
+    min-height: 87%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 3em;
+}
+
+.none{
+    display: none;
+}
+
+.visible{
+    display: block;
+}
+
+
+
+@media only screen and (max-width: 690px) {
+    header{
+        background-color: #184F60;
+    }
+    
+    #classicNav{
+        display: none;
+    }
+    
+    #navIcon{
+        display: block;
+        margin-top: 0.3em;
+    }
+    
+    #event_nav{
+        display: none;
+    }
+    
+    #content, main{
+        width: 100%;
+    }
+    
+    
+    
+}
+
+footer{
+    background-color: #184F60;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    height: 10em;
+    color: #E2E9EB;
+}
+
+#projectDescription{
+    text-align: center;
+}
+

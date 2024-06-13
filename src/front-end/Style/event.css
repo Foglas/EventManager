@@ -1,11 +1,11 @@
-.content{
+#content{
   text-align: center;  
   display: flex;
   justify-content: center;
 }
 
 #baseDescription{
-  width: 60vw;
+  width: 100%;
 }
 
 #baseDescription h1{
@@ -46,4 +46,20 @@ margin-bottom: 1vh;
   margin-top: 0;
   font-size: 15px;
   height: 3vh;
+}
+
+@media only screen and (max-width: 690px) {
+#content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+  #details{
+    width: 90%;
+  }
+
+  #baseDescription h1{
+    height: 2.5em;
+  }
 }

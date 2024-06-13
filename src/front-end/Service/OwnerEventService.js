@@ -1,4 +1,6 @@
-function addAddressSelectToElement(address){
+
+//Přidá místa do elementu v parametru
+function addPlacesSelectToElement(address){
     const selectAddress = document.createElement("select")
     selectAddress.setAttribute("name", "place")
 

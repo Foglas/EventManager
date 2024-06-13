@@ -1,3 +1,4 @@
+//přidává kategorie do elementu v parametru
 function addCategoriesToElement(categoryBar){
     for(let i = 0; i<localStorage.getItem("CategoryCount"); i++){
   

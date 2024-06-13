@@ -30,6 +30,21 @@ public class PlaceController {
     return placeService.getAllPlaces();
     }
 
+    @GetMapping("/cities")
+    public ResponseEntity<?> getAllCities(){
+        return placeService.getAllCities();
+    }
+
+    @GetMapping("/destricts")
+    public ResponseEntity<?> getAlldestricts(){
+        return placeService.getAllDestricts();
+    }
+
+    @GetMapping("/regions")
+    public ResponseEntity<?> getAllRegions(){
+        return placeService.getAllRegions();
+    }
+
     /**
      * Přijme dotaz na url /api/auth/admin/place/save. Slouží pro uložení nových míst do databáze.
      * Vyžaduje autorizaci a roli admina. Informace se předávají v body requestu.

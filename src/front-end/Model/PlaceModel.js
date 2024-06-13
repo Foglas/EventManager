@@ -1,17 +1,20 @@
 
+//volání api pro získání všech míst
 function getPlaces(){
-    fetch("http://localhost:8080/api/places")
-    .then((response) => response.json())
-    .then((data) => 
-    {
-        console.log(data);
-        let index = 0;
-        data.forEach(element => {
-            localStorage.setItem("place"+index, JSON.stringify(element));  
-            index +=1;
-        });
-        localStorage.setItem("PlaceCount", index);
-    })
-    .catch((error) => console.log("There is problem", error));
-    
+    return sendToApi("/api/places",()=>{}, false, "", "GET", false);
+}
+
+//volání api pro získání všech měst.
+function getCities(){
+    return sendToApi("/api/cities", ()=>{}, false, "", "GET", false);
+}
+
+//volání api pro získání všech krajů.
+function getDestricts(){
+    return sendToApi("/api/destricts", ()=>{}, false, "", "GET", false);
+}
+
+//volání api pro získání všech okresů.
+function getRegion(){
+    return sendToApi("/api/regions", ()=>{}, false, "", "GET", false);
 }

@@ -1,16 +1,18 @@
-/*Script, který podporuje základní operace s eventy.
+/*Controller jenž se stará o stránku přihlášených eventů.
 */
 const eventContainer = document.querySelector(".eventContainer");
 
 window.addEventListener("DOMContentLoaded", initialize);
 
+
+
+//Nastaví uživatelská pohled (přihlášený/nepřihlášený) a poté nastaví na stránku přihlášené eventy.
 function initialize(){
-    //uložen token a id usera, než bude vytvořeno přihlašování
-    //localStorage.setItem("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJldmUzM25ALmN6IiwiZXhwIjoxNzEwMjUyOTM5fQ.zTiJsLuxOrUyQPu9Tp9Zx_AcWCVVwC4j0hJIz1siN_O6JTTlq-ft5A4HruS4RagnyXdOartKrpMS1tetSnzHKg");
-    //localStorage.setItem("userId",9);
     setBasicUserView();
 
     getAttendedEvents().then((events)=>{
+        if(events){
         setEvents(events);
-    });
+    }
+});
 }

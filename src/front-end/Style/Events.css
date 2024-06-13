@@ -1,38 +1,52 @@
 #event_nav{
-    background-color: rgb(197, 242, 242);
-    width: 25vh;
+    background-color: #184F60;
+    width: 10em;
     height: 80vh;
     float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: first baseline;
+    text-align: center;
 }
 
 #event_nav a:first-child{
     margin-top: 15vh;
 }
 
-main{
+#searchBar div{
     width: 100%;
-    margin-top: 5vh;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
+
+#searchBar div div input, #searchBar div select, .catBar label, .timeBar label {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+#searchBar .normalBtn{
+    margin-top: 0.5em;
+}
+
 
 #event_nav a{
     display: block;
-    background-color:  rgb(197, 242, 242);
+    font-size: 1.2em;
+    color:  #E2E9EB;
+    text-decoration: none;
     border: none;
-    width: 25vh;
-    height: 30px;
+    width: auto;
+    height: 2em;
 }
 
 #event_nav a:hover{
-    background-color: rgb(9, 139, 139);
-}
-
-#content{
-    display: block;
-    width: 70%;
-    height: auto;
-    background-color: rgb(239, 238, 238);
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #184F60;
+    color: #A8BDC3;
+    width: 9.5em;
+    border-radius: 2em;
 }
 
 select, input {
@@ -48,83 +62,75 @@ select, input {
     color: red;
 }
 
+.eventContainer{
+    padding-top: 2em;
+    height: auto;
+}
+
+.eventDescription:first-child{
+    margin-top: 0px;
+}
+
 .eventDescription{
     display: flex;
     padding: 10px 40px 20px 40px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5vh;
-    border: 1px solid black;
+    border: 1px solid #184F60;
     border-radius: 20px;
     color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);
-    box-shadow: 2px 2px 10px 4px rgb(143, 187, 218);
-    width: 80%;
-    border-left: 5px solid blue;
+    box-shadow: 2px 2px 10px 4px #A8BDC3;
+    width: 90%;
+    border-left: 5px solid #184F60;
 }
 
-
 .description{
-display: 1;
-max-width: 80vh;
+max-width: 70%;
 width: auto;  
-height: 17vh;
+height: 3em;
 text-overflow: ellipsis;
 overflow: hidden;
 white-space: nowrap;
 }
 
-.time{
-margin-left: 10vh;    
-width: auto;  
-height: 4vh;
+.descriptionAndPlace_section{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 100%;
+}
+
+.descriptionAndPlace_section h1{
+margin-bottom: 0.3em;
 }
 
 .timeAndAttend_section{
-    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
     margin-top: 11vh;
 }
 
-.specification{
-    margin-left: 3vh;
-}
-
-.buttonAttend{
-    margin-left: 12vh;
-    margin-top: 12vh;
-    height: 5vh;
-    width: 15vh;
-    border-radius: 10px;
-    border: 2px solid rgb(0, 0, 0);
-}
-
-.buttonAttendSuccess{
-    margin-left: 12vh;
-    margin-top: 12vh;
-    height: 5vh;
-    width: 15vh;
-    border-radius: 10px;
-    background-color: rgb(128, 189, 216);
-    border: 2px solid rgb(0, 200, 255);
-}
 
 .clickEvent{
+display: flex;
+flex: 2;
 color: black;
 text-decoration: none;
+max-width: 70%;
 }
 
 
 .clickEvent h1{
+text-align: left;
 font-size: 35px;    
 }
 
 .clickEvent p{
     font-size: 15px;    
-}
-
-.time_bar{
-    height: 11vh;
-    margin-left: 2vh;
 }
 
 .time_bar input {
@@ -136,5 +142,73 @@ font-size: 35px;
 }
 
 h1{
-   text-align: center;
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 1em;
+    font-size: 2.7em;
+}
+h2{
+    margin-top: 1em;
+}
+
+h3{
+    margin-top: 0.9em;
+    margin-bottom: 0.1em;
+}
+
+
+@media only screen and (max-width: 800px) {
+
+    .description{
+        max-width: 40%;
+    }
+
+    .clickEvent{
+        max-width: 40%;
+    }
+    
+    }
+
+
+@media only screen and (max-width: 680px) {
+
+    #searchBar{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .eventDescription{
+    flex-direction: column;
+    padding: 0.5em 0.3em 0.4em 0em;
+    border: 2px solid #184F60;
+    text-align: center;
+    }
+
+    .descriptionAndPlace_section{
+    max-width: 100%;
+    }
+    
+    .clickEvent{
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 85%;
+    }
+    
+    .description{
+        max-width: 70%;
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .clickEvent h1{
+        max-width: 100%;
+        text-align: center;
+    }
+
+    #searchBar .normalBtn{
+        margin-left: 0.6em;
+    }
+    
+    
 }

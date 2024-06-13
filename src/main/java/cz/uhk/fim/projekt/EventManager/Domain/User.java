@@ -78,6 +78,12 @@ public class User {
         this.password = password;
     }
 
+    public User(String email, String username, UserDetails userDetails) {
+        this.email = email;
+        this.username = username;
+        this.userDetails = userDetails;
+    }
+
     public long getId() {
         return id;
     }

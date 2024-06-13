@@ -1,5 +1,6 @@
 let buttonsAttend = null;
 
+//přidává všem tlačítkům listenery
 function addEventListnerToAll(buttons){
     console.log("addEvenetListener " +buttons);
    buttons.forEach((button)=>{
@@ -8,22 +9,34 @@ function addEventListnerToAll(buttons){
 }
 
 
+//obsluha přihlášení na event
 function attendToEventHandler(e){
     const button = e.target;
     const attend = button.dataset.attend;
     if(attend == "false"){
         console.log("data attend " + attend);
-        attendToEvent(e);
+        attendToEvent(e.target.dataset.id, ()=>{
+            const button =  e.target;
+            setSuccessButtonAttendStyle(button);
+            console.log("bla bla");
+        });
+
         button.setAttribute("data-attend", true);
+
     } else {
         console.log("data attend " + attend);
-        cancelAttendToEvent(e);
+        cancelAttendToEvent(e.target.dataset.id, ()=>{
+        console.log("Attend canceled");
+        const button =  e.target;
+        setUnsuccessfulButtonAttendStyle(button)
+        });
         button.setAttribute("data-attend", false);
     }
     console.log("attend id " + button.dataset.id);
 
 }
 
+//nasatavuje styl tlačítka přihlášen
 function setSuccessButtonAttendStyle(button){
     console.log("success style change");
     button.textContent = "Přihlášeno";
@@ -31,6 +44,7 @@ function setSuccessButtonAttendStyle(button){
     button.classList.add("buttonAttendSuccess");
 }
 
+//nastavuje styl tlačítka nepřihlášen
 function setUnsuccessfulButtonAttendStyle(button){
     button.setAttribute("data-attend", false);
     console.log("unsuccessful style change");
@@ -39,16 +53,11 @@ function setUnsuccessfulButtonAttendStyle(button){
     button.classList.add("buttonAttend");
 }
 
-function setAttendedButton(){
-    if(isUserLogged()){
-    buttonsAttend = document.querySelectorAll(".buttonAttend");
-    addEventListnerToAll(buttonsAttend);
-    setAttendedButtonStyle();
-}
-}
-
+//nastavuje styl přihlášen pro adekvátní eventy. K tomu si načítá eventy z be.
 function setAttendedButtonStyle(){
+    buttonsAttend = document.querySelectorAll(".buttonAttend");
     getAttendedEvents().then((events) => {
+        if(events){
         events.forEach((event) => {
             buttonsAttend.forEach((button)=>{
                 const idEvent = button.dataset.id;
@@ -60,10 +69,11 @@ function setAttendedButtonStyle(){
             });
 
         })
-    })
+    }})
 }
 
 
+//přidává eventy do stránky
 function addEventsToHtml(data){
     data.forEach(element => {
         const article = document.createElement("article");
@@ -106,12 +116,18 @@ function addEventsToHtml(data){
         sectionOfTimeAndAttendend.classList.add("timeAndAttend_section");
         
         const parOfStartTime = document.createElement("p");
+        const startTime = document.createElement("h3");
+        startTime.textContent = "Čas začátku: ";
         parOfStartTime.classList.add("time");
-        parOfStartTime.textContent = "Čas začátku: " + element.dateAndTime;
+        parOfStartTime.textContent =  parseDate(element.dateAndTime);
+
+       
 
         const parOfEndTime = document.createElement("p");
+        const endTime = document.createElement("h3");
+        endTime.textContent = "Čas konce: ";
         parOfEndTime.classList.add("time");
-        parOfEndTime.textContent = "Čas konce: " + element.endDateAndTime;
+        parOfEndTime.textContent = parseDate(element.endDateAndTime);
 
         let button;
         if(isUserLogged()){
@@ -120,6 +136,7 @@ function addEventsToHtml(data){
         button.setAttribute("data-attend", false);
         button.textContent = "Přihlásit se";
         button.classList.add("buttonAttend");
+        button.addEventListener("click", attendToEventHandler);
         }
 
 
@@ -130,7 +147,9 @@ function addEventsToHtml(data){
         sectionOfDescriptionAndPlace.appendChild(partOfAttendedPeoples);
         clickablePart.appendChild(sectionOfDescriptionAndPlace);
 
+        sectionOfTimeAndAttendend.append(startTime);
         sectionOfTimeAndAttendend.appendChild(parOfStartTime);
+        sectionOfTimeAndAttendend.append(endTime);
         sectionOfTimeAndAttendend.appendChild(parOfEndTime);
         
         if(isUserLogged()){
@@ -143,10 +162,12 @@ function addEventsToHtml(data){
         eventContainer.appendChild(article);
     });
 
-    setAttendedButton();
+    if(isUserLogged()){
+    setAttendedButtonStyle();
+}
 }
 
-
+//obsluha přesměrování na konkrétní event
 function handleRedirectToEvent(e){
     e.preventDefault();
     console.log( e.target);

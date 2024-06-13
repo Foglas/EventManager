@@ -1,4 +1,12 @@
-function addPlacesToElement(searchBar){
+
+//přidá místa do poskytnutého elementu v argumentu. Konkrétně select pro města, kraje a okresy.
+async function addPlacesToElement(searchBar){
+
+    const cities = await getCities();
+    const regions = await getRegion();
+    const destricts = await getDestricts();
+
+
     const selectCity = document.createElement("select")
     selectCity.setAttribute("name","city");
     const selectRegion = document.createElement("select")
@@ -20,6 +28,46 @@ function addPlacesToElement(searchBar){
     disabledDestrictOption.setAttribute("value","disabled");
     disabledDestrictOption.textContent = "Kraj";
     selectDestrict.appendChild(disabledDestrictOption);
+
+   cities.forEach((city) => {
+        const cityOption = document.createElement("option");
+        cityOption.setAttribute("value", city);
+        cityOption.textContent = city;
+        selectCity.appendChild(cityOption);
+   });
+
+   regions.forEach((region) =>{
+        const regionOption = document.createElement("option");
+        regionOption.setAttribute("value", region);
+        regionOption.textContent = region;
+        selectRegion.appendChild(regionOption);
+   });
+
+   destricts.forEach((destrict)=>{
+        const destrictOption = document.createElement("option");
+        destrictOption.setAttribute("value", destrict);
+        destrictOption.textContent = destrict;
+        selectDestrict.appendChild(destrictOption);
+   })
+    
+
+    searchBar.appendChild(selectDestrict);
+    searchBar.appendChild(selectRegion);
+    searchBar.appendChild(selectCity);
+
+}
+
+
+//přidá místa do elementu. V jednom selectu vše. Město, ulice, číslo domu
+function addPlacesSelectToElement(address){
+    const selectAddress = document.createElement("select")
+    selectAddress.setAttribute("name", "place")
+
+
+    const disabledSelectAddress = document.createElement("option");
+    disabledSelectAddress.setAttribute("value","");
+    disabledSelectAddress.textContent = "Adresa";
+    selectAddress.appendChild(disabledSelectAddress);
     
     for(let i = 0; i<localStorage.getItem("PlaceCount"); i++){
       
@@ -27,26 +75,12 @@ function addPlacesToElement(searchBar){
         onePlace = JSON.parse(onePlace);
         console.log(onePlace);
     
-        const regionOption = document.createElement("option");
-        regionOption.setAttribute("value", onePlace.region);
-        regionOption.setAttribute("data-id", onePlace.id);
-        regionOption.textContent = onePlace.region;
-        selectRegion.appendChild(regionOption);
-    
-        const cityOption = document.createElement("option");
-        cityOption.setAttribute("value", onePlace.city);
-        
-        cityOption.textContent = onePlace.city;
-        selectCity.appendChild(cityOption);
-    
-        const destrictOption = document.createElement("option");
-        destrictOption.setAttribute("value", onePlace.destrict);
-        destrictOption.textContent = onePlace.destrict;
-        selectDestrict.appendChild(destrictOption);
+        const option = document.createElement("option");
+        option.setAttribute("value", onePlace.id);
+        option.textContent = "Město: " + onePlace.city + ", ulice: " + onePlace.street + ", Číslo domu: " +onePlace.bin;
+        selectAddress.appendChild(option);
     }
     
     
-    searchBar.appendChild(selectDestrict);
-    searchBar.appendChild(selectRegion);
-    searchBar.appendChild(selectCity);
-}
+    address.appendChild(selectAddress);
+    }

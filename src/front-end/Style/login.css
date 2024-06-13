@@ -1,14 +1,17 @@
 #registrationForm{
     display: flex;
+    flex-direction: row;
     width: 50vw;
     margin-left: auto;
     margin-right: auto;
+    height: auto;
 }
 
 #formContainer{
     margin-left: auto;
     margin-right: auto;
     width: 70vw;
+    height: 800px;
 }
 
 #formContainer h1{
@@ -38,15 +41,51 @@
 
 .inputContainer{
     width: 30vw;
-    height: 65vh;
+    height: auto;
     display: flex;  
-    flex-grow: 2;
     flex-direction: column;
-    background-color: rgb(207, 207, 207);
+    align-items: center;
 }
 
 #loginForm{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
+
+.normalBtn{
+    margin-top: 0.3em;
+}
+
+#switchRegLog{
+    margin-top: 0.7em;
+}
+h1{
+    margin-top: 0;
+    padding-top: 2em;
+}
+@media only screen and (max-width: 690px) {
+    #registrationForm{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70vw;
+        height: auto;
+        padding-bottom: 4em;
+    }
+
+    .inputContainer{
+        width: 80%;
+        max-height: 100%;
+        height: auto;
+    }
+
+    .normalBtn{
+        margin-bottom: 0em;
+    }
+
+
+}

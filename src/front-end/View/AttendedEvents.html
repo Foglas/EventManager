@@ -3,18 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Style/navbar.css">
     <link rel="stylesheet" href="../Style/Events.css">
+    <link rel="stylesheet" href="../Style/buttonStyles.css">
     <link rel="stylesheet" href="../Style/basicStyle.css">
     <title>Events</title>
 </head>
 
 <body>
-    <nav class="navbar">
-        <a href="Events.html">Události</a>
-        <a class="onlyLogin" href="User.html">Uživatel</a>
-        <a id="login_logout" href="Login.html">Login</a>
-  </nav>
+    <header>
+        <nav class="navbar">
+            <div id="classicNav">     
+              <a href="Events.html">Události</a>
+              <a class="onlyLogin" href="User.html">Uživatel</a> 
+              <a class="login_logout" href="Login.html">Login</a>
+            </div>
+      
+      
+            <div id="mobileOuterNavDiv" >
+               <a id="navIcon" href="/View/Events.html"> <img src="images/icon.png" alt="ikona rozbalení"
+                            width="30px" height="30px"> </a>
+                        
+                        <div id="navLogin" class="nav none">
+                         <a href="User.html">Uživatel</a> 
+                         <a href="Events.html" id="findEventNavButton">Najít událost</a>
+                         <a href="MyEvents.html" id="myEventNavButton">Pořádám</a>
+                         <a href="AttendedEvents.html" id="planAttendNavButton">Plán událostí</a>
+                         <a class="login_logout" href="Login.html">Login</a>
+                        </div>
+      
+                        <div id="navNotLogin" class="nav none">
+                          <a href="Events.html" id="findEventNavButton">Najít událost</a>
+                          <a class="login_logout" href="Login.html">Login</a>
+                        </div>
+      
+            </div>
+      
+        </nav>
+      
+    </header>
 
 <aside id="event_nav">
    <a href="Events.html" id="findEventNavButton">Najít událost</a>
@@ -24,18 +50,31 @@
     
 <main>
     <div id="content">
+        <h1>Přihlášené eventy</h1>
         <div class="eventContainer">
         
         </div>
     </div>
 </main>
 
+<footer>
+    <div id="projectDescription">
+    <h2>Aplikace pro správu událostí</h2>
+    <p>Tento projekt byl vytvořen jako studentský zápočtový projekt.</p>
+    <h3>Autor: Fogl Jakub</h3>
+    </div>
+  </footer>
+
+
+<script src="../Model/BaseModelSupport.js"></script>
+<script src="../Service/ResponseToUserService.js"></script>
 <script src="../Model/EventModel.js"></script>
 <script src="../Model/UserModel.js"></script>
 <script src="../Service/userService.js"></script>
 <script src="../Service/AttendedEvents.js"></script>
 <script src="../Service/BasicEvents.js"></script>
 <script src="../Controller/AttendedEvents.js"></script>      
+<script src="../Service/mobileNavService.js"></script>
 
 </body>
 </html>

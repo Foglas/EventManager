@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * Filter pro filtrování, který uživatel může nebo provádět určité operace na základě url.
+ * Filter pro filtrování, který uživatel může provádět určité operace na základě url.
  */
 @Component
 @Order(1)
@@ -125,7 +125,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                             }
                         }
                     }
-                    if (method.equals("UPDATE")){
+                    if (method.equals("PUT")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.UPDATE_ALL) {
                                 chain.doFilter(request, response);
@@ -160,7 +160,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                                 return;
                             }
                         }
-                    } if (method.equals("UPDATE")){
+                    } if (method.equals("PUT")){
                         for (Permission permission : permissions) {
                             if (permission.getDestricption() == Permissions.UPDATE) {
                                 chain.doFilter(request, response);

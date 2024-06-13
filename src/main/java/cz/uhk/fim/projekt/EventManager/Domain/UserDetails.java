@@ -2,6 +2,7 @@ package cz.uhk.fim.projekt.EventManager.Domain;
 
 
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,6 +32,17 @@ public class UserDetails {
     
     @Column(name = "phone")
     private String phone;
+
+    public UserDetails(){
+
+    }
+
+    public UserDetails(LocalDate dateOfBirth, String name, String surname, String phone) {
+        this.dateOfBirth = dateOfBirth;
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+    }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;

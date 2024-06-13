@@ -1,182 +1,49 @@
+
+//volání api pro získání eventů podle filter query - argument
 function getEventsByFilterQuery(query){
-    console.log(query);
-    
-   return fetch("http://localhost:8080/api/events/search?"+query)
-    .then((response) => response.json())
-    .then((data) => 
-    {
-        console.log(data);
-        return data;
-    })
-    .catch((error) => console.log("There is problem", error));
-}
+    return sendToApi("/api/events/search?"+query,()=>{}, false, "", "GET", false);
+}    
 
-
+//volání api pro získání všech eventů
 function getEvents(){
-   return fetch("http://localhost:8080/api/events")
-    .then((response) => response.json())
-    .then((data) => 
-    {
-        console.log(data);
-       return data;
-    })
-    .catch((error) => console.log("There is problem", error));
+    return sendToApi("/api/events",()=>{}, false, "", "GET", false);
 }
 
+//volání api pro získání konkrétního eventu. id je id eventu.
 function getEvent(id){
-    return fetch("http://localhost:8080/api/events/"+id)
-     .then((response) => response.json())
-     .then((data) => 
-     {
-         console.log(data);
-        return data;
-     })
-     .catch((error) => console.log("There is problem", error));
- }
- 
+    return sendToApi("/api/events/"+id,()=>{}, false, "", "GET", false);
+}
 
+//volání api pro získání všech eventů. na kterých je přihlášen
 function getAttendedEvents(){
-    const token = 'Bearer ' + localStorage.getItem('token');
-    console.log("click "+token);
-    const headers = {
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        }
-      }
-    
-    return fetch("http://localhost:8080/api/auth/user/"+localStorage.getItem("userId") +"/getAttendedEvents",headers)
-    .then((response) => {
-        return response.json()
-    })
-    .catch((error) => {
-        console.log("There is problem", error);
-        return null;
-    });
+    return sendToApi("/api/auth/user/"+localStorage.getItem("userId") +"/getAttendedEvents",()=>{}, true, "", "GET", false);
 }
 
-function cancelAttendToEvent(e){
-    e.preventDefault();
-    const token = 'Bearer ' + localStorage.getItem('token');
-    console.log("click "+token);
-    const headers = {
-        method: "DELETE",
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        },
-      }
-
-    
-    return fetch("http://localhost:8080/api/auth/event/"+ e.target.dataset.id +"/cancelAttend",headers)
-    .then((response) => {
-        console.log("Attend canceled");
-        const button =  e.target;
-        setUnsuccessfulButtonAttendStyle(button)
-    })
-    .catch((error) => {
-        console.log("There is problem", error);
-        return null;
-    });
+//volání api pro zrušení přihlášení na event. id je id eventu, fun je funkce která se má vykonat po skončení
+function cancelAttendToEvent(id, fun){
+    return sendToApi("/api/auth/event/"+ id +"/cancelAttend",fun, true, "", "DELETE", false);
 }
 
-function attendToEvent(e){
-    e.preventDefault();
-    const token = 'Bearer ' + localStorage.getItem('token');
-    console.log("click "+token);
-    const headers = {
-        method: "POST",
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "state":"koupeno"
-        })
-      }
-
-    console.log("event id in attendEvent " +e.target.dataset.id);
-    fetch("http://localhost:8080/api/auth/event/"+ e.target.dataset.id +"/attend",headers)
-    .then((response) => response.json())
-    .then((data) => 
-    {
-        const button =  e.target;
-        setSuccessButtonAttendStyle(button);
-        console.log(data);
-    })
-    .catch((error) => console.log("There is problem", error));
+//volání api pro přihlášení na event. id je id eventu, fun je funkce která se má vykonat po skončení
+function attendToEvent(id, fun){
+    console.log("id "+ id);
+    return sendToApi("/api/auth/event/"+ id +"/attend",fun, true, { "state":"přihlášen"}, "POST", false);
 }
 
+//volání api pro získání eventů, jež uživatel vytvořil. id je id organizace, ve které je uživatel členem
 function getMyEvents(id){
-    const token = 'Bearer ' + localStorage.getItem('token');
-    console.log("click "+token);
-    const headers = {
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        }
-      }
-    
-    return fetch("http://localhost:8080/api/organization/"+id+"/events", headers)
-    .then((response) => {
-        return response.json()
-    })
-    .catch((error) => {
-        console.log("There is problem", error);
-        return null;
-    });
+    return sendToApi("/api/organization/"+id+"/events",()=>{}, true, "", "GET", false);
 }
 
+//volání api pro vymazání eventu. id je id eventu
 function deleteEvent(id){
-    const token = 'Bearer ' + localStorage.getItem('token');
-    console.log("click "+token);
-    const headers = {
-        method: "DELETE",
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        }
-    }
-    
-    return fetch("http://localhost:8080/api/auth/event/"+id+"/delete", headers)
-    .then((response) => {
-        return response.json()
-    })
-    .catch((error) => {
-        console.log("There is problem", error);
-        return null;
-    });
+    console.log(id);
+   return sendToApi("/api/auth/event/"+id+"/delete",()=>{}, true, "", "DELETE", false);
 }
 
+//volání api pro uložení eventu
 function saveEvent(event){
-    const token = 'Bearer ' + localStorage.getItem('token');
-    console.log("click "+token);
-    const headers = {
-        method: "POST",
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(event)
-      }
-      
-    return fetch("http://localhost:8080/api/auth/event/organization/-1/save",headers)
-    .then((response) => {
-        console.log(response.status);
-        checkResponseAndReturnOrThrow(response)
-    }).catch((error)=>{
-        throw new Error(error);
-    })
-    
+return sendToApi("/api/auth/event/organization/-1/save", ()=>{},  true, event, "POST");
 }
 
-function checkResponseAndReturnOrThrow(response){
-    if(response.status != 200){
-        response.json().then((error)=>{
-            console.log("message " + error.message);
-             throw new Error(error.message);
-        });
-     } else{
-         return response.json();
-     }
-}
+

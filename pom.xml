@@ -10,8 +10,7 @@
 	</parent>
 
 	<groupId>cz.uhk.fim.projekt</groupId>
-	<artifactId>EventManager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>App</artifactId>
 	<name>EventManager</name>
 	<description>Aplikace na plánování událostí</description>
 	<properties>

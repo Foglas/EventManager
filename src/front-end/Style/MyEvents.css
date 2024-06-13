@@ -1,8 +1,64 @@
 .infoEvent{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid #184F60;
+    border-radius: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .infoEvent h3{
     margin-left: 15px;
     margin-right: 15px;
+}
+
+#mainPart{
+margin-top: 10%;
+}
+
+@media only screen and (max-width: 1100px) {
+    .infoEvent{
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .infoEvent{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+@media only screen and (max-width: 680px) {
+    #mainPart h2{
+        text-align: center;
+    }
+
+    #mainPart a{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .infoEvent{
+        width: 65%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+@media only screen and (max-width: 300px) {
+
+    .infoEvent{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 }

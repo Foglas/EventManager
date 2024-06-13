@@ -4,6 +4,7 @@ import cz.uhk.fim.projekt.EventManager.Domain.Organization;
 import cz.uhk.fim.projekt.EventManager.Domain.Role;
 import cz.uhk.fim.projekt.EventManager.Domain.Token.TokenBlackList;
 import cz.uhk.fim.projekt.EventManager.Domain.User;
+import cz.uhk.fim.projekt.EventManager.Domain.UserDetails;
 import cz.uhk.fim.projekt.EventManager.dao.*;
 import cz.uhk.fim.projekt.EventManager.enums.Error;
 import cz.uhk.fim.projekt.EventManager.enums.Roles;
@@ -17,10 +18,13 @@ import cz.uhk.fim.projekt.EventManager.views.UserView;
 import cz.uhk.fim.projekt.EventManager.dao.readOnlyRepo.UserViewRepo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.lang.model.type.ErrorType;
 
 /**
  * Třída poskytující metody pro obsluhu požadavků týkajících se uživatele
@@ -95,49 +99,13 @@ public class UserService {
             );
         }
 
-        if (user.getEmail() == "") {
-            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "email is not fill");
-        }
-
-        if (user.getUsername() == "") {
-            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "username is not fill");
-        }
         if (user.getPassword() == "") {
             return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "password is not fill");
         }
 
-
-        // Check if name and surname are the same
-        if (user.getUserDetails().getName() != "" || user.getUserDetails().getSurname() != "") {
-            if (user.getUserDetails().getName().equalsIgnoreCase(user.getUserDetails().getSurname())) {
-                return ResponseHelper.errorMessage(
-                        "name_surname_same",
-                        "Name and surname cannot be the same"
-                );
-            }
-        }
-        if (user.getUserDetails().getName() == "") {
-            user.getUserDetails().setName(null);
-        }
-
-        if (user.getUserDetails().getSurname() == "") {
-            user.getUserDetails().setSurname(null);
-        }
-
-        if (user.getUserDetails().getDateOfBirth() == null) {
-            return ResponseHelper.errorMessage(
-                    Error.INVALID_ARGUMENTS.name(),
-                    "date of birth not fill"
-            );
-        }
-
-
-        String phone = user.getUserDetails().getPhone();
-        if (!(phone.matches(telReg) || phone.matches(telReg2))) {
-            return ResponseHelper.errorMessage(
-                    "Wrong number format",
-                    "Phone number has wrong format"
-            );
+        ResponseEntity<?> responseFromCheck = checkUserInfo(user);
+        if (HttpStatus.OK != responseFromCheck.getStatusCode()){
+           return responseFromCheck;
         }
 
 
@@ -150,6 +118,7 @@ public class UserService {
                     "User with this email address already exists"
             );
         }
+
 
         try {
             // Encode the user's password before saving it to the database
@@ -186,7 +155,7 @@ public class UserService {
         } catch (Exception exception) {
             return ResponseHelper.errorMessage(
                     Error.ERROR_RESPONSE_DB.name(),
-                    "date of birth not fill"
+                    "Error response from DB"
             );
         }
     }
@@ -351,24 +320,65 @@ public class UserService {
     /**
      * Metoda aktualizuje údaje o uživateli
      *
-     * @param user               objekt uživatele obsahující nové údaje uživatele
+     * @param userFromRequest               objekt uživatele obsahující nové údaje uživatele
      * @param httpServletRequest Server request
      * @return vrací nový autorizační token uživatele, pokud se podaří aktualizace údajů, jinak vrací chybovou hlášku
      */
-    public ResponseEntity<?> updateUser(Map<String, String> user, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> updateUser(Map<String, String> userFromRequest, HttpServletRequest httpServletRequest) {
+
         User userFromToken = jwtUtil.getUserFromRequest(httpServletRequest, userRepo);
 
-        String username = user.get("username");
-        String email = user.get("email");
-        String phone = user.get("phone");
-        String surname = user.get("surname");
-        String dateOfBirth = user.get("dateOfBirth");
-        String name = user.get("name");
+        String username = userFromRequest.get("username");
+        String email = userFromRequest.get("email");
+        String phone = userFromRequest.get("phone");
+        String surname = userFromRequest.get("surname");
+        String dateOfBirth = userFromRequest.get("dateOfBirth");
+        String name = userFromRequest.get("name");
+
+
+        if (dateOfBirth == "") {
+            return ResponseHelper.errorMessage(
+                    Error.INVALID_ARGUMENTS.name(),
+                    "date of birth not fill"
+            );
+        }
         LocalDate localDateOfBirth = LocalDate.parse(dateOfBirth);
 
-        if (user == null) {
-            return ResponseHelper.errorMessage(Error.NOT_FOUND.name(), "user not found");
+        User user = new User(email, username, new UserDetails(localDateOfBirth,name,surname,phone));
+
+
+
+        ResponseEntity<?> responseFromCheck = checkUserInfo(user);
+        if (HttpStatus.OK != responseFromCheck.getStatusCode()){
+            return responseFromCheck;
         }
+
+        // Check if user with same email exists
+        User dbUser = userRepo.findUserByEmailIgnoreCase(user.getEmail());
+
+        if (dbUser != null && !userFromToken.getEmail().equals(email)) {
+            return ResponseHelper.errorMessage(
+                    "email_exists",
+                    "User with this email address already exists"
+            );
+        }
+
+        if (user == null) {
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "Problem to accept correct data on API");
+        }
+
+        Optional<Organization> organization = organizationRepo.findByName(dbUser.getUsername());
+
+        if (organization.isPresent()){
+            organization.get().setName(username);
+        } else {
+            return ResponseHelper.errorMessage(
+                    Error.NOT_FOUND.name(),
+                    "User with this email address already exists"
+            );
+        }
+
+
 
 
         userRepo.updateUser(userFromToken.getUserDetails().getId(), email, username, localDateOfBirth, name, phone, surname);
@@ -445,4 +455,52 @@ public class UserService {
         }
     }
 
+    private ResponseEntity<?> checkUserInfo(User user){
+        if (user.getEmail() == "") {
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "email is not fill");
+        }
+
+        if (!user.getEmail().contains("@")){
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "email has not valid format");
+        }
+
+        if (user.getUsername() == "") {
+            return ResponseHelper.errorMessage(Error.INVALID_ARGUMENTS.name(), "username is not fill");
+        }
+
+        // Check if name and surname are the same
+        if (!user.getUserDetails().getName().equals("") && !user.getUserDetails().getSurname().equals("")) {
+            if (user.getUserDetails().getName().equalsIgnoreCase(user.getUserDetails().getSurname())) {
+                return ResponseHelper.errorMessage(
+                        "name_surname_same",
+                        "Name and surname cannot be the same"
+                );
+            }
+        }
+        if (user.getUserDetails().getName() == "") {
+            user.getUserDetails().setName(null);
+        }
+
+        if (user.getUserDetails().getSurname() == "") {
+            user.getUserDetails().setSurname(null);
+        }
+
+        if (user.getUserDetails().getDateOfBirth() == null) {
+            return ResponseHelper.errorMessage(
+                    Error.INVALID_ARGUMENTS.name(),
+                    "date of birth not fill"
+            );
+        }
+
+
+        String phone = user.getUserDetails().getPhone();
+        if (!(phone.matches(telReg) || phone.matches(telReg2))) {
+            return ResponseHelper.errorMessage(
+                    "Wrong number format",
+                    "Phone number has wrong format"
+            );
+        }
+        return ResponseHelper.successMessage("Validation was success");
+    }
 }
+

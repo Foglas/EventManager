@@ -1,4 +1,4 @@
-/*Script, který podporuje základní operace s eventy.
+/*Controller, který se stará o vykreslení stránky uživatele a její obsluhu
 */
 const inputContainers = document.querySelectorAll(".inputContainer");
 const editBtn = document.querySelector("#editBtn");
@@ -15,11 +15,14 @@ let submitBtn;
 window.addEventListener("DOMContentLoaded", initialize);
 editBtn.addEventListener("click", editBtnHandler);
 
+
+//nastavuje uživatelský pohled (přihlášený/nepřihlášení) a vytváří tlačítko pro uložení aktualizovaných dat uživatele
 function initialize(){
     setBasicUserView();
     fillFormWithData();
 
     submitBtn = document.createElement("button");
+    submitBtn.classList.add("normalBtn");
     submitBtn.textContent = "uložit";
     submitBtn.addEventListener("click", updateEventHandler);
 
@@ -27,7 +30,7 @@ function initialize(){
 
 
  
-
+//vyplní formulář daty z db
 function fillFormWithData(){
     form1Children = inputContainers[0].children;
     form2Children = inputContainers[1].children;
@@ -43,14 +46,15 @@ function fillFormWithData(){
     userInfo = [username,email, phone,realName,surname,birth];
 
     getCurrentUser(localStorage.getItem("token")).then((user)=>{
+        if(user){
         username.value = user.username;
         email.value = user.email;
         phone.value = user.phone;
         realName.value = user.name;
         surname.value = user.surname;
-        phone.value = user.phone;
+        phone.value = user.phone; 
         birth.value = user.birthDate;
-    })
+    }})
 
     console.log(username);
     console.log(email);
@@ -60,6 +64,8 @@ function fillFormWithData(){
     console.log(birth);
 }
 
+
+//handler stisknutí tlačítka edit. Přidá tlačítko uložení a změní popis. Také odstraňuje případné errory.
 function editBtnHandler(e){
     e.preventDefault();
 
@@ -68,7 +74,9 @@ function editBtnHandler(e){
     userInfo.forEach((element) => {
         element.disabled = true;
     });
-
+    editBtn.textContent = "Editovat";
+    fillFormWithData();
+    removeErrror();
     inputContainers[1].removeChild(submitBtn);
     isEditable = false;
     
@@ -76,18 +84,25 @@ function editBtnHandler(e){
         userInfo.forEach((element) => {
         element.disabled = false;
     });
+    editBtn.textContent = "Zrušit editaci";
     inputContainers[1].appendChild(submitBtn);
     isEditable = true;
     }
 }
 
+
+//obsluha stisknutí tlačítka updatu.
 function updateEventHandler(e){
     e.preventDefault();
 
     let values = new FormData(form);
-    updateUser(values);
-
-    isEditable = true;
-    editBtnHandler(e);
+    updateUser(values).then((data)=>{
+    if(data){
+        localStorage.setItem("token", data.message);
+        isEditable = true;
+        editBtnHandler(e);
+        addSuccessMessage("User information updated", 2, ()=>{});
+    }
+    });
     
 }

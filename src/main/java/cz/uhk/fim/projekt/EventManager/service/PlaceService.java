@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 /**
  * Třída poskytuje metody pro práci s místy (adresami)
  */
@@ -56,4 +58,31 @@ public class PlaceService {
     List<Place> places = placeRepo.findAll();
     return ResponseEntity.ok(places);
     }
+
+    public ResponseEntity<?> getAllCities(){
+     Optional<List<String>> cities = placeRepo.getAllCities();
+      if (cities.isPresent()){
+        return ResponseEntity.ok(cities);
+      } else {
+       return ResponseHelper.errorMessage(Error.ERROR_RESPONSE_DB.name(), "Error while getting cities");
+      }
+    }
+
+  public ResponseEntity<?> getAllRegions(){
+    Optional<List<String>> regions = placeRepo.getAllRegions();
+    if (regions.isPresent()){
+      return ResponseEntity.ok(regions);
+    } else {
+      return ResponseHelper.errorMessage(Error.ERROR_RESPONSE_DB.name(), "Error while getting cities");
+    }
+  }
+
+  public ResponseEntity<?> getAllDestricts(){
+    Optional<List<String>> destricts = placeRepo.getAllDestricts();
+    if (destricts.isPresent()){
+      return ResponseEntity.ok(destricts);
+    } else {
+      return ResponseHelper.errorMessage(Error.ERROR_RESPONSE_DB.name(), "Error while getting cities");
+    }
+  }
 }

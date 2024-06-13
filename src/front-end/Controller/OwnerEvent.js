@@ -1,4 +1,4 @@
-/*Script, který podporuje základní operace s eventy.
+/*Controller, který se stará o správné vykreslení stránky pro tvorbu nového eventu.
 */
 const catForm = document.querySelector("#catDiv");
 const placeForm = document.querySelector("#placeDiv");
@@ -8,13 +8,16 @@ window.addEventListener("DOMContentLoaded", initialize);
 
 eventForm.addEventListener("submit", saveEventHandler);
 
+
+//nastavuje uživvatelský pohled a volá metody pro vytvoření formuláře a vložení do stránky.
 function initialize(){
     setBasicUserView();
+    initPlaceAndCategory(()=>{});
     addServerSideForm();
 
 }
 
-
+//obsluha pro uložení eventu
 function saveEventHandler(e){
     e.preventDefault();
     
@@ -43,16 +46,18 @@ function saveEventHandler(e){
 
     console.log(event);
 
-    saveEvent(event).then((data)=>{
-            console.log("data " + data);
-          //  window.location.assign("MyEvents.html");
-    }).catch((error)=>{
-        console.log("error" +error)
-        throwError(error);
+    saveEvent(event)
+    .then((response)=>{
+        if(response){
+            console.log("end");
+            addSuccessMessage(response.message, 1, ()=> window.location.assign("MyEvents.html"));  
+        }
     });
 }
 
+
+//volá metody pro vytvoření formuláře na tvorbu eventu
 function addServerSideForm(){
-    addAddressSelectToElement(placeForm);
+    addPlacesSelectToElement(placeForm);
     addCategoriesToElement(catForm);
 }

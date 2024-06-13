@@ -100,7 +100,7 @@ public class UserController {
    * Informace k updatu se nachází v body requestu
    * @return http status a message
    */
-  @PostMapping("/auth/user/update")
+  @PutMapping("/auth/user/update")
   public ResponseEntity<?> updateUser(@RequestBody Map<String, String> body, HttpServletRequest httpServletRequest){
    return userService.updateUser(body, httpServletRequest);
   }

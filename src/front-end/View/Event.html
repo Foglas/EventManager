@@ -4,45 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../Style/basicStyle.css">
     <link rel="stylesheet" href="../Style/event.css">
-    <link rel="stylesheet" href="../Style/navbar.css">
 </head>
 <body>
     <header>
       <nav class="navbar">
-        <a href="Events.html">Události</a>
-        <a class="onlyLogin" href="User.html">Uživatel</a>
-        <a id="login_logout" href="Login.html">Login</a>
-  </nav>
+        <div id="classicNav">     
+          <a href="Events.html">Události</a>
+          <a class="onlyLogin" href="User.html">Uživatel</a> 
+          <a class="login_logout" href="Login.html">Login</a>
+        </div>
+  
+  
+        <div id="mobileOuterNavDiv" >
+           <a id="navIcon" href="/View/Events.html"> <img src="images/icon.png" alt="ikona rozbalení"
+                        width="30px" height="30px"> </a>
+                    
+                    <div id="navLogin" class="nav none">
+                     <a href="User.html">Uživatel</a> 
+                     <a href="Events.html" id="findEventNavButton">Najít událost</a>
+                     <a href="MyEvents.html" id="myEventNavButton">Pořádám</a>
+                     <a href="AttendedEvents.html" id="planAttendNavButton">Plán událostí</a>
+                     <a class="login_logout" href="Login.html">Login</a>
+                    </div>
+  
+                    <div id="navNotLogin" class="nav none">
+                      <a href="Events.html" id="findEventNavButton">Najít událost</a>
+                      <a class="login_logout" href="Login.html">Login</a>
+                    </div>
+  
+        </div>
+  
+    </nav>
+  
       </header>
-      <div class="content">
+      <main>
+        <div id="content">
         <div id="baseDescription">
-        <h1 id="name">Rock for people</h1>
+        <h1 id="name"></h1>
         <div id="categories">
         </div>
-        <p id="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque consequatur aperiam officia id ducimus reprehenderit omnis quos mollitia dolores deserunt, dignissimos assumenda eaque adipisci iste nisi odio nobis sequi! Quae?</p>
+        <p id="description"></p>
 
         </div>
 
         <div id="details">
           <h2>Čas začátku</h2>
-          <h3 id="startTime">23.2. 2023</h3>
+          <h3 id="startTime"></h3>
           <h2>Čas konce</h2>
-          <h3 id="endTime">25.2. 2023</h3>
+          <h3 id="endTime"></h3>
           <h2>Kraj</h2>
-          <h3 id="destrict">Pardubický</h3>
+          <h3 id="destrict"></h3>
           <h2>Město</h2>
-          <h3 id="city">PCE</h3>
+          <h3 id="city"></h3>
           <h2>Ulice</h2>
-          <h3 id="street">Fantomova</h3>
+          <h3 id="street"></h3>
           <h2>Číslo popisné</h2>
-          <h3 id="bin">347</h3>
+          <h3 id="bin"></h3>
         </div>
       </div>
+      
+    </main>
 
+    <footer>
+      <div id="projectDescription">
+      <h2>Aplikace pro správu událostí</h2>
+      <p>Tento projekt byl vytvořen jako studentský zápočtový projekt.</p>
+      <h3>Autor: Fogl Jakub</h3>
+      </div>
+    </footer>
+
+
+      <script src="../Model/BaseModelSupport.js"></script>
       <script src="../Controller/Event.js"></script>
       <script src="../Model/EventModel.js"></script>
       <script src="../Model/UserModel.js"></script>
       <script src="../Service/userService.js"></script>
+      <script src="../Service/mobileNavService.js"></script>
 </body>
 </html>

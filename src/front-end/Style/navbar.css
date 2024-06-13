@@ -1,14 +1,43 @@
+header{
+    height: 13%;
+    background-color:  #184F60;
+}
+
 nav{
     box-sizing: border-box;
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: right;
-    display: block;
-
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     margin-left: 0vh;
     margin-top: 0px;
-    height: 10vh;
-    background-color:  rgb(197, 242, 242);
+
+}
+
+#navIcon{
+    display: none;
+}
+
+.nav{
+    padding-top: 0.8em;
+    padding-bottom: 0.4em;
+    padding-left: 0.2em;
+    background-color: #184F60;
+}
+
+#mobileOuterNavDiv{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 3em;
+    align-items: end;
+}
+
+.open{
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar a {
@@ -18,13 +47,18 @@ nav{
     padding-top: 5px;
     padding-bottom: 5px;
     text-decoration: none;
-    font-size: 19px;
+    font-size: 1.3em;
+    color: #E2E9EB ;
+}
+
+.navbar a:hover{
+    margin-top: 0.3em;
+    color: #A8BDC3;
 }
 
 
-
 html{
-    height: 100vh;
+    height: 100%;
 }
 
 body{
@@ -32,5 +66,25 @@ body{
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    min-height: 100vh;
+    min-height: 100%;
+}
+
+@media only screen and (max-width: 690px) {
+header{
+    background-color: #184F60;
+}
+
+#classicNav{
+    display: none;
+}
+
+#navIcon{
+    display: block;
+    margin-top: 0.3em;
+}
+
+#event_nav{
+    display: none;
+}
+
 }
